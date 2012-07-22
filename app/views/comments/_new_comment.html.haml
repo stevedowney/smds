@@ -1,0 +1,5 @@
+= form_for [@quote, @new_comment] do |f|
+	= f.label :body, "Add your comment:"
+	= f.text_area :body, :size => "60x3"
+	%br
+	= f.submit nil, :class => 'btn btn-primary'

@@ -1,0 +1,50 @@
+#quotes {
+	border: 1px black solid;
+	// margin: 5em;
+	padding: 0.5em;
+}
+
+.quote {
+	border: 1px gray solid;
+	margin: 0.5em;
+	padding: 0.4em;
+
+	.by {
+		font-style: italic
+
+	}
+
+	.text {
+		margin: 0.5em;
+		padding: 0.3em;
+		background-color: #C2C2D6;
+	}
+
+	.context {
+		margin: 0.4em;
+		font-size: smaller;
+	}
+
+	.action_links {
+		a {
+		margin-left: 1em;
+		margin-right: 1em;
+		}
+	}
+	.owner {
+		margin-left: 5em;
+	}
+}
+
+#comments {
+	border: 1px black solid;
+	margin: 0.5em;
+	margin-top: 2em;
+	padding: 0.5em;
+
+	.comment {
+		border: 1px gray solid;
+		margin: 0.5em;
+		padding: 0.4em;
+	}
+}

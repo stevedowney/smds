@@ -1,0 +1,8 @@
+.comment
+	.body
+		= "##{comment.id}"
+		= comment.body
+	.div
+		= comment.author.username
+		= link_to_delete_comment(comment)
+		= link_to_edit_comment(comment)

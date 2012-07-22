@@ -1,0 +1,6 @@
+= form_for [@quote, @comment] do |f|
+	= f.text_area :body, :size => "60x3"
+	%br
+	= f.submit
+	or
+	= link_to("Cancel", :back)

@@ -1,0 +1,2 @@
+$('#' + '<%= @qwa.dom_id %>').
+	replaceWith("<%= escape_javascript(render(:partial => 'quotes_lister/quote', :locals => {:qwa => @qwa})) %>");
