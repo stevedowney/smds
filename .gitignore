@@ -14,5 +14,6 @@ capybara-*.html
 **.orig
 rerun.txt
 pickle-email-*.html
-/config/database*
+/config/database.yml
+/config/smtp.yml
 /webkit.log

@@ -39,13 +39,5 @@ Smds::Application.configure do
   config.action_mailer.default_url_options = { :host => 'localhost:3000' }
 
   config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = {
-    :address              => "smtp.gmail.com",
-    :port                 => 587,
-    :domain               => 'gmail.com',
-    :user_name            => 'steve.downtown',
-    :password             => 'ynk4h2n2',
-    :authentication       => 'plain',
-    :enable_starttls_auto => true  }
-
+  config.action_mailer.smtp_settings = YAML.load_file(Rails.root.join 'config/smtp.yml')[Rails.env].symbolize_keys
 end
