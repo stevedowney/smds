@@ -13,4 +13,8 @@ module ApplicationHelper
 		icon(:trash)
 	end
 
+	def icon_boolean
+		icon(:ok)
+	end
+
 end

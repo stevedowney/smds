@@ -64,7 +64,9 @@ Smds::Application.routes.draw do
   post 'favorite/:id'   => 'quotes_activity#favorite',   :as => :favorite
   post 'unfavorite/:id' => 'quotes_activity#unfavorite', :as => :unfavorite
 
-  get 'test_login' => 'test_login#create', :as => 'test_login'
+  namespace :admin do
+    resources :users, :only => [:index]
+  end  
   
   # See how all your routes lay out with "rake routes"
 

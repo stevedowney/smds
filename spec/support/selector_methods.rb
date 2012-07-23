@@ -11,7 +11,7 @@ module RSpec::SelectorMethods
   # end
 
   def create_and_login_user()
-    FactoryGirl.create(:user, :password => 'secret').tap do |user|
+    FactoryGirl.create(:user, :password => 'secret', :confirmed_at => Time.now).tap do |user|
       login_as(user, :scope => :user)
     end
   end

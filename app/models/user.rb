@@ -20,4 +20,15 @@ class User < ActiveRecord::Base
      quote_activities.find_or_initialize_by_quote_id(quote.id)
   end
 
+  class << self
+    def make_admin_user(username, email = nil, password = nil)
+      user = find_or_initialize_by_username(username)
+      user.email = email
+      user.password = password
+      user.password_confirmation = password
+      user.admin = true
+      user.confirmed_at ||= Time.now
+      user.save!
+    end
+  end
 end
