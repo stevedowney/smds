@@ -8,10 +8,15 @@ gem "nilify_blanks"
 gem 'rails', '3.2.6'
 gem 'simple_form'
 gem 'thin'
-gem 'twitter-bootstrap-rails'
 
 gem 'pg'
 # gem 'mysql2'
+
+
+# you would think these should be in assets group,
+# but Heroku doesn't like it
+gem 'jquery-ui-rails'
+gem 'twitter-bootstrap-rails'
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -21,7 +26,6 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-  gem 'jquery-ui-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 
