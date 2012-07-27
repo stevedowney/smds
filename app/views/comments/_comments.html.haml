@@ -1,15 +1,16 @@
 %h2 Comments
 
-- if @comments.present?
-	#comments
-		- @comments.each do |comment|
-			= render comment
-- else
-	#no_comments 
-		%p Be the first to comment.
+#comments
 
-- if user_signed_in?
-	= render :partial => "comments/new_comment"
-- else
-	= comment_login_or_sign_up_message
+	- if !@cwas.empty?
+		- @cwas.each do |cwa|
+			= render :partial => 'comments/comment', :locals => {:cwa => cwa}
+	- else
+		#no_comments 
+			%p Be the first to comment.
+
+	- if user_signed_in?
+		= render :partial => "comments/new_comment"
+	- else
+		= comment_login_or_sign_up_message
 

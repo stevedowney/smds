@@ -15,23 +15,4 @@ describe Comment do
 		end
 	end
 
-	describe "#editable_by?" do
-	  it "true for author" do
-	    comment.should be_editable_by(author)
-	  end
-
-	  it "false for other" do
-	    comment.should_not be_editable_by(other_author)
-	  end
-	end
-
-	describe "#deletable_by?" do
-	  it "true for author" do
-	    comment.should be_deletable_by(author)
-	  end
-
-	  it "false for other" do
-	    comment.should_not be_deletable_by(other_author)
-	  end
-	end
 end

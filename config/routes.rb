@@ -55,14 +55,24 @@ Smds::Application.routes.draw do
   match 'my_submissions'       => 'quotes_lister#my_submissions'
   match ':user_id/submissions' => 'quotes_lister#user_submissions', :as => :user_submissions
 
-  resources :quotes, :except => [:index] do
-    resources :comments, :only => [:edit, :update, :create, :destroy]
-  end
+  resources :quotes, :except => [:index]
+  resources :comments, :only => [:create, :destroy]
 
   post 'vote_up/:id'    => 'quotes_activity#vote_up',    :as => :vote_up
   post 'vote_down/:id'  => 'quotes_activity#vote_down',  :as => :vote_down
   post 'favorite/:id'   => 'quotes_activity#favorite',   :as => :favorite
   post 'unfavorite/:id' => 'quotes_activity#unfavorite', :as => :unfavorite
+  post 'quotes/:id/flag'       => 'quotes_activity#flag',   :as => :quote_flag
+  post 'quotes/:id/unflag'     => 'quotes_activity#unflag', :as => :quote_unflag
+
+
+  delete 'comments/:id' => 'comments#destroy', :as => :comment
+  post 'comments/:id/favorite' => 'comment_activities#favorite', :as => :comment_favorite
+  post 'comments/:id/unfavorite' => 'comment_activities#unfavorite', :as => :comment_unfavorite
+  post 'comments/:id/flag'    => 'comment_activities#flag',    :as => :comment_flag
+  post 'comments/:id/unflag'    => 'comment_activities#unflag',    :as => :comment_unflag
+  post 'comments/:id/vote_up'    => 'comment_activities#vote_up',    :as => :comment_vote_up
+  post 'comments/:id/vote_down'    => 'comment_activities#vote_down',    :as => :comment_vote_down
 
   namespace :admin do
     resources :users, :only => [:index]

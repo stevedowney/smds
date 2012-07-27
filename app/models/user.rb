@@ -13,22 +13,37 @@ class User < ActiveRecord::Base
   attr_accessible :email, :password, :password_confirmation, :remember_me, :username
 
   has_many :quotes, :foreign_key => :owner_id, :dependent => :nullify
-  has_many :quote_activities, :class_name => "UserQuoteActivity", :dependent => :destroy  
+  has_many :quote_activities, :dependent => :destroy  
   has_many :comments, :foreign_key => :author_id
 
-  def activity_for(quote)
-     quote_activities.find_or_initialize_by_quote_id(quote.id)
+  def quote_activity_for(quote)
+    quote_activities.find_or_initialize_by_quote_id(quote.id)
+  end
+    
+  def comment_activity_for(comment)
+     comment_activities.find_or_initialize_by_comment_id(comment.id)
   end
 
   class << self
     def make_admin_user(username, email = nil, password = nil)
       user = find_or_initialize_by_username(username)
-      user.email = email
+      user.email = email if email
       user.password = password
       user.password_confirmation = password
       user.admin = true
       user.confirmed_at ||= Time.now
       user.save!
+    end
+
+    def dev_create(username)
+      raise unless Rails.env == 'development'
+      create! do |user|
+        user.username = username
+        user.email = "steve.downtown+#{username}@gmail.com"
+        user.password = username
+        user.password_confirmation = username
+        user.confirmed_at = Time.now
+      end
     end
   end
 end

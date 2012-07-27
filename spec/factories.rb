@@ -20,6 +20,11 @@ FactoryGirl.define do
   	author 
   	quote
   	body 'comment body'
+  end
 
+  factory :comment_activity do
+    user
+    quote
+    comment
   end
 end

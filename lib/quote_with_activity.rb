@@ -1,4 +1,5 @@
 class QuoteWithActivity
+	include ActiveRecordTransaction
 
 	delegate(
 		:subject_verb,
@@ -6,52 +7,79 @@ class QuoteWithActivity
 		:context,
 		:comments,
 		:comments_count,
-		:votes_net,
-		:votes_up,
-		:votes_down,
+		:vote_net_count,
+		:vote_up_count,
+		:vote_down_count,
 		:owner_name,
 		:owner,
 		:dom_id,
 	 :to => :quote
 	 )
 
+	delegate(
+		:favorited?,
+		:flagged?,
+		:to => :activity,
+	)
+
 	attr_accessor :user, :quote, :activity
 
-	def initialize(user, quote, activity = nil)
-		@user = user# or raise "user can't be nil"
-		@quote = quote or raise "quote can't be nil"
-		@activity = activity || ( user && user.activity_for(@quote) )
+	def initialize(user, quote, activity)
+		self.user = user or raise "need a user"
+		self.quote = quote or raise "need a quote"
+		self.activity = activity or raise "need an activity"
 	end
 
-	def vote_up!
-		vote_response = activity.vote_up!
-		quote.update_votes!(vote_response)
+	def vote_up
+		transaction do
+			vote_response = activity.vote_up!
+			quote.update_votes!(vote_response)
+		end
 	end
 
-	def vote_down!
-		vote_response = activity.vote_down!
-		quote.update_votes!(vote_response)
+	def vote_down
+		transaction do
+			vote_response = activity.vote_down!
+			quote.update_votes!(vote_response)
+		end
 	end
 
-	def favorite!
-		activity.favorite!
+	def favorite
+		return if activity.favorited?
+
+    transaction do
+      activity.update_attribute(:favorited, true)
+      quote.increment!(:favorite_count, 1)
+    end
 	end
 
-	def unfavorite!
-		activity.unfavorite!
+	def unfavorite
+		return unless activity.favorited?
+
+    transaction do
+      activity.update_attribute(:favorited, false)
+      quote.increment!(:favorite_count, -1)
+    end
 	end
 
-	def favorite?
-		activity.favorite?
+	def flag
+		return if activity.flagged?
+
+		transaction do
+			activity.update_attribute(:flagged, true)
+			quote.increment!(:flag_count, 1)
+		end
 	end
 
-	def owned_by_user?
-		quote.owned_by?(user)
+	def unflag
+		return unless activity.flagged?
+
+		transaction do
+			activity.update_attribute(:flagged, false)
+			quote.increment!(:flag_count, -1)
+		end
 	end
 
-	def editable?
-		owned_by_user?
-	end
 
 	def destroy!
 		if deletable?
@@ -59,12 +87,25 @@ class QuoteWithActivity
 		end
 	end
 
-	def deletable?
-		owned_by_user?
+	def owned_by_user?
+		quote.owned_by?(user)
 	end
 
-	def quote_id
-		quote.id
+	def editable?
+		user.admin?
+	end
+
+	def deletable?
+		user.admin? || owned_by_user?
+	end
+
+	class << self
+
+		def for(user, quote)
+			activity = user.quote_activity_for(quote)
+			new(user, quote, activity)
+		end
+
 	end
 
 end

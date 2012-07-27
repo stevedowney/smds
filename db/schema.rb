@@ -11,41 +11,58 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120719165302) do
+ActiveRecord::Schema.define(:version => 20120726135630) do
 
-  create_table "comments", :force => true do |t|
-    t.string   "body",                      :null => false
-    t.integer  "author_id",                 :null => false
-    t.integer  "quote_id",                  :null => false
-    t.integer  "votes_up",   :default => 0, :null => false
-    t.integer  "votes_down", :default => 0, :null => false
-    t.integer  "votes_net",  :default => 0, :null => false
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
-  end
-
-  create_table "quotes", :force => true do |t|
-    t.integer  "owner_id"
-    t.string   "subject_verb",                  :null => false
-    t.string   "text",                          :null => false
-    t.string   "context"
-    t.integer  "votes_up",       :default => 0, :null => false
-    t.integer  "votes_down",     :default => 0, :null => false
-    t.integer  "votes_net",      :default => 0, :null => false
-    t.integer  "comments_count", :default => 0, :null => false
+  create_table "comment_activities", :force => true do |t|
+    t.integer  "quote_id",                      :null => false
+    t.integer  "comment_id",                    :null => false
+    t.integer  "user_id",                       :null => false
+    t.boolean  "voted_up",   :default => false, :null => false
+    t.boolean  "voted_down", :default => false, :null => false
+    t.boolean  "favorited",  :default => false, :null => false
+    t.boolean  "flagged",    :default => false, :null => false
     t.datetime "created_at",                    :null => false
     t.datetime "updated_at",                    :null => false
   end
 
-  create_table "user_quote_activities", :force => true do |t|
+  create_table "comments", :force => true do |t|
+    t.string   "body",                           :null => false
+    t.integer  "author_id",                      :null => false
+    t.integer  "quote_id",                       :null => false
+    t.integer  "vote_up_count",   :default => 0, :null => false
+    t.integer  "vote_down_count", :default => 0, :null => false
+    t.integer  "vote_net_count",  :default => 0, :null => false
+    t.integer  "favorite_count",  :default => 0, :null => false
+    t.integer  "flag_count",      :default => 0, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
+  end
+
+  create_table "quote_activities", :force => true do |t|
     t.integer  "quote_id",                         :null => false
     t.integer  "user_id",                          :null => false
-    t.boolean  "favorite",      :default => false, :null => false
-    t.boolean  "vote_up",       :default => false, :null => false
-    t.boolean  "vote_down",     :default => false, :null => false
+    t.boolean  "voted_up",      :default => false, :null => false
+    t.boolean  "voted_down",    :default => false, :null => false
+    t.boolean  "favorited",     :default => false, :null => false
+    t.boolean  "flagged",       :default => false, :null => false
     t.integer  "comment_count", :default => 0,     :null => false
     t.datetime "created_at",                       :null => false
     t.datetime "updated_at",                       :null => false
+  end
+
+  create_table "quotes", :force => true do |t|
+    t.integer  "owner_id"
+    t.string   "subject_verb",                   :null => false
+    t.string   "text",                           :null => false
+    t.string   "context"
+    t.integer  "vote_up_count",   :default => 0, :null => false
+    t.integer  "vote_down_count", :default => 0, :null => false
+    t.integer  "vote_net_count",  :default => 0, :null => false
+    t.integer  "favorite_count",  :default => 0, :null => false
+    t.integer  "flag_count",      :default => 0, :null => false
+    t.integer  "comments_count",  :default => 0, :null => false
+    t.datetime "created_at",                     :null => false
+    t.datetime "updated_at",                     :null => false
   end
 
   create_table "users", :force => true do |t|

@@ -17,11 +17,11 @@ require 'rspec/autorun'
 require 'capybara/rspec'
 require 'capybara/rails'
 
-require 'capybara/poltergeist'
-Capybara.javascript_driver = :poltergeist
-Capybara.register_driver :poltergeist do |app|
-  Capybara::Poltergeist::Driver.new(app, :timeout => 2)
-end
+# require 'capybara/poltergeist'
+Capybara.javascript_driver = :webkit
+# Capybara.register_driver :poltergeist do |app|
+#   Capybara::Poltergeist::Driver.new(app, :timeout => 2)
+# end
 # Requires supporting ruby files with custom matchers and macros, etc,
 # in spec/support/ and its subdirectories.
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
@@ -63,7 +63,8 @@ end
 
 Spork.each_run do
   # This code will be run each time you run your specs.
-
+  require 'factory_girl_rails'
+  # require Rails.root.join('spec/factories')
 end
 
 # --- Instructions ---

@@ -5,9 +5,11 @@ class CreateQuotes < ActiveRecord::Migration
       t.string :subject_verb, :null => false
       t.string :text, :null => false
       t.string :context
-      t.integer :votes_up, :null => false, :default => 0
-      t.integer :votes_down, :null => false, :default => 0
-      t.integer :votes_net, :null => false, :default => 0
+      t.integer :vote_up_count, :null => false, :default => 0
+      t.integer :vote_down_count, :null => false, :default => 0
+      t.integer :vote_net_count, :null => false, :default => 0
+      t.integer :favorite_count, :null => false, :default => 0
+      t.integer :flag_count, :null => false, :default => 0
       t.integer :comments_count, :null => false, :default => 0
 
       t.timestamps

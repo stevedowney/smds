@@ -5,9 +5,9 @@ class QuotesController < ApplicationController
 
   def show
     @quote = Quote.find(params.fetch(:id))
-    @comments = @quote.comments # TODO: paging, filtering
+    @cwas = FetchesComments.new(current_user, @quote).newest
     @new_comment = Comment.new(:quote_id => @quote.id)
-    @qwa = QuoteWithActivity.new(current_user, @quote)
+    @qwa = QuoteWithActivity.for(current_user, @quote)
   end
 
   def new
@@ -46,6 +46,7 @@ class QuotesController < ApplicationController
   private
 
   def set_quote
-    @quote = current_user.quotes.find(params[:id])
+    collection = admin? ? Quote : current_user.quotes
+    @quote = collection.find(params[:id])
   end
 end

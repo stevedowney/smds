@@ -4,12 +4,12 @@ describe Quote do
 
 	describe '#updates_votes' do
 		it "updates vote counts" do
-			quote = FactoryGirl.create(:quote, :votes_up => 13, :votes_down => 4)
+			quote = FactoryGirl.create(:quote, :vote_up_count => 13, :vote_down_count => 4)
 			quote.update_votes!(VoteDelta.new(1, -1))
 			quote.reload
-			quote.votes_up.should == 14
-			quote.votes_down.should == 3
-			quote.votes_net.should == 11
+			quote.vote_up_count.should == 14
+			quote.vote_down_count.should == 3
+			quote.vote_net_count.should == 11
 		end
 
 	end

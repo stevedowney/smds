@@ -1,4 +1,5 @@
 class Quote < ActiveRecord::Base
+  include VotingSummaryMethods
 
   attr_accessible :subject_verb, :text, :context
   belongs_to :owner, :class_name => "User"
@@ -11,13 +12,6 @@ class Quote < ActiveRecord::Base
   # delegate :owner_name, :to => :owner
 
   scope :newest, order("quotes.created_at desc")
-
-  def update_votes!(vote_delta)
-    self.votes_up += vote_delta.up
-    self.votes_down += vote_delta.down
-    self.votes_net = votes_up - votes_down
-    save!
-  end
 
   # def anonymous?
   #   !owned?

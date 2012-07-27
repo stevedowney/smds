@@ -24,7 +24,8 @@ class FetchesQuotes
 
 	def quotes_with_current_user_activity
 		quotes.map do |quote|
-			activity = activities.detect { |act| act.quote_id == quote.id }
+			activity = activities.detect { |act| act.quote_id == quote.id } ||
+				current_user.quote_activities.build(:quote_id => quote.id)
 			QuoteWithActivity.new(current_user, quote, activity)
 		end	
 	end
@@ -34,7 +35,7 @@ class FetchesQuotes
 		
 		@activities ||= begin
 			raise "Called #activity() before setting @quotes" unless @quotes.present?
-			UserQuoteActivity.activity_for_user_and_quotes(current_user, quotes)
+			QuoteActivity.for_user_and_quotes(current_user, quotes)
 		end
 	end
 

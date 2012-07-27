@@ -4,6 +4,7 @@ class QuotesListerController < ApplicationController
   def index
   	# TODO: some combination of new/highly rated
   	newest
+    @title = 'SMDS'
   end
 
   def newest

@@ -4,11 +4,12 @@
 	.context= qwa.context
 	.action_links
 		= link_to_comments(qwa)
-		= "Score: #{qwa.votes_net}"
+		= "Score: #{qwa.vote_net_count}"
 		- if user_signed_in?
 			= link_to_vote_up(qwa)
 			= link_to_vote_down(qwa)
 			= link_to_favorite(qwa)
+			= link_to_flag_quote(qwa)
 			= link_to_delete_quote(qwa)
 			= link_to_edit_quote(qwa)
 		%span.owner= link_to_submitted_by(qwa.owner)

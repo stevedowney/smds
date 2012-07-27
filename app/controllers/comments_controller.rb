@@ -1,46 +1,17 @@
 class CommentsController < ApplicationController
-  before_filter :authenticate_user!
-  before_filter :set_comment_manager, :only => [:create, :update, :destroy]
-  before_filter :set_quote
-  before_filter :set_comment, :only => [:edit, :update, :destroy]
 
 	def create
-		if @comment_manager.create(@quote, params.fetch(:comment))
-			flash[:notice] = 'Saved'
-		else
-			flash[:alert] = 'Problem'
-		end
-	  redirect_to quote_path(@quote)
-	end
-
-	def edit
-	end
-
-	def update
-		if @comment_manager.update(@comment, params.fetch(:comment))
-			redirect_to quote_path(@quote)
-		else
-			render 'edit'
-		end
+		@comment = current_user.comments.create!(params.fetch(:comment))
+		@comment.save
+		@cwa = CommentWithActivity.for_user_and_comment(current_user, @comment)
+    @new_comment = Comment.new(:quote_id => @comment.quote.id)
+		@qwa = QuoteWithActivity.for(current_user, @comment.quote)
 	end
 
 	def destroy
-		@comment_manager.destroy(@comment)
-		redirect_to quote_path(@quote)
-	end
-
-	private
-
-	def set_quote
-		@quote = Quote.find(params[:quote_id])
-	end
-
-	def set_comment
-		@comment = current_user.comments.find_by_quote_id!(@quote.id)
-	end
-
-	def set_comment_manager
-		@comment_manager = ManagesComments.new(current_user)
+		@comment = current_user.comments.find(params[:id])
+		@comment.destroy
+		@qwa = QuoteWithActivity.for(current_user, @comment.quote)
 	end
 
 end

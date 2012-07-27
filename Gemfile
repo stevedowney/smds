@@ -21,20 +21,22 @@ group :assets do
 
   # See https://github.com/sstephenson/execjs#readme for more supported runtimes
   # gem 'therubyracer', :platforms => :ruby
-
+  gem 'jquery-ui-rails'
   gem 'uglifier', '>= 1.0.3'
 end
 
 group :development do
-	gem 'rails-footnotes'
+  gem 'rack-mini-profiler'
+	gem 'rails-footnotes' # http://stackoverflow.com/a/11619954
 end
 
 group :test do
-	gem 'factory_girl_rails'
+	gem 'factory_girl_rails', :require => false
 end
 
 group :test, :development do
   gem 'capybara'
+  gem 'capybara-webkit'
   gem 'launchy'
   gem 'poltergeist'
   gem "rspec-rails", "~> 2.0"

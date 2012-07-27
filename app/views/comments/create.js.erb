@@ -1,0 +1,5 @@
+$('#no_comments').remove();
+$('#comments').prepend("<%=j (render(:partial => 'comments/comment', :locals => {:cwa => @cwa})) %>");
+$('#' + '<%= @cwa.dom_id %>').effect("highlight", {}, 1000);
+$('#new_comment').replaceWith("<%=j render(:partial => 'comments/new_comment', :locals => {:cwa => @cwa}) %>")
+<%= update_quote_partial(@qwa) %>
