@@ -4,6 +4,7 @@ class CommentWithActivity
 	attr_accessor :user, :comment, :activity
 
 	delegate(
+		:author,
 		:body,
 		:dom_id,
 		:to => :comment,

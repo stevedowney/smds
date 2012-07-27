@@ -25,7 +25,7 @@ class QuoteWithActivity
 	attr_accessor :user, :quote, :activity
 
 	def initialize(user, quote, activity)
-		self.user = user or raise "need a user"
+		self.user = user# or raise "need a user"
 		self.quote = quote or raise "need a quote"
 		self.activity = activity or raise "need an activity"
 	end
@@ -102,7 +102,7 @@ class QuoteWithActivity
 	class << self
 
 		def for(user, quote)
-			activity = user.quote_activity_for(quote)
+			activity = user.present? ? user.quote_activity_for(quote) : QuoteActivity.new
 			new(user, quote, activity)
 		end
 

@@ -2,15 +2,12 @@
 	.body
 		= cwa.body
 	.div
-		= link_to_favorite_comment(cwa)
-		= link_to_flag_comment(cwa)
-		
+		- if user_signed_in?
+			= link_to_favorite_comment(cwa)
+			= link_to_flag_comment(cwa)
+			= link_to_vote_up_comment(cwa)
+			= link_to_vote_down_comment(cwa)
 
-
-
-		=# comment.author.username
-		= link_to_vote_up_comment(cwa)
-		= link_to_vote_down_comment(cwa)
-
-		= link_to_delete_comment(cwa)
-		=# link_to_edit_comment(comment)
+			= link_to_delete_comment(cwa)
+			=# link_to_edit_comment(comment)		
+		= "by #{cwa.author.username}"

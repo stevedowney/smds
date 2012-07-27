@@ -24,10 +24,18 @@ class FetchesQuotes
 
 	def quotes_with_current_user_activity
 		quotes.map do |quote|
-			activity = activities.detect { |act| act.quote_id == quote.id } ||
-				current_user.quote_activities.build(:quote_id => quote.id)
+			activity = activity_for_quote(quote)
 			QuoteWithActivity.new(current_user, quote, activity)
 		end	
+	end
+
+	def activity_for_quote(quote)
+		if current_user.present?
+			activities.detect { |act| act.quote_id == quote.id } ||
+				current_user.quote_activities.build(:quote_id => quote.id)
+		else
+			QuoteActivity.new
+		end
 	end
 
 	def activities
