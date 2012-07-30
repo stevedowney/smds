@@ -1,4 +1,4 @@
-$('#' + '<%= @comment.dom_id %>').effect("highlight", {}, 1000, function() {
-	$('#' + '<%= @comment.dom_id %>').remove();
+$('#' + '<%= comment_destroyer.comment.dom_id %>').effect("highlight", {}, 1000, function() {
+	$('#' + '<%= comment_destroyer.comment.dom_id %>').remove();
 });
-<%= update_quote_partial(@qwa) %>
+<%= update_quote_partial(comment_destroyer.qwa) %>

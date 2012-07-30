@@ -1,6 +1,7 @@
 class QuoteActivity < ActiveRecord::Base
   include VotingDetailMethods
 
+  belongs_to :user
 	belongs_to :quote
 
 	scope :favorite, where(:favorited => true)

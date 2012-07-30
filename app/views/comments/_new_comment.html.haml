@@ -1,5 +1,5 @@
 #new_comment
-	= form_for @new_comment, :remote => true do |f|
+	= form_for new_comment, :remote => true do |f|
 		= f.hidden_field :quote_id
 		= f.label :body, "Add your comment:"
 		= f.text_area :body, :size => "60x3"

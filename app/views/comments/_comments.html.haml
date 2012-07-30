@@ -10,7 +10,7 @@
 			%p Be the first to comment.
 
 	- if user_signed_in?
-		= render :partial => "comments/new_comment"
+		= render :partial => "comments/new_comment", :locals => {:new_comment => @new_comment}
 	- else
 		= comment_login_or_sign_up_message
 

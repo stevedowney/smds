@@ -8,6 +8,7 @@ FactoryGirl.define do
 		email { "#{username}@example.com".downcase }
 		password 'secret'
 		password_confirmation 'secret'
+		confirmed_at Time.now
 	end
 
   factory :quote do
@@ -16,6 +17,11 @@ FactoryGirl.define do
   	text 'Son, can you ...'
   end
 
+  factory :quote_activity do
+    user
+    quote
+  end
+  
   factory :comment do
   	author 
   	quote

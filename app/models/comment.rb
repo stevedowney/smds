@@ -1,8 +1,8 @@
 class Comment < ActiveRecord::Base
   include VotingSummaryMethods
   
-	belongs_to :author, :class_name => "User"
-	belongs_to :quote
+  belongs_to :author, :class_name => "User"
+  belongs_to :quote
   has_many :activities, :class_name => 'CommentActivity', :dependent => :destroy
 
   attr_accessible :author_id, :quote_id, :body, :votes_down, :votes_net, :votes_up
@@ -14,14 +14,7 @@ class Comment < ActiveRecord::Base
   scope :newest, order("created_at desc")
   
   def authored_by?(user)
-  	user && user.id == author_id
+    user && user.id == author_id
   end
 
-  after_create do
-    quote.increment!(:comments_count)
-  end
-
-  after_destroy do
-    quote.decrement!(:comments_count)
-  end
 end

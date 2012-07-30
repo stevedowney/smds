@@ -1,7 +1,6 @@
 class QuotesController < ApplicationController
-  before_filter :authenticate_user!, :except => :show
+  skip_before_filter :authenticate_user!, :only => :show
   before_filter :set_quote, :only => [:edit, :update, :destroy]
-
 
   def show
     @quote = Quote.find(params.fetch(:id))

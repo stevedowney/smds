@@ -2,15 +2,17 @@ require 'spec_helper'
 
 describe Quote do
 
-	describe '#updates_votes' do
-		it "updates vote counts" do
-			quote = FactoryGirl.create(:quote, :vote_up_count => 13, :vote_down_count => 4)
-			quote.update_votes!(VoteDelta.new(1, -1))
-			quote.reload
-			quote.vote_up_count.should == 14
-			quote.vote_down_count.should == 3
-			quote.vote_net_count.should == 11
+	describe '#owned_by?' do
+		let(:other_user) {FactoryGirl.create(:user)}
+		let(:owner) {FactoryGirl.create(:user)}
+		let(:quote) {FactoryGirl.create(:quote, :owner => owner)}
+
+		it 'owned by owner' do
+			quote.should be_owned_by(owner)
 		end
 
+		it "not owned by non-owner" do
+		  quote.should_not be_owned_by(other_user)
+		end
 	end
 end

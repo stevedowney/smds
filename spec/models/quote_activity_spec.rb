@@ -1,18 +1,15 @@
 require 'spec_helper'
 
 describe QuoteActivity do
-	describe '#vote_up!' do
-		let(:uqa) { QuoteActivity.create!(:quote_id => 1, :user_id => 1) }
 
-		it "sets vote_up" do
-			uqa.vote_up!
-			uqa.reload.should be_voted_up
-		end
+	describe '.for_user_and_quotes' do
+	  it "returns activity from db" do
+	    user = stub(:id => 1)
+	    quotes = [stub(:id => 2)]
+	    QuoteActivity.should_receive(:find_all_by_user_id_and_quote_id).with(1, [2])
+	    QuoteActivity.for_user_and_quotes(user, quotes)
+	  end
+  end
 
-		it "returns delta" do
-			response = uqa.vote_up!
-			response.should == VoteDelta.new(1, 0)
-		end
-	end
 end
  

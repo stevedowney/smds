@@ -1,5 +1,5 @@
 class QuotesListerController < ApplicationController
-  before_filter :authenticate_user!, :only => [:favorites, :my_submissions]
+  skip_before_filter :authenticate_user!, :only => [:index, :newest, :user_submissions]
 
   def index
   	# TODO: some combination of new/highly rated
