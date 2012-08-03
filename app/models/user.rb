@@ -25,26 +25,4 @@ class User < ActiveRecord::Base
      comment_activities.find_or_initialize_by_comment_id(comment.id)
   end
 
-  class << self
-    def make_admin_user(username, email = nil, password = nil)
-      user = find_or_initialize_by_username(username)
-      user.email = email if email
-      user.password = password
-      user.password_confirmation = password
-      user.admin = true
-      user.confirmed_at ||= Time.now
-      user.save!
-    end
-
-    def dev_create(username)
-      raise unless Rails.env == 'development'
-      create! do |user|
-        user.username = username
-        user.email = "steve.downtown+#{username}@gmail.com"
-        user.password = username
-        user.password_confirmation = username
-        user.confirmed_at = Time.now
-      end
-    end
-  end
 end

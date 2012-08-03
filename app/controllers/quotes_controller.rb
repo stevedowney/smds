@@ -1,5 +1,6 @@
 class QuotesController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :show
+  before_filter :require_admin, :only => [:edit, :update]
   before_filter :set_quote, :only => [:edit, :update, :destroy]
 
   def show
@@ -14,14 +15,13 @@ class QuotesController < ApplicationController
   end
 
   def create
-  	@quote = current_user.quotes.build(params.fetch(:quote))
-  	if @quote.save
-  		flash[:notice] = "Quote saved"
-      # TODO: ajax add to top of list: where to go? newest?
-  		redirect_to root_path
-  	else
-  		render 'new'
-  	end
+    @quote = current_user.quotes.build(params.fetch(:quote))
+    if @quote.save
+      flash[:notice] = "Quote saved"
+      redirect_to root_path
+    else
+      render 'new'
+    end
   end
 
   def edit

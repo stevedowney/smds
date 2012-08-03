@@ -9,6 +9,10 @@ FactoryGirl.define do
 		password 'secret'
 		password_confirmation 'secret'
 		confirmed_at Time.now
+		
+    factory :admin_user do
+      admin true
+    end
 	end
 
   factory :quote do
@@ -30,7 +34,7 @@ FactoryGirl.define do
 
   factory :comment_activity do
     user
-    quote
     comment
+    quote_id {comment.quote_id}
   end
 end

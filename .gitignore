@@ -1,6 +1,8 @@
+*.tmproj
 *.rbc
 *.sassc
 .sass-cache
+sandbox
 capybara-*.html
 .rspec
 /.bundle

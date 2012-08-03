@@ -2,31 +2,31 @@ module CommentsHelper
 
 	def link_to_favorite_comment(cwa)
 		if cwa.favorited?
-			link_to(icon_unfavorite, comment_unfavorite_path(cwa.comment), :method => :post, :remote => true)
+			link_to(icon_unfavorite, comment_unfavorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('unfavorite'))
 		else
-			link_to(icon_favorite, comment_favorite_path(cwa.comment), :method => :post, :remote => :true)
+			link_to(icon_favorite, comment_favorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('favorite'))
 		end
 	end
 
 	def link_to_flag_comment(cwa)
 		if cwa.flagged?
-			link_to(icon_unflag, comment_unflag_path(cwa.comment), :method => :post, :remote => true)
+			link_to(icon_unflag, comment_unflag_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('unflag'))
 		else
-			link_to(icon_flag, comment_flag_path(cwa.comment), :method => :post, :remote => :true)
+			link_to(icon_flag, comment_flag_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('flag'))
 		end
 	end
 
 	def link_to_vote_up_comment(cwa)
-		link_to(icon_vote_up, comment_vote_up_path(cwa.comment), :method => :post, :remote => true)
+		link_to(icon_vote_up, comment_vote_up_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('vote_up'))
 	end
 
 	def link_to_vote_down_comment(cwa)
-		link_to(icon_vote_down, comment_vote_down_path(cwa.comment), :method => :post, :remote => true)
+		link_to(icon_vote_down, comment_vote_down_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('vote_down'))
 	end
 
 	def link_to_delete_comment(cwa)
 		if cwa.deletable?
-			link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"})
+			link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"}, :id => cwa.comment.dom_id('delete'))
 		end
 	end
 

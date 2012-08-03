@@ -11,50 +11,58 @@ module RSpec::SelectorMethods
   # end
 
   def create_and_login_user()
-    FactoryGirl.create(:user, :password => 'secret', :confirmed_at => Time.now).tap do |user|
-      login_as(user, :scope => :user)
-    end
+    user = FactoryGirl.create(:user, :username => 'test_user', :password => 'secret', :confirmed_at => Time.now)
+    login_as(user, :scope => :user)
+    user
   end
 
-  # def create_and_login_admin_user()
-  #   Factory.create(:admin_user).tap do |au|
-  #     login(au.username, 'aspera')
-  #   end
-  # end
+  def create_and_login_admin_user()
+    FactoryGirl.create(:admin_user).tap do |admin_user|
+      login_as(admin_user, :scope => :user)
+    end
+  end
   
-  # def login(username, password)
-  #   visit test_login_path(:username => username, :password => password)
-  #   page.should have_content("Test Login Successful")
-  # end
-
-  # def visit_login_page
-  #   visit login_path
-  #   should_be_on_login_page
-  # end
+  def should_require_admin
+    page.should have_content('Admin required')
+  end
   
   # def should_have_alert
-  #   page.should have_selector('div', :id => 'aspera-alert')
+  #   page.should have_tag('div', :id => 'aspera-alert')
   # end
   
   # def should_have_confirm
-  #   page.should have_selector('div', :id => 'aspera-confirm')
+  #   page.should have_tag('div', :id => 'aspera-confirm')
   # end
   
   # def should_be_on_login_page
   #   should_be_on_controller('sessions')
   # end
   
+  def have_tag(tag, attributes = {})
+    selector = tag.to_s
+    text = attributes.delete(:text)
+
+    attributes.each do |k, v|
+      selector << "[#{k}='#{v}']"
+    end
+
+    args = [selector]
+    args << {:text => text} if text
+    
+    have_css *args
+  end
+
   def should_be_on_controller(controller, action = nil)
-    page.should have_selector("body[data-controller=#{controller}]")
-    page.should have_selector("body[data-action=#{action}]")  if action.present?
+    page.should have_tag(:body, 'data-controller' => controller)
+    page.should have_tag(:body, 'data-action' => action)  if action.present?
   end
   
   # def should_have_tr(instance = default_instance)
-  #   page.should have_selector( %(tr[id='#{instance.dom_id}']) )
+  #   page.should have_tag(:tr, :id=instance.dom_id)
   # end
   
   # def should_not_have_tr(instance = default_instance)
-  #   page.should_not have_selector( %(tr[id='#{instance.dom_id}']) )
+  #   page.should_not have_tag(:tr, :id=instance.dom_id)
   # end
   
   

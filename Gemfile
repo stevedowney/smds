@@ -41,9 +41,11 @@ end
 group :test, :development do
   gem 'capybara'
   gem 'capybara-webkit'
+  gem 'database_cleaner'
   gem 'launchy'
   gem 'poltergeist'
   gem "rspec-rails", "~> 2.0"
+  gem 'simplecov', :require => false
   gem 'spork-rails'
 end
 

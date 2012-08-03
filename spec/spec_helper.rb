@@ -4,10 +4,18 @@ require 'spork'
 #require 'spork/ext/ruby-debug'
 
 Spork.prefork do
+  $spork_prefork = true
+  $spork_each_run = false
+  
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
   # need to restart spork for it take effect.
 
+  unless ENV['DRB']
+    require 'simplecov'
+    SimpleCov.start 'rails'
+  end
+    
 # This file is copied to spec/ when you run 'rails generate rspec:install'
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -16,6 +24,10 @@ require 'rspec/autorun'
 
 require 'capybara/rspec'
 require 'capybara/rails'
+
+include Warden::Test::Helpers
+Warden.test_mode!
+
 
 # require 'capybara/poltergeist'
 Capybara.javascript_driver = :webkit
@@ -27,21 +39,8 @@ Capybara.javascript_driver = :webkit
 Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
 RSpec.configure do |config|
-  # ## Mock Framework
-  #
-  # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
-  #
-  # config.mock_with :mocha
-  # config.mock_with :flexmock
-  # config.mock_with :rr
-
-  # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
-  # config.fixture_path = "#{::Rails.root}/spec/fixtures"
-
-  # If you're not using ActiveRecord, or you'd prefer not to run each of your
-  # examples within a transaction, remove the following line or assign false
-  # instead of true.
-  config.use_transactional_fixtures = true
+  # Rails.application.config.assets.paths << "spec/support/assets"
+  config.use_transactional_fixtures = false
 
   # If true, the base class of anonymous controllers will be inferred
   # automatically. This will be the default behavior in future versions of
@@ -54,6 +53,15 @@ RSpec.configure do |config|
   #     --seed 1234
   config.order = "random"
 
+  config.before :each do
+    DatabaseCleaner.strategy = Capybara.current_driver == :rack_test ? :transaction : :deletion
+    DatabaseCleaner.start
+  end
+
+  config.after do
+    DatabaseCleaner.clean
+  end
+
   config.after(:each) do
     Warden.test_reset! 
   end
@@ -62,9 +70,17 @@ end
 end
 
 Spork.each_run do
+  $spork_prefork = false
+  $spork_each_run = true
+  
   # This code will be run each time you run your specs.
   require 'factory_girl_rails'
-  # require Rails.root.join('spec/factories')
+  require Rails.root.join('spec/foo')
+  
+  if ENV['DRB']
+    require 'simplecov'
+    SimpleCov.start 'rails'
+  end
 end
 
 # --- Instructions ---

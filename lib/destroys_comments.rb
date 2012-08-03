@@ -5,7 +5,8 @@ class DestroysComments
   
   def initialize(user, comment_id)
     self.user = user
-    self.comment = user.comments.find(comment_id)
+    collection = user.admin? ? Comment : user.comments
+    self.comment = collection.find(comment_id)
   end
   
   def destroy

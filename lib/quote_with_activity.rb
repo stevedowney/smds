@@ -25,7 +25,7 @@ class QuoteWithActivity
 	attr_accessor :user, :quote, :activity
 
 	def initialize(user, quote, activity)
-		self.user = user# or raise "need a user"
+		self.user = user.presence
 		self.quote = quote or raise "need a quote"
 		self.activity = activity or raise "need an activity"
 	end
@@ -58,7 +58,7 @@ class QuoteWithActivity
 
     transaction do
       activity.update_attribute(:favorited, false)
-      quote.increment!(:favorite_count, -1)
+      quote.decrement!(:favorite_count, 1)
     end
 	end
 
@@ -76,12 +76,11 @@ class QuoteWithActivity
 
 		transaction do
 			activity.update_attribute(:flagged, false)
-			quote.increment!(:flag_count, -1)
+			quote.decrement!(:flag_count, 1)
 		end
 	end
 
-
-	def destroy!
+	def destroy
 		if deletable?
 			quote.destroy
 		end

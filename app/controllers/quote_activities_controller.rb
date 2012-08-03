@@ -1,4 +1,4 @@
-class QuotesActivityController < ApplicationController
+class QuoteActivitiesController < ApplicationController
   before_filter :set_qwa
 
   def vote_up

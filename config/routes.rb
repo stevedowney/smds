@@ -58,12 +58,12 @@ Smds::Application.routes.draw do
   resources :quotes, :except => [:index]
   resources :comments, :only => [:create, :destroy]
 
-  post 'vote_up/:id'    => 'quotes_activity#vote_up',    :as => :vote_up
-  post 'vote_down/:id'  => 'quotes_activity#vote_down',  :as => :vote_down
-  post 'favorite/:id'   => 'quotes_activity#favorite',   :as => :favorite
-  post 'unfavorite/:id' => 'quotes_activity#unfavorite', :as => :unfavorite
-  post 'quotes/:id/flag'       => 'quotes_activity#flag',   :as => :quote_flag
-  post 'quotes/:id/unflag'     => 'quotes_activity#unflag', :as => :quote_unflag
+  post 'vote_up/:id'    => 'quote_activities#vote_up',    :as => :vote_up
+  post 'vote_down/:id'  => 'quote_activities#vote_down',  :as => :vote_down
+  post 'favorite/:id'   => 'quote_activities#favorite',   :as => :favorite
+  post 'unfavorite/:id' => 'quote_activities#unfavorite', :as => :unfavorite
+  post 'quotes/:id/flag'       => 'quote_activities#flag',   :as => :quote_flag
+  post 'quotes/:id/unflag'     => 'quote_activities#unflag', :as => :quote_unflag
 
 
   delete 'comments/:id' => 'comments#destroy', :as => :comment

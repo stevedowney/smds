@@ -30,6 +30,7 @@ class CreatesComments
   end
   
   def quote
+    raise "Make sure you call #create()" if comment.blank?
     comment.quote
   end
   

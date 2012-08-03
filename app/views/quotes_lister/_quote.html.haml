@@ -4,7 +4,8 @@
 	.context= qwa.context
 	.action_links
 		= link_to_comments(qwa)
-		= "Score: #{qwa.vote_net_count}"
+		Score
+		%span.score= qwa.vote_net_count
 		- if user_signed_in?
 			= link_to_vote_up(qwa)
 			= link_to_vote_down(qwa)
