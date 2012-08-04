@@ -1,4 +1,3 @@
-$('#' + '<%= comment_destroyer.comment.dom_id %>').effect("highlight", {}, 1000, function() {
-	$('#' + '<%= comment_destroyer.comment.dom_id %>').remove();
-});
+<%= highlight_and_remove(comment_destroyer.comment.dom_id) %>
 <%= update_quote_partial(comment_destroyer.qwa) %>
+<%= close_delete_confirmation %>

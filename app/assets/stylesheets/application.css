@@ -28,6 +28,9 @@ a:hover {
 	margin-right: 2em;
 }
 
+.delete-selected {
+  background-color: yellow;
+}
 /*#things.rounded5 {
 	-webkit-border-radius: 5 !important;
 	-moz-border-radius: 5 !important;

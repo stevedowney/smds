@@ -38,6 +38,8 @@ module QuotesHelper
   def link_to_delete_quote(qwa)
     if qwa.deletable?
       link_to(icon_delete, quote_path(qwa.quote), :remote => true, :method => :delete, :title => "Delete", :data => {:confirm => 'Are you sure?  This is irreversible.'}, :id => qwa.quote.dom_id('delete'))
+      # url = quote_path(qwa.quote)
+      link_to_delete(qwa.quote, :format => :js)
     end
   end
 

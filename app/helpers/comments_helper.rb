@@ -27,17 +27,14 @@ module CommentsHelper
 	def link_to_delete_comment(cwa)
 		if cwa.deletable?
 			link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"}, :id => cwa.comment.dom_id('delete'))
+      # url = comment_path(cwa.comment)
+      link_to_delete(cwa.comment, :format => :js)
 		end
 	end
 
-	
-
-
-##############
-
-	def link_to_edit_comment(comment)
-		if comment.editable_by?(current_user)
-			link_to(icon_edit, edit_quote_comment_path(@quote, comment))
+	def link_to_edit_comment(cwa)
+		if cwa.editable?
+			link_to(icon_edit, edit_comment_path(cwa.comment), :id => cwa.comment.dom_id('edit'))
 		end
 	end
 
@@ -46,4 +43,5 @@ module CommentsHelper
 		sign_up_link = link_to("sign-up", new_user_registration_path)
 		"To add a comment of your own you must #{login_link} or #{sign_up_link}".html_safe
 	end
+	
 end

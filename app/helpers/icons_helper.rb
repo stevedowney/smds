@@ -42,6 +42,10 @@ module IconsHelper
 		icon('flag')
 	end	
 
+  def icon_ok
+    icon('ok')
+  end
+  
 	def icon_vote_up
 		icon('thumbs-up')
 	end

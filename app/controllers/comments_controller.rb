@@ -1,12 +1,28 @@
 class CommentsController < ApplicationController
-  helper_method :comment_creator, :comment_destroyer
+  before_filter :require_admin, :only => [:edit, :update]
+  before_filter :set_comment, :only => [:edit, :update]
 
+  helper_method :comment_creator, :comment_destroyer
+  
   def create
     unless comment_creator.create
-      render :js => %( alert("Comment can't be blank");)
+      render :js => %( tbAlert("Comment can't be blank");)
     end
   end
 
+  def edit
+  end
+  
+  def update
+    @comment.attributes = params.fetch(:comment)
+    if @comment.save
+      flash[:notice] = "Comment updated"
+      redirect_to quote_path(@comment.quote)
+    else
+      render 'edit'
+    end
+  end
+  
   def destroy
     comment_destroyer.destroy
   end
@@ -21,4 +37,7 @@ class CommentsController < ApplicationController
     @comment_destroyer ||= DestroysComments.new(current_user, params.fetch(:id))
   end
   
+  def set_comment
+    @comment = Comment.find(params[:id])
+  end
 end

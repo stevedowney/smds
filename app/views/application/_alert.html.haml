@@ -1,0 +1,11 @@
+%div{:class => 'modal hide', :id => 'tb-alert', :style => "display: none"}
+  %div.modal-header
+    %a{:class => 'close', 'data-dismiss' => 'modal'}
+      x
+    %h3 
+      Warning
+  %div.modal-body
+    %p#tb-alert-message No message given
+  %div.modal-footer
+    %a{:id => "alert-ok-btn", :href => '#', :class => "btn btn-primary modal-cancel"}
+      OK

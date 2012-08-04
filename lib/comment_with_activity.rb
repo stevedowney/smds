@@ -73,6 +73,10 @@ class CommentWithActivity
     end
   end
 
+  def editable?
+    user.admin?
+  end
+  
   def deletable?
     comment.authored_by?(user) || user.admin?
   end

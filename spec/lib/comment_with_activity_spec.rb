@@ -83,7 +83,19 @@ describe CommentWithActivity do
     end
   end
   
-  describe '#deletable' do
+  describe '#editable?' do
+    it "true for admin" do
+      user.stub!(:admin?).and_return(true)
+      cwa.should be_editable
+    end
+
+    it "false for non-amin" do
+      user.stub!(:admin?).and_return(false)
+      cwa.should_not be_editable
+    end
+  end
+  
+  describe '#deletable?' do
     it "true if authored by user" do
       user.stub!(:admin?).and_return(false)
       comment.should_receive(:authored_by?).with(user).and_return(true)

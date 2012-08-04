@@ -39,7 +39,6 @@ class QuotesController < ApplicationController
 
   def destroy
     @quote.destroy
-    render :js => %($('##{@quote.dom_id}').remove())
   end
 
   private

@@ -60,25 +60,22 @@ describe QuotesController do
       end
     end
 
-    describe "delete quote" do
-      def handle_js_confirm(accept=true)
-        page.evaluate_script "window.original_confirm_function = window.confirm"
-        page.evaluate_script "window.confirm = function(msg) { return #{!!accept}; }"
-        yield
-      ensure
-        page.evaluate_script "window.confirm = window.original_confirm_function"
+    describe "delete quote", :js => true do
+      let!(:quote) {FactoryGirl.create(:quote, :owner => user)}
+      before {visit '/'}
+      
+      it 'confirmed' do
+        click_link quote.dom_id('delete')
+        click_on_confirm_ok
+        page.should_not have_tag(:a, :id => quote.dom_id('delete'))
+        Quote.should_not exist(quote.id)
       end
 
-      it 'deletes', :js => false do
-        # page.driver.accept_js_confirms!
-        quote = FactoryGirl.create(:quote, :owner => user)
-        visit '/'
-        Quote.find_by_id(quote.id).should_not be_nil
+      it 'canceled' do
         click_link quote.dom_id('delete')
-        # puts page.driver.browser.methods.grep( /confirm/).inspect
-        # page.driver.render('spec.png')
-        # page.driver.browser.switch_to.confirm.accept
-        Quote.find_by_id(quote.id).should be_nil
+        click_on_confirm_cancel
+        page.should have_tag(:a, :id => quote.dom_id('delete'))
+        Quote.should exist(quote.id)
       end
     end
   end

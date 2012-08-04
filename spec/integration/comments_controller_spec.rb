@@ -2,11 +2,29 @@ require 'spec_helper'
 
 describe CommentsController do
   let!(:quote) {FactoryGirl.create(:quote, :text => 'quote text')}
+  
+  context 'not logged in' do
+    let(:comment) {FactoryGirl.create(:comment, :quote => quote, :body => 'comment body')}
+    
+    before do
+      visit quote_path(quote)
+      default_instance comment
+    end
 
+    it "can't create comments" do
+      page.should_not have_tag(:form, :id => 'new_comment')
+      page.should have_content "To add a comment of your own you must"
+    end
+  end
+  
   context 'logged in user' do
     let!(:user) {create_and_login_user}
     let!(:comment) {FactoryGirl.create(:comment, :quote => quote, :body => 'comment body')}
-    before {visit quote_path(quote)}
+    
+    before do
+      visit quote_path(quote)
+      default_instance comment
+    end
 
     describe 'detail page' do
       it 'shows quote and comments' do
@@ -16,7 +34,6 @@ describe CommentsController do
     end
 
     describe '#create', :js => true do
-
       it "success" do
         fill_in 'comment_body', :with => "new comment"
         click_on 'Create Comment'
@@ -25,36 +42,81 @@ describe CommentsController do
       end
 
       it "failure" do
-        pending 'handle empty comment'
+        click_on "Create Comment"
+        page.should have_content("Comment can't be blank")
+      end
+    end
+    
+    describe 'edit, destroy' do
+      it "not allowed" do
+        should_not_have_edit_link
+        should_not_have_delete_link
       end
     end
   end
 
-  context 'own comment' do
+  context 'logged in user owns comment' do
     let!(:user) {create_and_login_user}
     let!(:comment) {FactoryGirl.create(:comment, :author => user, :quote => quote, :body => 'comment body')}
-    before {visit quote_path(quote)}
+
+    before do
+      visit quote_path(quote)
+      default_instance comment
+    end
 
     describe '#destroy', :js => true do
-
-      it "success" do
-        pending 'js confirm'
-        click_on comment.dom_id('delete')
+      it "confirm" do
+        click_on_delete
+        click_on_confirm_ok
+        page.should_not have_tag(:div, :id => comment.dom_id)
         Comment.should_not exist(comment.id)
       end
+      
+      it "cancel" do
+        click_on_delete
+        click_on_confirm_cancel
+        page.should have_tag(:div, :id => comment.dom_id)
+        Comment.should exist(comment.id)
+      end
+    end
 
+    describe 'edit' do
+      it "not allowed" do
+        should_not_have_edit_link
+      end
     end
   end
 
   context 'admin' do
     let!(:user) {create_and_login_admin_user}
     let!(:comment) {FactoryGirl.create(:comment, :quote => quote, :body => 'comment body')}
-    before {visit quote_path(quote)}
 
+    before do
+      visit quote_path(quote)
+      default_instance comment
+    end
+
+    describe '#update' do
+      it "can update" do
+        click_on_edit
+        fill_in 'comment_body', :with => "updated body"
+        click_on "Update Comment"
+        comment.reload.body.should == 'updated body'
+      end
+      
+      it "failure" do
+        click_on_edit
+        fill_in 'comment_body', :with => ""
+        click_on "Update Comment"
+        page.should have_content("can't be blank")
+      end
+    end
+    
     describe '#destroy', :js => true do
-      it "success" do
-        pending 'js confirm'
-        click_on comment.dom_id('delete')
+      it "can destroy" do
+        click_on_delete
+        click_on_confirm_ok
+        page.should_not have_tag(:div, :id => comment.dom_id)
         Comment.should_not exist(comment.id)
       end
     end
