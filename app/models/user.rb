@@ -22,16 +22,6 @@ class User < ActiveRecord::Base
   has_many :comments, :foreign_key => :author_id
   has_many :comment_activities, :dependent => :destroy
 
-  def self.find_first_by_auth_conditions(warden_conditions)
-    conditions = warden_conditions.dup
-    if login = conditions.delete(:login)
-      where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
-    else
-      where(conditions).first
-    end
-  end
-
-      
   def quote_activity_for(quote)
     quote_activities.find_or_initialize_by_quote_id(quote.id)
   end
@@ -40,4 +30,14 @@ class User < ActiveRecord::Base
     comment_activities.find_or_initialize_by_comment_id(comment.id)
   end
 
+  class << self
+    def find_first_by_auth_conditions(warden_conditions)
+      conditions = warden_conditions.dup
+      if login = conditions.delete(:login)
+        where(conditions).where(["lower(username) = :value OR lower(email) = :value", { :value => login.downcase }]).first
+      else
+        where(conditions).first
+      end
+    end
+  end
 end

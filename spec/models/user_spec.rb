@@ -1,11 +1,30 @@
 require 'spec_helper'
 
 describe User do
-  let(:user) {FactoryGirl.create(:user)}
+  let(:user) {FactoryGirl.create(:user, :username => 'bob', :email => 'bob@example.com')}
   let(:quote) {FactoryGirl.create(:quote)}
+
+  describe '.find_first_by_auth_conditions' do
+    before {user}
+    
+    context 'using login attribute' do
+      it 'finds by username' do
+        User.find_first_by_auth_conditions(:login => "BOB").should == user
+      end
+      
+      it "finds by email" do
+        User.find_first_by_auth_conditions(:login => "BOB@example.com").should == user
+      end
+    end
+    
+    context 'not using login' do
+      it "finds by username" do
+        User.find_first_by_auth_conditions(:username => "bob").should == user
+      end
+    end
+  end
   
   describe '#quote_activity_for' do
-    
     it "returns activity if found" do
       quote_activity = FactoryGirl.create(:quote_activity, :quote => quote, :user => user)
       user.quote_activity_for(quote).should == quote_activity
@@ -15,7 +34,6 @@ describe User do
       quote_activity = user.quote_activity_for(quote)
       quote_activity.should_not be_persisted
     end
-
   end
   
   describe '#comment_activity_for' do
