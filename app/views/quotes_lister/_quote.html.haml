@@ -1,16 +1,20 @@
-.quote{:id => qwa.dom_id}
-	.by= qwa.subject_verb
-	.text= qwa.text
-	.context= qwa.context
-	.action_links
-		= link_to_comments(qwa)
-		Score
-		%span.score= qwa.vote_net_count
-		- if user_signed_in?
-			= link_to_vote_up(qwa)
-			= link_to_vote_down(qwa)
-			= link_to_favorite(qwa)
-			= link_to_flag_quote(qwa)
-			= link_to_delete_quote(qwa)
-			= link_to_edit_quote(qwa)
-		%span.owner= link_to_submitted_by(qwa.owner)
+%tr[qwa.quote]
+  %td.voting
+    = link_to_vote_up(qwa)
+    %br
+    %span.score= qwa.vote_net_count
+    %br
+    = link_to_vote_down(qwa)
+    
+  %td
+    .by= qwa.subject_verb
+    .text= qwa.text
+    .context= qwa.context
+    %span.action_links
+      = link_to_comments(qwa)
+      - if user_signed_in?
+        = link_to_favorite(qwa)
+        = link_to_flag_quote(qwa)
+        = link_to_delete_quote(qwa)
+      = link_to_edit_quote(qwa)
+    %span.owner= link_to_submitted_by(qwa.owner)

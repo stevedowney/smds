@@ -7,6 +7,7 @@ describe QuoteWithActivity do
 	let(:activity) { user.quote_activity_for(quote) }
 	let(:vote_response) {stub('vote_response')}
 	let(:qwa) {QuoteWithActivity.new(user, quote, activity)}
+	let(:qwa_no_user) {QuoteWithActivity.new(nil, quote, activity)}
   
 
 	describe '.initialize()' do
@@ -138,6 +139,10 @@ describe QuoteWithActivity do
       user.admin = false
       qwa.should_not be_editable
     end
+    
+    it "not editable when not logged in (no user)" do
+      qwa_no_user.should_not be_editable
+    end
   end
 
   describe '#deletable?' do
@@ -154,6 +159,10 @@ describe QuoteWithActivity do
     it "not deletable by non-owner / non-admin" do
       user.admin = false
       qwa.should_not be_deletable
+    end
+    
+    it "note deletable when not logged in (no user)" do
+      qwa_no_user.should_not be_deletable
     end
   end
 	

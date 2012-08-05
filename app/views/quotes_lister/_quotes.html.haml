@@ -1,3 +1,4 @@
-#quotes
-	- @qwas.each do |qwa|
-		= render :partial => 'quote', :locals => {:qwa => qwa}
+%table.table.table-bordered
+  %tbody
+    - @qwas.each do |qwa|
+      = render :partial => 'quote', :locals => {:qwa => qwa}

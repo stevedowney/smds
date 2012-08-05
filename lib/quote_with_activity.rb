@@ -91,11 +91,11 @@ class QuoteWithActivity
 	end
 
 	def editable?
-		user.admin?
+		user && user.admin?
 	end
 
 	def deletable?
-		user.admin? || owned_by_user?
+		user && (user.admin? || owned_by_user?)
 	end
 
 	class << self
