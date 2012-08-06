@@ -1,11 +1,15 @@
 %h1 Users
 
+=paginate @users
+
 %table.table.table-striped
-	%thead
-		%tr
-			%th Admin?
-			%th Username
-			%th Email
-	%tbody
-		- @users.each do |user|
-			= render user
+  %thead
+    %tr
+      %th Admin?
+      %th Username
+      %th Email
+  %tbody
+    - @users.each do |user|
+      = render user
+
+= paginate @users

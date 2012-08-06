@@ -1,3 +1,5 @@
-= render :partial => 'quotes_lister/quote', :locals => {:qwa => @qwa}
+%table.table.table-bordered
+  %tbody
+    = render :partial => 'quotes_lister/quote', :locals => {:qwa => @qwa}
 
 = render :partial => 'comments/comments'

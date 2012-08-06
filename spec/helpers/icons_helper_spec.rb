@@ -18,4 +18,5 @@ describe IconsHelper do
       icon.should have_tag('i', :class => 'icon-foo', :id => 'bar')
     end
   end
+  
 end

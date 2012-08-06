@@ -11,12 +11,50 @@ describe 'Renderer::Link::Base' do
   
   let(:klass) {Renderer::Link::Base}
   let(:quote) {stub('quote') }
+  let(:lb) {klass.new(template, '/url')}
   let(:lb_default) { klass.new(template, quote)}
 
+  describe '#html' do
+    it "has label" do
+      lb.html.should have_tag(:a, :text => '/url')
+    end
+    
+    it "has url" do
+      lb.html.should have_tag(:a, :href => '/url')
+    end
+  end
+  
+  describe '#label' do
+    it "text only" do
+      lb.label.should == '/url'
+    end
+    
+    it "w/icon" do
+      lb.stub!(:link_icon).and_return('<i>'.html_safe)
+      lb.label.should == '<i> /url'
+    end
+  end
+  
+  describe '#link_icon' do
+    it "should be nil" do
+      lb.link_icon.should be_nil
+    end
+  end
+  
+  describe '#link_text' do
+    it "defaults to url" do
+      lb.link_text.should == '/url'
+    end
+    
+    it "can be overridden" do
+      lb = klass.new(template, 'foo', :label => 'myLabel')
+      lb.link_text.should == 'myLabel'
+    end
+  end
+  
   describe '#url' do
     it "returns url_in if String" do
-      lb = klass.new(template, 'foo')
-      lb.url.should == 'foo'
+      lb.url.should == '/url'
     end
     
     it "returns polymorphic path if not string" do
@@ -49,6 +87,24 @@ describe 'Renderer::Link::Base' do
     it "takes last integer from url" do
       lb = klass.new(template, 'foo/42/bar/21/baz')
       lb.dom_id_from_url.should == 'base_21'
+    end
+  end
+  
+  describe '#title' do
+    it "defaults to nil" do
+      lb.title.should be_nil
+    end
+    
+    context ':title set' do
+      let(:lb) {klass.new(template, '/url', :title => 'Title')}
+      
+      it "can be set" do
+        lb.title.should == 'Title'
+      end
+    
+      it "appears in link" do
+        lb.html.should have_tag(:a, :title => 'Title')
+      end
     end
   end
   

@@ -7,6 +7,14 @@ class Renderer::Link::Base < Renderer::Base
     self.url_in = url_in
   end
   
+  def html
+    link_to(label, url, link_to_options)
+  end
+  
+  def label
+    [link_icon, link_text].map(&:presence).compact.safe_join(' '.html_safe)
+  end
+  
   def url
     @url ||= if url_in.is_a?(String)
       url_in
@@ -15,28 +23,22 @@ class Renderer::Link::Base < Renderer::Base
     end
   end
   
-  def html
-    link_to(label, url, link_options)
+  # Subclasses may implement
+  def link_icon
+    nil
   end
   
-  def label
-    [link_icon, link_text].safe_join(' '.html_safe)
+  # Subclasses should implement
+  def link_text
+    options[:label] || url
   end
   
-  # def link_icon
-  #   button? ? App.icon_trash(:white) : App.icon_trash
-  # end
-  # 
-  # def link_text
-  #   options[:label] || t('button.delete')
-  # end
-  
-  def link_options
+  def link_to_options
     Hash.new.tap do |opts|
       opts[:id] = dom_id
       opts[:class] = classes
       opts[:data] = data
-      opts[:title] = options[:title]
+      opts[:title] = title if title.present?
     end
   end
   
@@ -46,11 +48,6 @@ class Renderer::Link::Base < Renderer::Base
       h[:format] = format
     end
   end
-  
-  # def confirmation
-  #   return '_none_' if options.has_key?(:confirm) && options[:confirm].blank?
-  #   options[:confirm] || "Confirm the delete"
-  # end
   
   def dom_id
     if options[:id]
@@ -71,6 +68,10 @@ class Renderer::Link::Base < Renderer::Base
     parts = url_in.to_s.split(/\/|\?/).reverse
     parts.each { |part| return "#{action}_#{part}" if part =~ /^\d+$/ }
     nil
+  end
+  
+  def title
+    options[:title].presence
   end
   
   def action
