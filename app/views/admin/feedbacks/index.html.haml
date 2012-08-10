@@ -1,0 +1,17 @@
+%h1 Feedback
+
+=paginate @feedbacks
+
+%table.table.table-striped
+  %thead
+    %tr
+      %th User
+      %th Type
+      %th Subject
+      %th Body
+      %th Created
+  %tbody
+    - @feedbacks.each do |feedback|
+      = render feedback
+
+= paginate @feedbacks

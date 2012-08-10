@@ -1,11 +1,11 @@
 = simple_form_for @quote, :html => {:class => "form-vertical"} do |f|
-	.fieldset
-		%legend= controller.action_name.capitalize + " Quote"
-	
-		= f.input :subject_verb
-		= f.input :text
-		= f.input :context
+  .fieldset
+    %legend= controller.action_name.capitalize + " Quote"
 
-		.form-actions
-			= f.submit nil, :class => 'btn btn-primary', :id => 'submit'
-			= link_to 'Cancel', :back, :class => 'btn'
+    = f.input :subject_verb
+    = f.input :text
+    = f.input :context
+
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
+    = link_to 'Cancel', :back, :class => 'btn'

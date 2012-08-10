@@ -76,8 +76,11 @@ Smds::Application.routes.draw do
   post 'comments/:id/vote_up'    => 'comment_activities#vote_up',    :as => :comment_vote_up
   post 'comments/:id/vote_down'    => 'comment_activities#vote_down',    :as => :comment_vote_down
 
+  resources :feedbacks, :only => [:new, :create]
+  
   namespace :admin do
     resources :users, :only => [:index]
+    resources :feedbacks, :only => [:index]
   end  
   
   # mount Sidekiq::Web, at: '/sidekiq'

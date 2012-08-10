@@ -37,4 +37,10 @@ FactoryGirl.define do
     comment
     quote_id {comment.quote_id}
   end
+  
+  factory :feedback do
+    subject 'subject'
+    body 'body'
+    status 'new'
+  end
 end

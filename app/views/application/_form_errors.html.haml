@@ -1,0 +1,6 @@
+- if model.errors.any?
+  .alert.alert-block.alert-error
+    %h4.alert-heading= t('message.please_correct')
+    %ul
+      - model.errors.full_messages.each do |msg|
+        %li= msg

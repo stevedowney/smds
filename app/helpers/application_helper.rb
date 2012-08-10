@@ -1,6 +1,9 @@
 module ApplicationHelper
 
-
+  def error_messages_for(model)
+    render "form_errors", :model => model
+  end
+  
 	def replace_element_with_partial(dom_id, partial, locals = {})
     dom_id = "##{dom_id}" unless dom_id.starts_with?('#')
     rendered_partial = render :partial => partial, :locals => locals

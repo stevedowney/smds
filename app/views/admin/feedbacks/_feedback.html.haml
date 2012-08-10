@@ -1,0 +1,6 @@
+%tr[feedback]
+  %td= feedback.user.try(:username)
+  %td= feedback.type
+  %td= feedback.subject
+  %td= simple_format(feedback.body.dup)
+  %td{:nowrap => "true"}= time_ago_in_words(feedback.created_at) + " ago"

@@ -23,13 +23,14 @@
     <%= link_to "Stuff My Dad Said", root_path, :class => 'brand' %>
     <div class="nav-collapse">
       <ul class="nav">
-        <li><%= link_to "Users", admin_users_path %></li>
-        <li><%= link_to "Link 2" %></li>
-        <li><%= link_to "Link 3" %></li>
-        <li><%= link_to "Link 4" %></li>
+        <% if admin? %>
+          <li><%= link_to "Users", admin_users_path %></li>
+          <li><%= link_to "View Feedback", admin_feedbacks_path %></li>
+        <% end %>
       </ul>
 
       <ul class="nav pull-right">
+        <li><%= link_to "Feedback", new_feedback_path %></li>
         <li class="dropdown">
           <a href="#" class="dropdown-toggle" data-toggle="dropdown">
             <% if user_signed_in? %>
@@ -61,10 +62,12 @@
 
 <div class="container">
   <% flash.each do |name, msg| %>
-    <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
-      <a class="close" data-dismiss="alert">×</a>
-      <%= msg %>
-    </div>
+    <% if msg.present? %>
+      <div class="alert alert-<%= name == :notice ? "success" : "error" %>">
+        <a class="close" data-dismiss="alert">×</a>
+          <%= msg %>
+      </div>
+    <% end %>
   <% end %>
 
 	<div class="row">

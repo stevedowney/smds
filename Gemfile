@@ -1,6 +1,7 @@
 source 'https://rubygems.org'
 
 # gem 'active_record_query_trace'
+# gem 'database_validation'
 gem 'devise'
 gem 'haml'
 gem 'jquery-rails'
@@ -8,11 +9,13 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 gem "nilify_blanks"
 gem 'rails', '3.2.6'
+gem "recaptcha", :require => "recaptcha/rails"
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', require: false
 gem 'slim'
 gem 'thin'
+# gem "validates_lengths_from_database"
 
 gem 'pg'
 # gem 'mysql2'

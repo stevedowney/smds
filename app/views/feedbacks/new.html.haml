@@ -1,0 +1,15 @@
+= simple_form_for @feedback do |f|
+
+  %h1 Tell Us What's On Your Mind
+  = error_messages_for(@feedback)
+    
+  = f.input :type, :collection => Feedback.types_options_for_select, :prompt => false
+  = f.input :subject, :input_html => {:size => 60, :maxlength => 60}
+  = f.input :body, :as => 'text', :input_html => { :cols => 100, :rows => 10, :maxlength => 2000 }, :hint => 'Maximum of 2000 characters'
+  
+  - unless user_signed_in?
+    = recaptcha_tags :display => {:theme => "clean"}, :class => 'foo'
+  
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
+    = link_to 'Cancel', :back, :class => 'btn'
