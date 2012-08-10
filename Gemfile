@@ -7,7 +7,10 @@ gem 'jquery-rails'
 gem 'kaminari'
 gem "nilify_blanks"
 gem 'rails', '3.2.6'
+gem 'sidekiq'
 gem 'simple_form'
+gem 'sinatra', require: false
+gem 'slim'
 gem 'thin'
 
 gem 'pg'

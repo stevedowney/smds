@@ -1,3 +1,5 @@
+require 'sidekiq/web'
+
 Smds::Application.routes.draw do
   devise_for :users
 
@@ -77,6 +79,8 @@ Smds::Application.routes.draw do
   namespace :admin do
     resources :users, :only => [:index]
   end  
+  
+  # mount Sidekiq::Web, at: '/sidekiq'
   
   # See how all your routes lay out with "rake routes"
 
