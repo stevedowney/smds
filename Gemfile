@@ -5,6 +5,7 @@ gem 'devise'
 gem 'haml'
 gem 'jquery-rails'
 gem 'kaminari'
+gem 'newrelic_rpm'
 gem "nilify_blanks"
 gem 'rails', '3.2.6'
 gem 'sidekiq'
