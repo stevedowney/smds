@@ -17,6 +17,10 @@ class Feedback < ActiveRecord::Base
     'bug' => 'Report a problem',
   }
 
+  def username
+    user.try(:username)
+  end
+  
   def self.types_options_for_select
     TYPES_HASH.map { |k, v| [v, k]  }
   end
