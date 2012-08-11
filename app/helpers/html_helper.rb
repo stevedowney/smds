@@ -9,4 +9,7 @@ module HtmlHelper
     boolean ? icon_boolean : nbsp
   end
 
+  def or_connector
+    content_tag(:span, 'or', :style => 'margin: 0 1em;')
+  end
 end

@@ -1,6 +1,6 @@
 %h1{:style => "margin-bottom: 1em"} Tell Us What's On Your Mind
 
-= simple_form_for @feedback, :html => {:class => 'form-horizontal'} do |f|
+= simple_form_for @feedback do |f|
 
   = error_messages_for(@feedback)
     
@@ -9,13 +9,17 @@
       
   = f.input :type, :label => "Feedback type", :collection => Feedback.types_options_for_select, :prompt => false
   = f.input :subject, :input_html => {:size => 60, :maxlength => 60}
-  = f.input :body, :as => 'text', :input_html => { :cols => 100, :rows => 10, :maxlength => 2000 }, :hint => 'Maximum of 2000 characters'
+  = f.input :body, :as => 'text', :input_html => { :cols => 100, :rows => 5, :maxlength => 2000 }
   
   - unless user_signed_in?
     .control-group.text
+      %label
+        = App::CAPTCHA_TEXT
+        %span#captcha_login (Logged in users don't have to do this)
       .controls
         = recaptcha_tags :display => {:theme => "clean"}, :class => 'foo'
   
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
-    = link_to 'Cancel', :back, :class => 'btn'
+    = f.submit 'Submit Feedback', :class => 'btn btn-primary', :id => 'submit'
+    = or_connector
+    = link_to 'Cancel', root_path

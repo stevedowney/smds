@@ -24,7 +24,7 @@ class FeedbacksController <  ApplicationController
     if user_signed_in? || verify_recaptcha
       true
     else
-      @feedback.errors.add(:base, "Type the characters you see in the image")
+      @feedback.errors.add(:base, App::CAPTCHA_TEXT)
       false
     end
   end
