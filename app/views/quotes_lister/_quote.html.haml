@@ -7,7 +7,9 @@
     
   %td
     .by= qwa.subject_verb
-    .text= qwa.text
+    .text
+      = qwa.text
+    
     .context= qwa.context
     %span.action_links
       = link_to_comments(qwa)
