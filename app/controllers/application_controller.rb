@@ -1,6 +1,7 @@
 class ApplicationController < ActionController::Base
   before_filter :authenticate_user!
-
+  before_filter :set_gon_variables
+  
   protect_from_forgery
 
   # rescue_from Exception do |e|
@@ -27,5 +28,11 @@ class ApplicationController < ActionController::Base
 			redirect_to root_path, :notice => 'Admin required'
 		end
 	end
-	
+
+	def set_gon_variables
+	  gon.logged_in = user_signed_in?
+	  gon.current_username = current_user.try(:username)
+	  gon.admin = admin?
+  end
+  
 end
