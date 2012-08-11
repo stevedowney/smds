@@ -13,7 +13,7 @@ gem 'rails', '3.2.6'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'sidekiq'
 gem 'simple_form'
-gem 'sinatra', require: false
+gem 'sinatra', :require => false
 gem 'slim'
 gem 'thin'
 # gem "validates_lengths_from_database"
