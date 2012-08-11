@@ -1,5 +1,5 @@
 %tr[feedback]
-  %td= feedback.user.try(:username)
+  %td= feedback.username
   %td= feedback.type
   %td= feedback.subject
   %td= simple_format(feedback.body.dup)

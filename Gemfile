@@ -39,7 +39,7 @@ end
 
 group :development do
   gem 'factory_girl' # so can create data in development environment
-  gem 'rack-mini-profiler'
+  # gem 'rack-mini-profiler'
 	gem 'rails-footnotes' # http://stackoverflow.com/a/11619954
 end
 
