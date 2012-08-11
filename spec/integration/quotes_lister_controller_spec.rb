@@ -12,7 +12,6 @@ describe QuotesListerController do
   	
 		it '#index' do
 			visit '/'
-			page.should have_content('About Us')
 			should_see_comment
 		end
 
