@@ -1,10 +1,9 @@
 %tr[qwa.quote]
   %td.voting
-    = link_to_vote_up(qwa)
-    %br
-    %span.score= qwa.vote_net_count
-    %br
-    = link_to_vote_down(qwa)
+    .vote_count= qwa.vote_net_count
+    .vote_links
+      %span.vote_up= link_to_vote_up(qwa)
+      %span.vote_down= link_to_vote_down(qwa)
     
   %td
     .by= qwa.subject_verb

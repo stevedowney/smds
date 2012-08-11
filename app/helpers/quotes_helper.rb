@@ -9,14 +9,14 @@ module QuotesHelper
     text = icon_vote_up
     url = vote_up_path(qwa.quote)
     link = link_to(text, url, :remote => true, :method => :post, :title => "Vote up", :id => qwa.quote.dom_id('vote_up'))
-    link + " #{qwa.vote_up_count}"
+    link# + " #{qwa.vote_up_count}"
   end
 
   def link_to_vote_down(qwa)
     text = icon_vote_down
     url = vote_down_path(qwa.quote)
     link = link_to(text, url, :remote => true, :method => :post, :title => "Vote down", :id => qwa.quote.dom_id('vote_down'))
-    link + " #{qwa.vote_down_count}"
+    link# + " #{qwa.vote_down_count}"
   end
 
   def link_to_favorite(qwa)

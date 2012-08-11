@@ -12,18 +12,18 @@ describe 'QuoteActivitiesController', :js => true do
 
   describe '#vote_up' do
     it 'votes_up' do
-      page.should have_tag('span', :class => 'score', :text => "0")
+      page.should have_tag('div', :class => 'vote_count', :text => "0")
       click_on quote.dom_id('vote_up')
-      page.should have_tag('span', :class => 'score', :text => "1")
+      page.should have_tag('div', :class => 'vote_count', :text => "1")
       QuoteActivity.find_by_quote_id(quote.id).should be_voted_up
     end
   end
 
   describe '#vote_down' do
     it 'votes down' do
-      page.should have_tag('span', :class => 'score', :text => "0")
+      page.should have_tag('div', :class => 'vote_count', :text => "0")
       click_on quote.dom_id('vote_down')
-      page.should have_tag('span', :class => 'score', :text => "-1")
+      page.should have_tag('div', :class => 'vote_count', :text => "-1")
       QuoteActivity.find_by_quote_id(quote.id).should be_voted_down
     end
   end

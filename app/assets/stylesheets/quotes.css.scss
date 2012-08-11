@@ -1,3 +1,30 @@
+tr.quote {
+  td.voting {
+    div {
+      border: 1px solid black;
+    }
+    vertical-align: middle;
+    width: 10%;
+    
+    .vote_count {
+      font-size: 200%;
+      padding: 10px;
+      text-align: center;
+      border-bottom: none;
+    }
+    
+    .vote_links {
+      padding: 10px;
+      span.vote_up {
+        margin-right: 7px;
+      }
+    }
+  }
+}
+
+
+
+
 #quotes {
 	border: 1px black solid;
 	// margin: 5em;
