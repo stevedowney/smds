@@ -17,7 +17,7 @@ FactoryGirl.define do
 
   factory :quote do
     owner
-  	subject_verb 'My father said'
+  	who 'My father said'
   	text 'Son, can you ...'
   end
 

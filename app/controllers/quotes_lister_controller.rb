@@ -3,8 +3,8 @@ class QuotesListerController < ApplicationController
 
   def index
   	# TODO: some combination of new/highly rated
-  	newest
-    @title = 'SMDS'
+  	@qwas = quote_fetcher.newest
+    @title = 'He was all ...'
   end
 
   def newest

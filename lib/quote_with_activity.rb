@@ -2,7 +2,7 @@ class QuoteWithActivity
 	include ActiveRecordTransaction
 
 	delegate(
-		:subject_verb,
+		:who,
 		:text,
 		:context,
 		:comments,

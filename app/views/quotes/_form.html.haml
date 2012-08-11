@@ -1,11 +1,10 @@
 = simple_form_for @quote, :html => {:class => "form-vertical"} do |f|
   .fieldset
-    %legend= controller.action_name.capitalize + " Quote"
 
-    = f.input :subject_verb
-    = f.input :text
-    = f.input :context
+    = f.input :who, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 60}
+    = f.input :text, :label => "Quote", :as => 'text', :placeholder => "What did they say?", :input_html => {:rows => 5, :cols => 100}
+    = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :cols => 100}
 
   .form-actions
     = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
-    = link_to 'Cancel', :back, :class => 'btn'
+    = or_cancel

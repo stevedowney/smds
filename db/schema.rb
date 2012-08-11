@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120810165138) do
+ActiveRecord::Schema.define(:version => 20120811203852) do
 
   create_table "comment_activities", :force => true do |t|
     t.integer  "quote_id",                      :null => false
@@ -62,7 +62,7 @@ ActiveRecord::Schema.define(:version => 20120810165138) do
 
   create_table "quotes", :force => true do |t|
     t.integer  "owner_id"
-    t.string   "subject_verb",                   :null => false
+    t.string   "who",                            :null => false
     t.string   "text",                           :null => false
     t.string   "context"
     t.integer  "vote_up_count",   :default => 0, :null => false

@@ -34,7 +34,7 @@ describe QuotesController do
       it 'success' do
         visit '/'
         click_on 'Add Quote'
-        fill_in 'quote_subject_verb', :with => 'qsv'
+        fill_in 'quote_who', :with => 'qsv'
         fill_in 'quote_text', :with => 'qt'
         click_on 'submit'
         # should_be_on_controller 'quotes', 'index'
