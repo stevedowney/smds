@@ -1,5 +1,6 @@
 source 'https://rubygems.org'
 
+gem 'active_attr'
 # gem 'active_record_query_trace'
 # gem 'database_validation'
 gem 'devise'
@@ -11,6 +12,7 @@ gem 'newrelic_rpm'
 gem "nilify_blanks"
 gem 'rails', '3.2.6'
 gem "recaptcha", :require => "recaptcha/rails"
+gem 'sass'
 gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', :require => false

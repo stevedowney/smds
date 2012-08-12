@@ -1,0 +1,13 @@
+%h1 Share by Email
+
+= simple_form_for @sharing_email, :url => sharing_email_path, :method => :post, :html => {:class => "form-vertical"} do |f|
+  = f.input :from_name
+  = f.input :to_name
+  = f.input :to_email
+  = f.input :subject, :input_html => {:size => 60, :maxlength => 60}
+  - body_label = "Body ".html_safe + content_tag(:span, '(email will include links to this site)', :class => 'inline_hint')
+  = f.input :body, :label => body_label, :as => 'text', :input_html => { :cols => 100, :rows => 5, :maxlength => 2000 }
+  
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
+    = or_cancel

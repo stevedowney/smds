@@ -78,6 +78,9 @@ Smds::Application.routes.draw do
 
   resources :feedbacks, :only => [:new, :create]
   
+  get 'sharing_email' => 'sharing#email_new', :as => :sharing_email
+  post 'sharing_email'=> 'sharing#email_create', :as => :sharing_email
+  
   namespace :admin do
     resources :users, :only => [:index]
     resources :feedbacks, :only => [:index]

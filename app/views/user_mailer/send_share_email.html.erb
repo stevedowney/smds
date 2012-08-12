@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+  </head>
+  <body>
+    <p>
+      <%= simple_format @sharing_email.body.to_s %>
+    </p>
+    <p>
+      <b>Useful links for <%= link_to('hewasall.com', @root_url)%></b>
+    </p>
+    <table border=1 cellspacing=0 cellpadding=4>
+      <tr>
+        <td>Home Page</td>
+        <td><%= @root_url %></td>
+      </tr>
+      <tr>
+        <td>Sign Up</td>
+        <td><%= @signup_url %></td>
+      </tr>
+      <tr>
+        <td>Feedback</td>
+        <td><%= @feedback_url %></td>
+      </tr>
+    </table>
+    <p>Enjoy the sight!</p>
+  </body>
+</html>
