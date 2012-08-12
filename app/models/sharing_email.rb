@@ -8,7 +8,7 @@ class SharingEmail
   attribute :subject, :default => "He was all ... -- Check out this web site"
   attribute :body, :default => "He was all ... the place to record those outrageous things people say."
   
-  validates :to_email, :presence => true
+  validates :to_email, :presence => true, :email => true
   validates :subject, :presence => true
   
   def queue_email
