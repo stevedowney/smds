@@ -16,6 +16,7 @@ gem 'simple_form'
 gem 'sinatra', :require => false
 gem 'slim'
 gem 'thin'
+gem 'twitter'
 # gem "validates_lengths_from_database"
 
 gem 'pg'
