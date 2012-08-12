@@ -15,4 +15,17 @@ describe Quote do
 		  quote.should_not be_owned_by(other_user)
 		end
 	end
+	
+	describe '#formatted' do
+	  let(:quote) {Quote.new(:who => "My father", :text => "some text")}
+	  
+	  it "displays who and text" do
+	    quote.formatted.should == 'My father said: some text'
+	  end
+	  
+	  it "displays context if present" do
+	    quote.context = 'in the car'
+	    quote.formatted.should == 'My father said: some text -- in the car'
+	  end
+  end
 end
