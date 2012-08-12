@@ -34,11 +34,14 @@ describe QuotesController do
       it 'success' do
         visit '/'
         click_on 'Add Quote'
-        fill_in 'quote_who', :with => 'qsv'
-        fill_in 'quote_text', :with => 'qt'
+        fill_in 'quote_who', :with => 'who'
+        fill_in 'quote_text', :with => 'what'
         click_on 'submit'
         # should_be_on_controller 'quotes', 'index'
-        Quote.first.text.should == 'qt'
+        quote = Quote.first
+        quote.text.should == 'what'
+        quote.twitter_update_id_str.should == "1"
+        TestTwitter.updates.should have(1).item
       end
 
       it "failure" do
