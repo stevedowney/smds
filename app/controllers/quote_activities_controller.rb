@@ -1,13 +1,13 @@
 class QuoteActivitiesController < ApplicationController
   before_filter :set_qwa
 
-  def vote_up
-    @qwa.vote_up
+  def toggle_vote_up
+    @qwa.toggle_vote_up
     update_quote
   end
 
-  def vote_down
-    @qwa.vote_down
+  def toggle_vote_down
+    @qwa.toggle_vote_down
     update_quote
   end
 

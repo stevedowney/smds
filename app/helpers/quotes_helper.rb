@@ -5,17 +5,17 @@ module QuotesHelper
     link_to(label, quote_path(qwa.quote), :id => qwa.quote.dom_id('comments'))  
   end
 
-  def link_to_vote_up(qwa)
+  def link_to_toggle_vote_up(qwa)
     text = icon_vote_up
-    url = vote_up_path(qwa.quote)
-    link = link_to(text, url, :remote => true, :method => :post, :title => "Vote up", :id => qwa.quote.dom_id('vote_up'), :class => 'logged_in_link')
+    url = toggle_vote_up_path(qwa.quote)
+    link = link_to(text, url, :remote => true, :method => :post, :title => "Vote up", :id => qwa.quote.dom_id('toggle_vote_up'), :class => 'logged_in_link')
     link# + " #{qwa.vote_up_count}"
   end
 
-  def link_to_vote_down(qwa)
+  def link_to_toggle_vote_down(qwa)
     text = icon_vote_down
-    url = vote_down_path(qwa.quote)
-    link = link_to(text, url, :remote => true, :method => :post, :title => "Vote down", :id => qwa.quote.dom_id('vote_down'), :class => 'logged_in_link')
+    url = toggle_vote_down_path(qwa.quote)
+    link = link_to(text, url, :remote => true, :method => :post, :title => "Vote down", :id => qwa.quote.dom_id('toggle_vote_down'), :class => 'logged_in_link')
     link# + " #{qwa.vote_down_count}"
   end
 

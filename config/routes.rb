@@ -60,8 +60,8 @@ Smds::Application.routes.draw do
   resources :quotes, :except => [:index]
   resources :comments, :only => [:create, :edit, :update, :destroy]
 
-  post 'vote_up/:id'    => 'quote_activities#vote_up',    :as => :vote_up
-  post 'vote_down/:id'  => 'quote_activities#vote_down',  :as => :vote_down
+  post 'toggle_vote_up/:id'    => 'quote_activities#toggle_vote_up',    :as => :toggle_vote_up
+  post 'toggle_vote_down/:id'  => 'quote_activities#toggle_vote_down',  :as => :toggle_vote_down
   post 'favorite/:id'   => 'quote_activities#favorite',   :as => :favorite
   post 'unfavorite/:id' => 'quote_activities#unfavorite', :as => :unfavorite
   post 'quotes/:id/flag'       => 'quote_activities#flag',   :as => :quote_flag
@@ -73,8 +73,8 @@ Smds::Application.routes.draw do
   post 'comments/:id/unfavorite' => 'comment_activities#unfavorite', :as => :comment_unfavorite
   post 'comments/:id/flag'    => 'comment_activities#flag',    :as => :comment_flag
   post 'comments/:id/unflag'    => 'comment_activities#unflag',    :as => :comment_unflag
-  post 'comments/:id/vote_up'    => 'comment_activities#vote_up',    :as => :comment_vote_up
-  post 'comments/:id/vote_down'    => 'comment_activities#vote_down',    :as => :comment_vote_down
+  post 'comments/:id/toggle_vote_up'    => 'comment_activities#toggle_vote_up',    :as => :comment_toggle_vote_up
+  post 'comments/:id/toggle_vote_down'    => 'comment_activities#toggle_vote_down',    :as => :comment_toggle_vote_down
 
   resources :feedbacks, :only => [:new, :create]
   

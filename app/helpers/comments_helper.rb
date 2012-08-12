@@ -16,12 +16,12 @@ module CommentsHelper
 		end
 	end
 
-	def link_to_vote_up_comment(cwa)
-		link_to(icon_vote_up, comment_vote_up_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('vote_up'))
+	def link_to_toggle_vote_up_comment(cwa)
+		link_to(icon_vote_up, comment_toggle_vote_up_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('toggle_vote_up'))
 	end
 
-	def link_to_vote_down_comment(cwa)
-		link_to(icon_vote_down, comment_vote_down_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('vote_down'))
+	def link_to_toggle_vote_down_comment(cwa)
+		link_to(icon_vote_down, comment_toggle_vote_down_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('toggle_vote_down'))
 	end
 
 	def link_to_delete_comment(cwa)

@@ -27,15 +27,15 @@ describe QuoteWithActivity do
 	
 	describe 'voting' do
 	  it '#vote_up' do
-      activity.should_receive(:vote_up!).and_return(vote_response)    
+      activity.should_receive(:toggle_vote_up!).and_return(vote_response)    
       quote.should_receive(:update_votes!).with(vote_response)
-      qwa.vote_up
+      qwa.toggle_vote_up
     end
 
     it '#vote_down' do
-      activity.should_receive(:vote_down!).and_return(vote_response)    
+      activity.should_receive(:toggle_vote_down!).and_return(vote_response)    
       quote.should_receive(:update_votes!).with(vote_response)
-      qwa.vote_down
+      qwa.toggle_vote_down
     end
   end
   

@@ -22,13 +22,13 @@ class CommentActivitiesController < ApplicationController
     update_comment_partial
   end
 
-  def vote_up
-    @cwa.vote_up
+  def toggle_vote_up
+    @cwa.toggle_vote_up
     update_comment_partial
   end
 
-  def vote_down
-    @cwa.vote_down
+  def toggle_vote_down
+    @cwa.toggle_vote_down
     update_comment_partial
   end
 

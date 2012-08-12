@@ -4,17 +4,17 @@ class CommentWithActivity
   attr_accessor :user, :comment, :activity
 
   delegate(
-  :author,
-  :body,
-  :dom_id,
-  :to => :comment,
+    :author,
+    :body,
+    :dom_id,
+    :to => :comment,
   )
 
   delegate(
-  :favorited?,
-  :flagged?,
-  :to => :activity,
-  :allow_nil => true
+    :favorited?,
+    :flagged?,
+    :to => :activity,
+    :allow_nil => true
   )
 
   def initialize(user, comment, activity)
@@ -23,16 +23,16 @@ class CommentWithActivity
     self.activity = activity
   end
 
-  def vote_up
+  def toggle_vote_up
     transaction do
-      vote_response = activity.vote_up!
+      vote_response = activity.toggle_vote_up!
       comment.update_votes!(vote_response)
     end
   end
 
-  def vote_down
+  def toggle_vote_down
     transaction do
-      vote_response = activity.vote_down!
+      vote_response = activity.toggle_vote_down!
       comment.update_votes!(vote_response)
     end
   end

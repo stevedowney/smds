@@ -1,15 +1,15 @@
 module VotingDetailMethods
 
-  def vote_up!
-    self.voted_up = true
+  def toggle_vote_up!
+    self.voted_up = !voted_up
     self.voted_down = false
     result = vote_delta
     save!
     result
   end
 
-  def vote_down!
-    self.voted_down = true
+  def toggle_vote_down!
+    self.voted_down = !voted_down
     self.voted_up = false
     result = vote_delta
     save!
