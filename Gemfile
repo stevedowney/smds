@@ -23,10 +23,8 @@ gem 'twitter'
 gem 'pg'
 # gem 'mysql2'
 
-# gem 'thin'
+gem 'thin'
 gem 'unicorn'
-
-
 
 # you would think these should be in assets group,
 # but Heroku doesn't like it
