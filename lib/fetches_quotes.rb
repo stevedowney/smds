@@ -1,24 +1,28 @@
 class FetchesQuotes
-	attr_accessor :user, :quotes
+	attr_accessor :user, :params_page, :quotes, :kaminari_object
 
-	def initialize(user)
+	def initialize(user, params_page)
 		self.user = user
+		self.params_page = params_page
 	end
 
 	def newest
-		self.quotes = Quote.newest.limit(record_limit)
+		self.quotes = Quote.includes(:owner).newest.page(params_page).per(record_limit)
+		self.kaminari_object = quotes
 		quotes_with_user_activity
 	end
 
 	def favorites
-		favorite_activities = user.quote_activities.favorite.limit(record_limit)
+		favorite_activities = user.quote_activities.favorite.page(params_page).per(record_limit)
+		self.kaminari_object = favorite_activities
 		quote_ids = favorite_activities.map(&:quote_id)
 		self.quotes = Quote.where(:id => quote_ids).newest
 		quotes_with_user_activity
 	end
 
 	def quotes_submitted_by(user)
-		self.quotes = user.quotes.limit(record_limit).newest
+		self.quotes = user.quotes.newest.page(params_page).per(record_limit)
+		self.kaminari_object = quotes
 		quotes_with_user_activity
 	end
 
@@ -47,6 +51,6 @@ class FetchesQuotes
 	end
 
 	def record_limit
-		100
+		20
 	end
 end

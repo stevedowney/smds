@@ -3,3 +3,4 @@
     - @qwas.each do |qwa|
       = render :partial => 'quote', :locals => {:qwa => qwa}
       
+= paginate quote_fetcher.kaminari_object

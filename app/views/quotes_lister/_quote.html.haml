@@ -4,14 +4,14 @@
     .vote_links
       %span.vote_up= link_to_toggle_vote_up(qwa)
       %span.vote_down= link_to_toggle_vote_down(qwa)
-    
+  
   %td
     .by
       = qwa.who
       said
     .text
       = qwa.text
-    
+  
     .context= qwa.context
     %span.action_links
       = link_to_comments(qwa)

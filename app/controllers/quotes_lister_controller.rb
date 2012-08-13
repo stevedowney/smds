@@ -35,7 +35,8 @@ class QuotesListerController < ApplicationController
   private
 
   def quote_fetcher
-  	FetchesQuotes.new(current_user)
+  	@quote_fetcher ||= FetchesQuotes.new(current_user, params[:page])
   end
+  helper_method :quote_fetcher
 
 end
