@@ -17,12 +17,15 @@ gem 'sidekiq'
 gem 'simple_form'
 gem 'sinatra', :require => false
 gem 'slim'
-gem 'thin'
 gem 'twitter'
 # gem "validates_lengths_from_database"
 
 gem 'pg'
 # gem 'mysql2'
+
+# gem 'thin'
+gem 'unicorn'
+
 
 
 # you would think these should be in assets group,
@@ -68,9 +71,6 @@ end
 
 # To use Jbuilder templates for JSON
 # gem 'jbuilder'
-
-# Use unicorn as the app server
-# gem 'unicorn'
 
 # Deploy with Capistrano
 # gem 'capistrano'
