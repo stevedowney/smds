@@ -30,15 +30,18 @@ describe QuotesController do
   context 'non-admin user' do
     let!(:user) {create_and_login_user}
 
-    describe 'create new quote' do
+    describe 'create new quote', :js => true do
       it 'success' do
         visit '/'
         click_on 'Add Quote'
         fill_in 'quote_who', :with => 'who'
         fill_in 'quote_text', :with => 'what'
+
         click_on 'submit'
-        # should_be_on_controller 'quotes', 'index'
+
+        page.should have_tag(:tr, :class => 'quote') # wait for Ajax refresh
         quote = Quote.first
+        should_have_tr(quote)
         quote.text.should == 'what'
         quote.twitter_update_id_str.should == "1"
         TestTwitter.updates.should have(1).item
@@ -48,7 +51,7 @@ describe QuotesController do
         visit '/'
         click_on 'Add Quote'
         click_on 'submit'
-        should_be_on_controller 'quotes', 'create'
+        page.should have_content("can't be blank")
         Quote.first.should be_nil
       end
     end

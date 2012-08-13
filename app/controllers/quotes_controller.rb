@@ -15,21 +15,8 @@ class QuotesController < ApplicationController
   end
 
   def create
-    quote_creator = CreatesQuotes.new(current_user)
-    if quote_creator.create(params.fetch(:quote))
-      redirect_to root_path, :notice => "Quote create"
-    else
-      @quote = quote_creator.quote
-      render 'new'
-    end
-    
-    # @quote = current_user.quotes.build(params.fetch(:quote))
-    # if @quote.save
-    #   flash[:notice] = "Quote saved"
-    #   redirect_to root_path
-    # else
-    #   render 'new'
-    # end
+    @quote_creator = CreatesQuotes.new(current_user)
+    @quote_creator.create(params.fetch(:quote))
   end
 
   def edit

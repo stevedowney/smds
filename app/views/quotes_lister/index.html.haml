@@ -1,5 +1,25 @@
 = render :partial => 'nav_links'
-
-%h1= @title
+%div= link_to "Add Quote", '#', :class => 'btn btn-danger', :id => 'add-quote-link'
 
 = render :partial => 'quotes'
+
+:javascript
+
+  function showNewQuoteForm() {
+    $('#new-quote').show('fast');
+    $('#add-quote-link').hide();
+  }
+  
+  function hideNewQuoteForm() {
+    $('#new-quote').hide('fast');
+    $('#add-quote-link').show();
+  }
+  
+  $('#add-quote-link').click(function() {
+    showNewQuoteForm();
+  });
+
+  $('#cancel-new-quote').live('click', function() {
+    hideNewQuoteForm();
+  });
+

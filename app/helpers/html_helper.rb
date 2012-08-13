@@ -10,7 +10,11 @@ module HtmlHelper
   end
 
   def or_cancel
-    content_tag(:span, 'or', :style => 'margin: 0 1em;') + link_to_cancel
+    or_span + link_to_cancel
+  end
+  
+  def or_span
+    content_tag(:span, 'or', :style => 'margin: 0 1em;')
   end
   
   def link_to_cancel

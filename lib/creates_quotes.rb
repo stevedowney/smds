@@ -1,7 +1,9 @@
 class CreatesQuotes
+  class CreateNotCalledError < StandardError; end
+  
   include UrlHelpers
   
-  attr_accessor :user, :quote, :twitter_response
+  attr_accessor :user, :quote, :success, :twitter_response
   
   def initialize(user)
     self.user = user.presence
@@ -10,11 +12,25 @@ class CreatesQuotes
   def create(attributes)
     self.quote = user.quotes.build(attributes)
     if quote.save
+      self.success = true
       if twitter_update
         quote.update_attribute(:twitter_update_id_str, twitter_response.id.to_s)
       end
-      true
+    else
+      self.success = false
     end
+  end
+  
+  def success?
+    if success.nil?
+      raise CreateNotCalledError
+    else
+      success
+    end
+  end
+  
+  def qwa
+    QuoteWithActivity.for(user, quote)
   end
   
   def twitter_update

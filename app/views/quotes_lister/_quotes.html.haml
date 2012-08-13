@@ -1,5 +1,7 @@
+= render :partial => 'quotes/new'
+
 %table.table.table-bordered
-  %tbody
+  %tbody#quotes-list
     - @qwas.each do |qwa|
       = render :partial => 'quote', :locals => {:qwa => qwa}
       
