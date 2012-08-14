@@ -9,6 +9,8 @@ class Feedback < ActiveRecord::Base
   validates :body, :length => {:maximum => 2000}
   validate :validate_subject_or_body
   
+  delegate(:username, :to => :user, :allow_nil => true)
+  
   TYPES_HASH = {
     'comment' => 'Comment',
     'suggestion' => 'Suggestion',
@@ -17,10 +19,6 @@ class Feedback < ActiveRecord::Base
     'bug' => 'Report a problem',
   }
 
-  def username
-    user.try(:username)
-  end
-  
   def self.types_options_for_select
     TYPES_HASH.map { |k, v| [v, k]  }
   end

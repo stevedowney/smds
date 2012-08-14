@@ -43,7 +43,7 @@ group :assets do
 end
 
 group :development do
-  gem 'bullet'
+  # gem 'bullet'
   gem 'factory_girl' # so can create data in development environment
   gem 'rack-mini-profiler'
 	gem 'rails-footnotes' # http://stackoverflow.com/a/11619954
