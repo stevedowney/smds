@@ -1,5 +1,9 @@
 module QuotesHelper
 
+  def quote_form_as
+    @quote.persisted? ? :edit_quote : :new_quote
+  end
+  
   def link_to_comments(qwa)
     label = icon_comment + " #{qwa.comments_count}"
     link_to(label, quote_path(qwa.quote), :id => qwa.quote.dom_id('comments'))  
@@ -45,7 +49,7 @@ module QuotesHelper
 
   def link_to_edit_quote(qwa)
     if qwa.editable?
-      link_to(icon_edit, edit_quote_path(qwa.quote), :title => "Edit", :id => qwa.quote.dom_id('edit'))
+      link_to(icon_edit, edit_quote_path(qwa.quote), :title => "Edit", :id => qwa.quote.dom_id('edit'), :remote => true)
     end
   end
 

@@ -4,17 +4,19 @@ class ApplicationController < ActionController::Base
   
   protect_from_forgery
 
-  # rescue_from Exception do |e|
-  #   logger.debug e.inspect
-  #   logger.debug e.backtrace
-  #   # if request.xhr?
-  #   #   # redirect to error page using window.location (Firefox < version 7 doesn't do redirects
-  #   #   # in ajax requests properly) - https://bugzilla.mozilla.org/show_bug.cgi?id=553888
-  #   #   render 'shared/redirect_to_error', :status => :internal_server_error
-  #   # else
-  #   #   redirect_to error_500_path(:id => @error.database_id)
-  #   # end
-  # end
+  if App.test?
+    rescue_from Exception do |e|
+      logger.debug e.inspect
+      logger.debug e.backtrace
+      # if request.xhr?
+      #   # redirect to error page using window.location (Firefox < version 7 doesn't do redirects
+      #   # in ajax requests properly) - https://bugzilla.mozilla.org/show_bug.cgi?id=553888
+      #   render 'shared/redirect_to_error', :status => :internal_server_error
+      # else
+      #   redirect_to error_500_path(:id => @error.database_id)
+      # end
+    end
+  end
 
   private
   

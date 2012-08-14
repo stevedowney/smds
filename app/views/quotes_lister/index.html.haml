@@ -3,8 +3,26 @@
 
 = render :partial => 'quotes'
 
-:javascript
+%div{:class => 'modal hide browse-modal', :id => 'edit-quote-modal', :style => "display: none"}
+  %div.modal-header
+    %a{:class => 'close', 'data-dismiss' => 'modal'}
+      x
+    %h3 
+      Edit Quote
+  %div.modal-body
+    .flash-modal
+    #edit-quote-form
 
+:javascript
+  
+  function closeQuoteModal() {
+    $('#edit-quote-modal').modal('hide');
+  }
+  
+  $('#edit-quote-modal').on('hidden', function () {
+    $('.edit-selected').removeClass('edit-selected');
+  })
+  
   function showNewQuoteForm() {
     $('#new-quote').show('fast');
     $('#add-quote-link').hide();
@@ -19,7 +37,8 @@
     showNewQuoteForm();
   });
 
-  $('#cancel-new-quote').live('click', function() {
+  $('#quote-form-cancel').live('click', function() {
     hideNewQuoteForm();
+    closeQuoteModal();
   });
 

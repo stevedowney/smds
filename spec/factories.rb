@@ -17,7 +17,7 @@ FactoryGirl.define do
 
   factory :quote do
     owner
-  	who 'My father said'
+  	who 'My father'
   	text 'Son, can you ...'
   end
 

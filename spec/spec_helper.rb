@@ -56,12 +56,12 @@ RSpec.configure do |config|
   config.before :each do
     DatabaseCleaner.strategy = Capybara.current_driver == :rack_test ? :transaction : :deletion
     DatabaseCleaner.start
-    TestTwitter.updates.clear
+    TestTwitter.reset
   end
 
   config.after do
     DatabaseCleaner.clean
-    TestTwitter.updates.clear
+    TestTwitter.reset
   end
 
   config.after(:each) do

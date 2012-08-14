@@ -7,8 +7,10 @@ module JsHelper
   end
 
   def highlight_and_remove(dom_id)
+    duration = App.test? ? 0 : 1000
+duration = 1
     %(
-      $('##{dom_id}').effect("highlight", {}, 1000, function() {
+      $('##{dom_id}').effect("highlight", {}, #{duration}, function() {
       	$('##{dom_id}').remove();
       });
     ).html_safe

@@ -1,4 +1,4 @@
-= simple_form_for @quote, :remote => true, :html => {:class => "form-vertical"} do |f|
+= simple_form_for @quote, :as => quote_form_as,  :remote => true, :html => {:class => "form-vertical"} do |f|
   .fieldset
 
     = f.input :who, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 60}
@@ -6,7 +6,6 @@
     = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :cols => 100}
 
   .form-actions
-    = f.submit nil, :class => 'btn btn-primary', :id => 'submit'
+    = f.submit nil, :class => 'btn btn-primary', :id => 'submit', :data => {:disable_with => "Processing ..."}
     = or_span
-    = link_to("Cancel", '#', :id => 'cancel-new-quote')
-    
+    = link_to("Cancel", '#', :id => 'quote-form-cancel')

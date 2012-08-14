@@ -1,27 +1,35 @@
 require 'spec_helper'
 
 describe QuotesController do
+  let(:timeline) { TestTwitter.timeline }
+  let(:tweet) { timeline.first }
+  
   context 'admin user' do
     let!(:admin) {create_and_login_admin_user}
     
-    describe 'update' do
-      let!(:quote) {FactoryGirl.create(:quote)}
-      before {visit '/'}
+    describe 'update', :js => true do
+      let(:quote) { Quote.first }
+
+      before(:each) do
+        qm = ManagesQuotes.new(admin)
+        qm.create(FactoryGirl.attributes_for(:quote))
+        visit '/'
+      end
       
       it 'success' do
+        click_on 'Add Quote'
         click_on quote.dom_id('edit')
-        fill_in 'quote_text', :with => 'new text'
-        click_on 'submit'
-        should_be_on_controller 'quotes_lister', 'index'
-        Quote.first.text.should == 'new text'
+        fill_in "edit_quote_who", :with => 'bob'
+        click_on 'Update Quote'
+        wait_until { Quote.find_by_who('bob').present?}
+        page.should have_content('bob said')
       end
       
       it 'failure' do
         click_on quote.dom_id('edit')
-        fill_in 'quote_text', :with => ''
+        fill_in 'edit_quote_text', :with => ''
         click_on 'submit'
-        should_be_on_controller 'quotes', 'update'
-        page.should have_content("can't be blank")
+        wait_until { page.has_content?("can't be blank")}
       end
       
     end
@@ -34,8 +42,8 @@ describe QuotesController do
       it 'success' do
         visit '/'
         click_on 'Add Quote'
-        fill_in 'quote_who', :with => 'who'
-        fill_in 'quote_text', :with => 'what'
+        fill_in 'new_quote_who', :with => 'who'
+        fill_in 'new_quote_text', :with => 'what'
 
         click_on 'submit'
 
@@ -43,8 +51,8 @@ describe QuotesController do
         quote = Quote.first
         should_have_tr(quote)
         quote.text.should == 'what'
-        quote.twitter_update_id_str.should == "1"
-        TestTwitter.updates.should have(1).item
+        quote.twitter_id.should == tweet.id
+        timeline.should have(1).item
       end
 
       it "failure" do
@@ -67,8 +75,15 @@ describe QuotesController do
     end
 
     describe "delete quote", :js => true do
-      let!(:quote) {FactoryGirl.create(:quote, :owner => user)}
-      before {visit '/'}
+      let(:quote) { Quote.first }
+      let(:admin) {create_and_login_admin_user}
+      
+
+      before(:each) do
+        qm = ManagesQuotes.new(admin)
+        qm.create(FactoryGirl.attributes_for(:quote))
+        visit '/'
+      end
       
       it 'confirmed' do
         click_link quote.dom_id('delete')

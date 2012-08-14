@@ -1,4 +1,9 @@
-- if @quote_creator.success?
-  = render :partial => 'create_success'
+- if quote_manager.success?
+  = replace_element_with_partial('#new-quote', 'quotes/new')
+  = prepend_element_with_partial('#quotes-list', 'quotes_lister/quote', :qwa => quote_manager.qwa)
+  hideNewQuoteForm();
+  = highlight(quote_manager.qwa.dom_id)
 - else
-  = render :partial => 'create_failure'
+  - @quote = quote_manager.quote
+  = replace_element_with_partial('#new-quote', 'quotes/new')
+  $('#new-quote').show();

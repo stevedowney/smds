@@ -4,6 +4,20 @@ module ApplicationHelper
     render "form_errors", :model => model
   end
   
+  def add_class(dom_id, klass)
+    %( $('#{normalized_dom_id dom_id}').addClass('#{klass}'); ).html_safe
+  end
+  
+  def page_html(dom_id, new_content = nil, options = {})
+    dom_id = normalized_dom_id(dom_id)
+    content = if new_content
+      j new_content
+    else
+      rendered_escaped_partial(options.fetch(:partial), options[:locals])
+    end
+    %( $('#{dom_id}').html('#{content}')  ; ).html_safe
+  end
+  
   def highlight(dom_id, duration = 1000)
     dom_id = normalized_dom_id(dom_id)
     %( $('#{dom_id}').effect("highlight", {}, #{duration}); ).html_safe
@@ -20,6 +34,7 @@ module ApplicationHelper
   end
   
   def normalized_dom_id(dom_id)
+    dom_id = dom_id.send(:dom_id) if dom_id.respond_to?(:dom_id)
     dom_id.starts_with?('#') ? dom_id : "##{dom_id}"
   end
   

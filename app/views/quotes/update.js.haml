@@ -1,0 +1,6 @@
+- if quote_manager.success?
+  = update_quote_partial(quote_manager.qwa)
+  closeQuoteModal();
+- else
+  - @quote = quote_manager.quote
+  = page_html('#edit-quote-form', nil, :partial => 'quotes/form')

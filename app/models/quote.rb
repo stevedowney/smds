@@ -21,4 +21,12 @@ class Quote < ActiveRecord::Base
       s << " -- #{context}" if context.present?
     end
   end
+  
+  def formatted_previously_changed?
+    (previous_changes.keys & ['who', 'text', 'context']).present?
+  end
+  
+  def twitter_id
+    twitter_update_id_str.presence.try(:to_i)
+  end
 end

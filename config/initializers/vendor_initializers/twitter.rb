@@ -1,5 +1,3 @@
-TwitterProxy = Rails.env == 'test' ? TestTwitter : Twitter
-
 Twitter.configure do |config|
   config.consumer_key = 'fAGWu4yc3lpJK4hNE7n3A'
   config.consumer_secret = 'CO6QIIiJBT6FfTYUbZXpRJCud0D45jc0JrSQNWlqZE'
