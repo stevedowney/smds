@@ -6,10 +6,10 @@
   - else
     = comment_login_or_sign_up_message
 
-  - if !@cwas.empty?
-    #comments_list
+  #comments_list
+    - if !@cwas.empty?
       - @cwas.each do |cwa|
         = render :partial => 'comments/comment', :locals => {:cwa => cwa}
-  - else
-    #no_comments 
-      %p Be the first to comment.
+    - else
+      #no_comments 
+        %p Be the first to comment.
