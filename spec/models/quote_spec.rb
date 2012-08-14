@@ -65,4 +65,15 @@ describe Quote do
     end
   end
   
+  describe '#has_comments?' do
+    it "true" do
+      quote = FactoryGirl.build(:quote, :owner_id => nil, :comments_count => 1)
+      quote.should have_comments
+    end
+    
+    it "false" do
+      quote = Quote.new
+      quote.should_not have_comments
+    end
+  end
 end

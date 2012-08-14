@@ -1,4 +1,8 @@
-- if quote_manager.success?
+- if quote_manager.quote.has_comments? && !admin?
+  tbAlert("This quote has comments so can no longer be edited.");
+  = update_quote_partial(quote_manager.qwa)
+  closeQuoteModal();
+- elsif quote_manager.success?
   = update_quote_partial(quote_manager.qwa)
   closeQuoteModal();
 - else

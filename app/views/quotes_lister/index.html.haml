@@ -34,7 +34,11 @@
   }
   
   $('#add-quote-link').click(function() {
-    showNewQuoteForm();
+    if (gon.logged_in) {
+      showNewQuoteForm();
+    } else {
+      tbAlert("You must be logged in to add a quote.");
+    }
   });
 
   $('#quote-form-cancel').live('click', function() {

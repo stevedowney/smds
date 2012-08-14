@@ -87,17 +87,21 @@ class QuoteWithActivity
   end
 
   def owned_by_user?
-    quote.owned_by?(user)
+    user && quote.owned_by?(user)
   end
 
   def editable?
-    user && user.admin?
+    admin? || (owned_by_user? && quote.comments_count == 0)
   end
 
   def deletable?
     user && (user.admin? || owned_by_user?)
   end
 
+  def admin?
+    user && user.admin?
+  end
+  
   class << self
 
     def for(user, quote)

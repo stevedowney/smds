@@ -22,8 +22,14 @@ class ManagesQuotes
     find_quote(quote_id)
   end
   
+  attr_accessor :has_comments
+  
   def update(quote_id, attributes)
     find_quote(quote_id)
+    if quote.has_comments?
+      self.has_comments = true
+      return
+    end
     quote.attributes = attributes
     if quote.save
       ManagesTwitterQuotes.update(quote_id) if quote.formatted_previously_changed?

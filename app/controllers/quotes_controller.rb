@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :show
-  before_filter :require_admin, :only => [:edit, :update]
+  # before_filter :require_admin, :only => [:edit, :update]
   # before_filter :set_quote_manager, :only => [:create]
 
   def show

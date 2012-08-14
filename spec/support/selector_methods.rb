@@ -59,7 +59,7 @@ module RSpec::SelectorMethods
   end
   
   def should_have_tr(instance = default_instance)
-    page.should have_tag(:tr, :id => instance.dom_id)
+    page.should have_tag(:tr, :id => instance.dom_id, :class => instance.class.underscore)
   end
   
   def should_not_have_tr(instance = default_instance)

@@ -7,6 +7,7 @@ describe QuoteWithActivity do
 	let(:activity) { user.quote_activity_for(quote) }
 	let(:vote_response) {stub('vote_response')}
 	let(:qwa) {QuoteWithActivity.new(user, quote, activity)}
+	let(:qwa_owner) {QuoteWithActivity.for(quote_owner, quote)}
 	let(:qwa_no_user) {QuoteWithActivity.new(nil, quote, activity)}
   
 
@@ -125,22 +126,35 @@ describe QuoteWithActivity do
     
     it "false when user does not own quote" do
       qwa.should_not be_owned_by_user
-      
+    end
+    
+    it "false when no user" do
+      qwa.user = nil
+      qwa.should_not be_owned_by_user
     end
   end
   
   describe '#editable?' do
-    it "editable by admin" do
+    it "admin - true" do
       user.admin = true
       qwa.should be_editable
     end
     
-    it "not editable by non-admin" do
+    it "owner, no comments - true" do
+      qwa_owner.should be_editable
+    end
+    
+    it "owner, comments - false" do
+      quote.comments_count = 1
+      qwa_owner.should_not be_editable
+    end
+    
+    it "non-admin - false" do
       user.admin = false
       qwa.should_not be_editable
     end
     
-    it "not editable when not logged in (no user)" do
+    it "no user - false" do
       qwa_no_user.should_not be_editable
     end
   end

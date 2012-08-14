@@ -29,4 +29,8 @@ class Quote < ActiveRecord::Base
   def twitter_id
     twitter_update_id_str.presence.try(:to_i)
   end
+  
+  def has_comments?
+    comments_count > 0
+  end
 end

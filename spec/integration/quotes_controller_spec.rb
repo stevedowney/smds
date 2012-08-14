@@ -1,104 +1,205 @@
 require 'spec_helper'
 
-describe QuotesController do
+describe QuotesController, :js => true do
   let(:timeline) { TestTwitter.timeline }
-  let(:tweet) { timeline.first }
+  def tweet
+    timeline.first
+  end
   
+  before { visit '/' }
+  
+  def verify_create_quote_success
+    click_on 'Add Quote'
+    
+    fill_in 'new_quote_who', :with => 'a'
+    fill_in 'new_quote_text', :with => 'b'
+    fill_in 'new_quote_context', :with => 'c'
+
+    click_on 'Create Quote'
+
+    quote = nil
+    wait_until { quote = Quote.find_by_who_and_text_and_context('a', 'b', 'c') }
+    
+    should_have_tr(quote)
+
+    timeline.should have(1).item
+    quote.twitter_id.should == tweet.id
+  end
+  
+  def verify_create_quote_failure
+    visit '/'
+    click_on 'Add Quote'
+    click_on 'submit'
+    page.should have_content("can't be blank")
+    Quote.first.should be_nil
+    timeline.should have(:no).items
+  end
+  
+  def insert_quote(quote_owner = nil)
+    quote_owner ||= FactoryGirl.create(:user)
+    qm = ManagesQuotes.new(quote_owner)
+    qm.create(FactoryGirl.attributes_for(:quote))
+    timeline.should have(1).item
+    tweet.id.should == Quote.first.twitter_id
+  end
+
+  def verify_update_quote_success(quote_owner = nil)
+    insert_quote(quote_owner)
+    visit '/'
+    quote = Quote.first
+    original_twitter_id = quote.twitter_id
+
+    click_on quote.dom_id('edit')
+    fill_in "edit_quote_who", :with => 'new who'
+    fill_in "edit_quote_text", :with => 'new text'
+    fill_in "edit_quote_context", :with => 'new context'
+    click_on 'Update Quote'
+    
+    wait_until { quote = Quote.find_by_who_and_text_and_context('new who', 'new text', 'new context') }
+    page.should have_content('new who')
+    
+    timeline.should have(1).item
+    quote.twitter_id.should == tweet.id
+    quote.twitter_id.should_not == original_twitter_id
+  end
+  
+  def verify_update_quote_failure(quote_owner = nil)
+    insert_quote(quote_owner)
+    visit '/'
+    quote = Quote.first
+    click_on quote.dom_id('edit')
+    
+    fill_in 'edit_quote_text', :with => ''
+    click_on 'Update Quote'
+    wait_until { page.has_content?("can't be blank")}
+  end
+
+  def destroy_quote_confirm(quote_owner = nil)
+    insert_quote(quote_owner)
+    visit '/'
+    quote = Quote.first
+    default_instance quote
+    
+    click_on_delete
+    click_on_confirm_ok
+    
+    wait_until { Quote.find_by_id(quote.id).nil? }
+    should_not_have_tr
+    timeline.should have(:no).items
+  end
+  
+  def destroy_quote_cancel(quote_owner = nil)
+    insert_quote(quote_owner)
+    visit '/'
+    quote = Quote.first
+    default_instance quote
+    
+    click_on_delete
+    click_on_confirm_cancel
+    
+    Quote.should exist(quote.id)
+    should_have_tr
+    timeline.should have(1).item
+    tweet.id.should == quote.reload.twitter_id
+  end
+
   context 'admin user' do
     let!(:admin) {create_and_login_admin_user}
     
-    describe 'update', :js => true do
-      let(:quote) { Quote.first }
-
-      before(:each) do
-        qm = ManagesQuotes.new(admin)
-        qm.create(FactoryGirl.attributes_for(:quote))
-        visit '/'
+    describe '#create' do
+      it "success" do
+        verify_create_quote_success
       end
       
+      it "failure" do
+        verify_create_quote_failure
+      end
+    end
+    
+    describe '#update' do
       it 'success' do
-        click_on 'Add Quote'
-        click_on quote.dom_id('edit')
-        fill_in "edit_quote_who", :with => 'bob'
-        click_on 'Update Quote'
-        wait_until { Quote.find_by_who('bob').present?}
-        page.should have_content('bob said')
+        verify_update_quote_success
       end
       
       it 'failure' do
-        click_on quote.dom_id('edit')
-        fill_in 'edit_quote_text', :with => ''
-        click_on 'submit'
-        wait_until { page.has_content?("can't be blank")}
+        verify_update_quote_failure
+      end
+    end
+
+    describe '#destroy' do
+      it "confirmed" do
+        destroy_quote_confirm
       end
       
+      it "canceled" do
+        destroy_quote_cancel
+      end
     end
   end
   
   context 'non-admin user' do
     let!(:user) {create_and_login_user}
 
-    describe 'create new quote', :js => true do
+    describe 'create' do
+      it "success" do
+        verify_create_quote_success
+      end
+      
+      it "failure" do
+        verify_create_quote_failure
+      end
+    end
+    
+    describe "update" do
       it 'success' do
-        visit '/'
-        click_on 'Add Quote'
-        fill_in 'new_quote_who', :with => 'who'
-        fill_in 'new_quote_text', :with => 'what'
-
-        click_on 'submit'
-
-        page.should have_tag(:tr, :class => 'quote') # wait for Ajax refresh
-        quote = Quote.first
-        should_have_tr(quote)
-        quote.text.should == 'what'
-        quote.twitter_id.should == tweet.id
-        timeline.should have(1).item
+        verify_update_quote_success(user)
       end
 
       it "failure" do
-        visit '/'
+        verify_update_quote_failure(user)
+      end
+    end
+
+    describe '#destroy' do
+      it "confirmed" do
+        destroy_quote_confirm(user)
+      end
+      
+      it "canceled" do
+        destroy_quote_cancel(user)
+      end
+    end
+
+  end
+  
+  context 'not logged in' do
+    describe '#create' do
+      it "message to non-logged in user" do
         click_on 'Add Quote'
-        click_on 'submit'
-        page.should have_content("can't be blank")
-        Quote.first.should be_nil
+        page.should have_content("must be logged in")
       end
     end
-
-    describe "update quote" do
-      it 'does not work for non-admin' do
-        quote = FactoryGirl.create(:quote, :owner => user)
+    
+    describe '#update' do
+      it "no edit link" do
+        insert_quote
         visit '/'
-        page.should_not have_tag(:a, :id => quote.dom_id('edit'))
-        visit edit_quote_path(quote)
-        should_require_admin
+        quote = Quote.first
+        should_have_tr(quote)
+        should_not_have_edit_link(quote)
       end
     end
-
-    describe "delete quote", :js => true do
-      let(:quote) { Quote.first }
-      let(:admin) {create_and_login_admin_user}
-      
-
-      before(:each) do
-        qm = ManagesQuotes.new(admin)
-        qm.create(FactoryGirl.attributes_for(:quote))
+    
+    describe '#destroy' do
+      it "no delete link" do
+        insert_quote
         visit '/'
-      end
-      
-      it 'confirmed' do
-        click_link quote.dom_id('delete')
-        click_on_confirm_ok
-        page.should_not have_tag(:a, :id => quote.dom_id('delete'))
-        Quote.should_not exist(quote.id)
-      end
-
-      it 'canceled' do
-        click_link quote.dom_id('delete')
-        click_on_confirm_cancel
-        page.should have_tag(:a, :id => quote.dom_id('delete'))
-        Quote.should exist(quote.id)
+        quote = Quote.first
+        should_have_tr(quote)
+        should_not_have_delete_link(quote)
       end
     end
+    
   end
   
 end
