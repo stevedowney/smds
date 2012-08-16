@@ -22,7 +22,7 @@ class CommentsController < ApplicationController
   end
   
   def destroy
-    comment_destroyer.destroy
+    comment_destroyer.destroy(params.fetch(:id))
   end
 
   private
@@ -32,7 +32,7 @@ class CommentsController < ApplicationController
   end
   
   def comment_destroyer
-    @comment_destroyer ||= DestroysComments.new(current_user, params.fetch(:id))
+    @comment_destroyer ||= CommentDestroyer.new(current_user)
   end
   
   def set_comment

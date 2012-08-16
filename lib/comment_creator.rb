@@ -1,5 +1,4 @@
 class CommentCreator < CommentMutatorBase
-  include ActiveRecordTransaction
   
   attr_accessor :comment
   

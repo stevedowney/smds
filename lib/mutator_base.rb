@@ -1,4 +1,6 @@
 class MutatorBase
+  include ActiveRecordTransaction
+  
   class NoUserError < StandardError; end
   class SuccessCalledBeforeMutatorCalledError < StandardError; end
   
