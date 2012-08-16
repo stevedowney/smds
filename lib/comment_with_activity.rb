@@ -6,6 +6,7 @@ class CommentWithActivity
   delegate(
     :author,
     :body,
+    :comment_number,
     :dom_id,
     :to => :comment,
   )

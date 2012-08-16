@@ -1,5 +1,6 @@
 .comment{:id => cwa.dom_id}
   .body
+    = "#{cwa.comment_number}."
     = cwa.body
     .div
       %span{:id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count

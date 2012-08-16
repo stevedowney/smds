@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120812185606) do
+ActiveRecord::Schema.define(:version => 20120816150504) do
 
   create_table "comment_activities", :force => true do |t|
     t.integer  "quote_id",                      :null => false
@@ -36,6 +36,7 @@ ActiveRecord::Schema.define(:version => 20120812185606) do
     t.integer  "flag_count",      :default => 0, :null => false
     t.datetime "created_at",                     :null => false
     t.datetime "updated_at",                     :null => false
+    t.integer  "comment_number",  :default => 0, :null => false
   end
 
   create_table "feedbacks", :force => true do |t|

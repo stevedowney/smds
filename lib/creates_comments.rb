@@ -10,6 +10,7 @@ class CreatesComments
   
   def create
     self.comment = user.comments.build(attributes)
+    comment.comment_number = quote.comments_count + 1
     transaction do
       comment.save
       quote.increment!(:comments_count) if comment.persisted?

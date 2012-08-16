@@ -14,7 +14,8 @@ describe CreatesComments do
   end
 
   context 'valid' do
-    let(:cc) {CreatesComments.new(user, {:quote_id => quote.id, :body => 'body'})}
+    let(:cc) { CreatesComments.new(user, {:quote_id => quote.id, :body => 'body'}) }
+    let(:comment) { Comment.first }
 
     before(:each) do
       result = cc.create
@@ -22,12 +23,13 @@ describe CreatesComments do
     end
 
     it "#create" do
-      Comment.first.body.should == 'body'
+      comment.body.should == 'body'
+      comment.comment_number.should == 1
       quote.reload.comments_count.should == 1
     end
 
     it "#cwa" do
-      CommentWithActivity.should_receive(:for_user_and_comment).with(user, Comment.first)
+      CommentWithActivity.should_receive(:for_user_and_comment).with(user, comment)
       cc.cwa
     end
 
