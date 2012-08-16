@@ -37,8 +37,8 @@ describe QuotesController, :js => true do
   
   def insert_quote(quote_owner = nil)
     quote_owner ||= FactoryGirl.create(:user)
-    qm = ManagesQuotes.new(quote_owner)
-    qm.create(FactoryGirl.attributes_for(:quote))
+    quote_creator = QuoteCreator.new(quote_owner)
+    quote_creator.create(FactoryGirl.attributes_for(:quote))
     timeline.should have(1).item
     tweet.id.should == Quote.first.twitter_id
   end

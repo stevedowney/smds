@@ -1,8 +1,8 @@
 - if @quote.has_comments? && !admin?
   tbAlert("This quote has comments so can no longer be edited.");
-  = update_quote_partial(quote_manager.qwa)
+  = update_quote_partial(quote_updater.qwa)
 - else
-  = add_class(quote_manager.quote, 'edit-selected')
+  = add_class(quote_updater.quote, 'edit-selected')
   = page_html('#edit-quote-form', nil, :partial => 'quotes/form')
   hideNewQuoteForm();
   $('#edit-quote-modal').modal('show');

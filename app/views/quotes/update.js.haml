@@ -1,10 +1,10 @@
-- if quote_manager.quote.has_comments? && !admin?
-  tbAlert("This quote has comments so can no longer be edited.");
-  = update_quote_partial(quote_manager.qwa)
+- if quote_updater.success?
+  = update_quote_partial(quote_updater.qwa)
   closeQuoteModal();
-- elsif quote_manager.success?
-  = update_quote_partial(quote_manager.qwa)
+- elsif @quote_updater.has_comments?
+  tbAlert("This quote has comments so can no longer be edited.");
+  = update_quote_partial(quote_updater.qwa)
   closeQuoteModal();
 - else
-  - @quote = quote_manager.quote
+  - @quote = quote_updater.quote
   = page_html('#edit-quote-form', nil, :partial => 'quotes/form')
