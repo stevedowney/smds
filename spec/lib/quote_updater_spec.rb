@@ -28,6 +28,29 @@ describe QuoteUpdater do
         quote_updater.update(quote.id, :who => quote.who)
         quote_updater.should be_success
         quote.reload.twitter_id.should == original_twitter_id
+      end      
+    end
+    
+    context 'invalid quote' do
+      it "doesn't update" do
+        ManagesTwitterQuotes.should_not_receive(:update)
+        quote_updater.update(quote.id, :who => '')
+        quote_updater.should_not be_success
+      end
+    end
+    
+    context 'has comments' do
+      before { quote.update_attribute(:comments_count, 1) }
+      
+      it "can't update" do
+        quote_updater.update(quote.id, :who => 'new who')
+        quote_updater.should_not be_success
+      end
+
+      it "can update if admin" do
+        user.admin = true
+        quote_updater.update(quote.id, :who => 'new who')
+        quote_updater.should be_success
       end
     end
   end

@@ -16,8 +16,8 @@ class ManagesTwitterQuotes
     
     def destroy(twitter_id)
       TWITTER.status_destroy(twitter_id, :trim_user => true)
-    # rescue Twitter::Error::NotFound
-    #   # TODO: log this condition  
+    rescue Twitter::Error::NotFound
+      # TODO: log this condition  
     # rescue
     #   # TODO: log this condition
     end
