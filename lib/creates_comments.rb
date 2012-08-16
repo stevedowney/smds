@@ -3,12 +3,11 @@ class CreatesComments
   
   attr_accessor :user, :attributes, :comment
   
-  def initialize(user, attributes)
+  def initialize(user)
     self.user = user
-    self.attributes = attributes
   end
   
-  def create
+  def create(attributes)
     self.comment = user.comments.build(attributes)
     comment.comment_number = quote.comments_count + 1
     transaction do

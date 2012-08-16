@@ -2,23 +2,23 @@ require 'spec_helper'
 
 describe CreatesComments do
 
-  let(:user) {FactoryGirl.create(:user)}
-  let(:quote) {FactoryGirl.create(:quote)}
+  let(:user) { FactoryGirl.create(:user) }
+  let(:quote) { FactoryGirl.create(:quote) }
 
   context 'invalid' do
-    it "#create() doesn't create" do
-      cc = CreatesComments.new(user, {:quote_id => quote.id, :body => ''})
-      cc.create.should be_false
+    it "doesn't create" do
+      cc = CreatesComments.new(user)
+      cc.create(:quote_id => quote.id, :body => '').should be_false
       quote.reload.comments_count.should == 0
     end
   end
 
   context 'valid' do
-    let(:cc) { CreatesComments.new(user, {:quote_id => quote.id, :body => 'body'}) }
+    let(:cc) { CreatesComments.new(user) }
     let(:comment) { Comment.first }
 
     before(:each) do
-      result = cc.create
+      result = cc.create(:quote_id => quote.id, :body => 'body')
       result.should be_true
     end
 
