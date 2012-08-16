@@ -2,13 +2,14 @@
   .body
     = "#{cwa.comment_number}."
     = cwa.body
-    .div
-      %span{:id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count
-      - if user_signed_in?
-        = link_to_toggle_vote_up_comment(cwa)
-        = link_to_toggle_vote_down_comment(cwa)
-        = link_to_favorite_comment(cwa)
-        = link_to_flag_comment(cwa)
-        = link_to_delete_comment(cwa)
-        = link_to_edit_comment(cwa)		
-      = "by #{cwa.author.username}"
+    - unless cwa.deleted?
+      .div
+        %span{:id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count
+        - if user_signed_in?
+          = link_to_toggle_vote_up_comment(cwa)
+          = link_to_toggle_vote_down_comment(cwa)
+          = link_to_favorite_comment(cwa)
+          = link_to_flag_comment(cwa)
+          = link_to_delete_comment(cwa)
+          = link_to_edit_comment(cwa)		
+        = "by #{cwa.author.username}"

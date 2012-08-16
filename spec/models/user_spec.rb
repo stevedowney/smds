@@ -33,6 +33,9 @@ describe User do
     it "returns new activity if none found" do
       quote_activity = user.quote_activity_for(quote)
       quote_activity.should_not be_persisted
+      
+      quote_activity.user_id.should == user.id
+      quote_activity.quote_id.should == quote.id
     end
   end
   
@@ -47,6 +50,10 @@ describe User do
     it "returns new activity if none found" do
       comment_activity = user.comment_activity_for(comment)
       comment_activity.should_not be_persisted
+      
+      comment_activity.user_id.should == user.id
+      comment_activity.comment_id.should == comment.id
+      comment_activity.quote_id.should == comment.quote.id
     end
   end
   

@@ -68,8 +68,8 @@ describe CommentsController do
       it "confirm" do
         click_on_delete
         click_on_confirm_ok
-        page.should_not have_tag(:div, :id => comment.dom_id)
-        Comment.should_not exist(comment.id)
+        wait_until { Comment.find_by_id_and_deleted(comment.id, true) }
+        page.should have_tag(:div, :id => comment.dom_id)
       end
       
       it "cancel" do
@@ -116,8 +116,9 @@ describe CommentsController do
       it "can destroy" do
         click_on_delete
         click_on_confirm_ok
-        page.should_not have_tag(:div, :id => comment.dom_id)
-        Comment.should_not exist(comment.id)
+        wait_until { Comment.find_by_id_and_deleted(comment.id, true) }
+        page.should have_tag(:div, :id => comment.dom_id)
+        Comment.should exist(comment.id)
       end
     end
   end

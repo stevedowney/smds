@@ -18,6 +18,11 @@ describe QuoteMutatorBase do
       qm_user.find_quote(quote_by_user.id)
       qm_user.quote.should == quote_by_user
     end
+    
+    it "error if not owner or admin" do
+      expect { qm_user.find_quote(quote.id) }.to raise_error(ActiveRecord::RecordNotFound)
+    end
+    
   end
   
   describe '#qwa' do

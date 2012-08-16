@@ -2,11 +2,12 @@ class CommentDestroyer < CommentMutatorBase
   
   def destroy(id)
     find_comment(id)
-    
-    transaction do
-      comment.destroy
-      quote.decrement!(:comments_count)
-    end
+    comment.delete_content(admin_or_author)
   end
 
+  def admin_or_author
+    return 'admin' if admin?
+    return 'author' if comment.authored_by?(user)
+    raise "Only admin / authro can delete"
+  end
 end

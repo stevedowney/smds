@@ -8,7 +8,7 @@ class Comment < ActiveRecord::Base
   # attr_accessible :author_id, :quote_id, :body, :votes_down, :votes_net, :votes_up
   attr_accessible :quote_id, :body
 
-  validates :author_id, :presence => true
+  # validates :author_id, :presence => true
   validates :quote_id, :presence => true
   validates :body, :presence => true
 
@@ -18,4 +18,17 @@ class Comment < ActiveRecord::Base
     user && user.id == author_id
   end
 
+  def delete_content(deleter)
+    self.deleted = true
+    self.author_id = 0
+    self.vote_up_count = 0
+    self.vote_down_count = 0
+    self.vote_net_count = 0
+    self.flag_count = 0
+    self.favorite_count = 0
+    
+    self.deleted_by = deleter
+    self.body = "Deleted by #{deleter}"
+    save!
+  end
 end

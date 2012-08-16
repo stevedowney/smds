@@ -27,7 +27,7 @@ class User < ActiveRecord::Base
   end
 
   def comment_activity_for(comment)
-    comment_activities.find_or_initialize_by_comment_id(comment.id)
+    comment_activities.find_or_initialize_by_comment_id_and_quote_id(comment.id, comment.quote.id)
   end
 
   class << self

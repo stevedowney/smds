@@ -15,4 +15,8 @@ class CommentMutatorBase < MutatorBase
     QuoteWithActivity.for(user, quote)
   end  
   
+  def cwa
+    CommentWithActivity.for(user, comment)
+  end
+  
 end

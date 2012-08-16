@@ -28,7 +28,7 @@ describe CommentCreator do
     end
 
     it "#cwa" do
-      CommentWithActivity.should_receive(:for_user_and_comment).with(user, comment)
+      CommentWithActivity.should_receive(:for).with(user, comment)
       comment_creator.cwa
     end
 

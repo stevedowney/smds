@@ -13,7 +13,7 @@ class CommentCreator < CommentMutatorBase
   end
   
   def cwa
-    CommentWithActivity.for_user_and_comment(user, comment)
+    CommentWithActivity.for(user, comment)
   end
   
   def qwa

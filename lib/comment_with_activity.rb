@@ -7,6 +7,7 @@ class CommentWithActivity
     :author,
     :body,
     :comment_number,
+    :deleted?,
     :dom_id,
     :to => :comment,
   )
@@ -86,9 +87,17 @@ class CommentWithActivity
     user == other.user && comment == other.comment && activity == other.activity
   end
   
-  def self.for_user_and_comment(user, comment)
-    activity = comment.activities.find_or_initialize_by_user_id_and_quote_id(user.id, comment.quote.id)
-    new(user, comment, activity)
+  # def self.for_user_and_comment(user, comment)
+  #   activity = comment.activities.find_or_initialize_by_user_id_and_quote_id(user.id, comment.quote.id)
+  #   new(user, comment, activity)
+  # end
+  class << self
+
+    def for(user, comment)
+      activity = user.present? ? user.comment_activity_for(comment) : QuoteActivity.new
+      new(user, comment, activity)
+    end
+
   end
 
 end

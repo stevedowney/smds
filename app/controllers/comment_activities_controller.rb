@@ -36,7 +36,7 @@ class CommentActivitiesController < ApplicationController
 
   def set_comment_with_activity
     @comment = Comment.find(params[:id])
-    @cwa = CommentWithActivity.for_user_and_comment(current_user, @comment)
+    @cwa = CommentWithActivity.for(current_user, @comment)
   end
 
   def set_quote_with_activity

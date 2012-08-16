@@ -4,23 +4,23 @@ describe CommentDestroyer do
   let(:user) {FactoryGirl.create(:user)}
   let(:quote) {FactoryGirl.create(:quote, :comments_count => 1)}
   let(:comment) {FactoryGirl.create(:comment, :author => user, :quote => quote)}
+
+  def check_deleted(id)
+    comment = Comment.find(id)
+    comment.should be_deleted
+  end
   
   context 'comment owner' do
     let(:comment_destroyer) {CommentDestroyer.new(user)}
     before { comment_destroyer.destroy(comment.id) }
       
     it "destroys" do
-      Comment.should_not exist(comment.id)
+      check_deleted(comment.id)
+      # Comment.should_not exist(comment.id)
     end
       
-    it "decrements comment counter on quote" do
-      quote.reload.comments_count.should == 0
-    end
-      
-    it "exposes qwa" do
-      qwa = comment_destroyer.qwa
-      qwa.quote.should == quote
-      qwa.user.should == user
+    it "does not decrement comment counter on quote" do
+      quote.reload.comments_count.should == 1
     end
   end
   
@@ -39,7 +39,7 @@ describe CommentDestroyer do
     before { comment_destroyer.destroy(comment.id) }
     
     it "destroys" do
-      Comment.should_not exist(comment.id)
+      check_deleted(comment.id)
     end
   end
 

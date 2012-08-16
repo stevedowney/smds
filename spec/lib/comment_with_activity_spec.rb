@@ -115,13 +115,22 @@ describe CommentWithActivity do
     end
   end
   
-  describe '.for_user_and_comment' do
-    it "returns CommentWithActivity with correct activity" do
-      activity = FactoryGirl.create(:comment_activity)
-      user = activity.user
-      comment = activity.comment
-      cwa = CommentWithActivity.for_user_and_comment(user, comment)
-      cwa.should == CommentWithActivity.new(user, comment, activity)
+  describe '.for' do
+    let(:comment) { stub('comment') }
+    
+    it "user present, delegates to user" do
+      activity = stub('activity')
+      user = stub('user', :present? => true)
+      user.should_receive(:comment_activity_for).with(comment).and_return(activity)
+      CommentWithActivity.should_receive(:new).with(user, comment, activity)
+      CommentWithActivity.for(user, comment)
+    end
+  
+    it "user nil, returns new QuoteActivity" do
+      new_activity = mock('new activity')
+      QuoteActivity.should_receive(:new).and_return(new_activity)
+      CommentWithActivity.should_receive(:new).with(nil, comment, new_activity)
+      CommentWithActivity.for(nil, comment)
     end
   end
     
