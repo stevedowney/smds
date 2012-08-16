@@ -1,0 +1,3 @@
+class CommentMutatorBase < MutatorBase
+  
+end

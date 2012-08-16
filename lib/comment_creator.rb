@@ -1,20 +1,16 @@
-class CreatesComments
+class CommentCreator < CommentMutatorBase
   include ActiveRecordTransaction
   
-  attr_accessor :user, :attributes, :comment
-  
-  def initialize(user)
-    self.user = user
-  end
+  attr_accessor :comment
   
   def create(attributes)
     self.comment = user.comments.build(attributes)
     comment.comment_number = quote.comments_count + 1
+
     transaction do
-      comment.save
-      quote.increment!(:comments_count) if comment.persisted?
+      self.success = comment.save
+      quote.increment!(:comments_count) if success?
     end
-    comment.persisted?
   end
   
   def cwa

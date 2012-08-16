@@ -1,6 +1,4 @@
 class QuoteMutatorBase < MutatorBase
-  class NoUserError < StandardError; end
-  class SuccessCalledBeforeMutatorCalledError < StandardError; end
   
   attr_accessor :quote
   

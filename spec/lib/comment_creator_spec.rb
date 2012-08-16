@@ -1,25 +1,24 @@
 require 'spec_helper'
 
-describe CreatesComments do
-
+describe CommentCreator do
+  let(:comment_creator) { CommentCreator.new(user) }
   let(:user) { FactoryGirl.create(:user) }
   let(:quote) { FactoryGirl.create(:quote) }
 
   context 'invalid' do
     it "doesn't create" do
-      cc = CreatesComments.new(user)
-      cc.create(:quote_id => quote.id, :body => '').should be_false
+      comment_creator.create(:quote_id => quote.id, :body => '')
+      comment_creator.should_not be_success
       quote.reload.comments_count.should == 0
     end
   end
 
   context 'valid' do
-    let(:cc) { CreatesComments.new(user) }
     let(:comment) { Comment.first }
 
     before(:each) do
-      result = cc.create(:quote_id => quote.id, :body => 'body')
-      result.should be_true
+      comment_creator.create(:quote_id => quote.id, :body => 'body')
+      comment_creator.should be_success
     end
 
     it "#create" do
@@ -30,16 +29,16 @@ describe CreatesComments do
 
     it "#cwa" do
       CommentWithActivity.should_receive(:for_user_and_comment).with(user, comment)
-      cc.cwa
+      comment_creator.cwa
     end
 
     it "#qwa" do
       QuoteWithActivity.should_receive(:for).with(user, quote)
-      cc.qwa
+      comment_creator.qwa
     end
 
     it "#new_comment" do
-      cc.new_comment.quote_id.should == quote.id
+      comment_creator.new_comment.quote_id.should == quote.id
     end
   end
 end

@@ -5,9 +5,7 @@ class CommentsController < ApplicationController
   helper_method :comment_creator, :comment_destroyer
   
   def create
-    unless comment_creator.create(params.fetch(:comment))
-      render :js => %( tbAlert("Comment can't be blank");)
-    end
+    comment_creator.create(params.fetch(:comment))
   end
 
   def edit
@@ -30,7 +28,7 @@ class CommentsController < ApplicationController
   private
   
   def comment_creator
-    @comment_creator ||= CreatesComments.new(current_user)
+    @comment_creator ||= CommentCreator.new(current_user)
   end
   
   def comment_destroyer
