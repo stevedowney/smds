@@ -66,6 +66,7 @@ Smds::Application.routes.draw do
   post 'unfavorite/:id' => 'quote_activities#unfavorite', :as => :unfavorite
   post 'quotes/:id/flag'       => 'quote_activities#flag',   :as => :quote_flag
   post 'quotes/:id/unflag'     => 'quote_activities#unflag', :as => :quote_unflag
+  post 'quotes/:id/email' => 'quote_activities#email', :as => :quote_email
 
 
   delete 'comments/:id' => 'comments#destroy', :as => :comment

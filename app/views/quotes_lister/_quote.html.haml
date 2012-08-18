@@ -18,6 +18,7 @@
       - if user_signed_in?
         = link_to_favorite(qwa)
         = link_to_flag_quote(qwa)
+        = link_to_email_quote(qwa)
         = link_to_delete_quote(qwa)
       = link_to_edit_quote(qwa)
     %span.owner= link_to_submitted_by(qwa.owner)

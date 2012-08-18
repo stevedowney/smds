@@ -80,6 +80,10 @@ class QuoteWithActivity
     end
   end
 
+  def email
+    
+  end
+  
   def destroy
     if deletable?
       quote.destroy

@@ -4,7 +4,6 @@
 .sass-cache
 sandbox
 capybara-*.html
-.rspec
 /.bundle
 /vendor/bundle
 /log/*

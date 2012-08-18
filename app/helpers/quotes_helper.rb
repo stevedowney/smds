@@ -39,6 +39,10 @@ module QuotesHelper
     end
   end
 
+  def link_to_email_quote(qwa)
+    link_to(icon_email, '#', :data => {:url => quote_email_path(qwa.quote)}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote')
+  end
+  
   def link_to_delete_quote(qwa)
     if qwa.deletable?
       link_to(icon_delete, quote_path(qwa.quote), :remote => true, :method => :delete, :title => "Delete", :data => {:confirm => 'Are you sure?  This is irreversible.'}, :id => qwa.quote.dom_id('delete'))

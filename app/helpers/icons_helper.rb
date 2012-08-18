@@ -22,6 +22,10 @@ module IconsHelper
     icon('pencil')
   end
 
+  def icon_email
+    icon('envelope')
+  end
+  
   def icon_favorite
     icon('star-empty')
   end

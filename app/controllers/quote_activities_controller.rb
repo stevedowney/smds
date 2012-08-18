@@ -31,6 +31,11 @@ class QuoteActivitiesController < ApplicationController
     update_quote
   end
 
+  def email
+    @qwa.email
+    render :js => "alert('email')"
+  end
+  
   private
 
   def set_qwa
