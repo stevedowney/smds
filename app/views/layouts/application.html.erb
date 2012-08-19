@@ -10,18 +10,20 @@
   <%= javascript_include_tag "application" %>
   <%= csrf_meta_tags %>
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <script type="text/javascript" src="//use.typekit.net/zwb3tld.js"></script>
+  <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
 </head>
   <body id='<%= "#{controller_name}_#{action_name}" %>' data-controller="<%= controller_name%>" data-action="<%= action_name %>">
 
 <div class="navbar navbar-fixed-top">
   <div class="navbar-inner">
     <div class="container">
-    <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    <span class="icon-bar"></span>
-    </a>
-    <%= link_to "He was all ...", root_path, :class => 'brand' %>
+      <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </a>
+    <%= link_to "&nbsp;".html_safe(), root_path, :class => 'brand' %>
     <div class="nav-collapse">
       <ul class="nav">
         <% if admin? %>
@@ -65,8 +67,10 @@
     <% end %>
   <% end %>
 
-	<div class="row">
-		<%= yield %>
+	<div class="row main  glow-left-right">
+	  <div class="gutter">
+		  <%= yield %>
+	  </div>
 	</div>
 </div>
 

@@ -1,11 +1,11 @@
-%ul.nav.nav-pills.pull-right
-  %li= link_to "Newest", newest_path, :id => 'newest_link'
-  %li= link_to "Favorites", favorites_path, :id => 'favorites_link'
-  %li= link_to "My Submissions", my_submissions_path, :id => 'my_submissions_link'
+.btn-group.pull-right
+  = link_to "Newest", newest_path, :id => 'newest_link', :class => "btn"
+  = link_to "Favorites", favorites_path, :id => 'favorites_link', :class => "btn"
+  = link_to "My Submissions", my_submissions_path, :id => 'my_submissions_link', :class => "btn"
 
 
 :javascript
 
 $(function() {
-  $('##{controller.action_name}_link').parent().addClass('active');
+  $('##{controller.action_name}_link').addClass('active');
 });

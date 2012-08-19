@@ -1,11 +1,11 @@
-%tr[qwa.quote]
-  %td.voting
+%div[qwa.quote]
+  %div.voting
     .vote_count= qwa.vote_net_count
     .vote_links
       %span.vote_up= link_to_toggle_vote_up(qwa)
       %span.vote_down= link_to_toggle_vote_down(qwa)
   
-  %td
+  %div
     .by
       = qwa.who
       said
@@ -13,12 +13,19 @@
       = qwa.text
   
     .context= qwa.context
-    %span.action_links
+    .action_links
       = link_to_comments(qwa)
+      %span Comments
       - if user_signed_in?
         = link_to_favorite(qwa)
-        = link_to_flag_quote(qwa)
+        %span Favorite
         = link_to_email_quote(qwa)
+        %span Email
         = link_to_delete_quote(qwa)
+        %span Delete
+        = link_to_flag_quote(qwa)
+        %span Flag
       = link_to_edit_quote(qwa)
-    %span.owner= link_to_submitted_by(qwa.owner)
+      %span Edit
+      %span.owner.pull-right= link_to_submitted_by(qwa.owner)
+    
