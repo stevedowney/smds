@@ -1,5 +1,6 @@
-tr.quote {
-  td.voting {
+.quote {
+  .voting {
+    display:none;
     div {
       border: 1px solid black;
     }
@@ -26,41 +27,66 @@ tr.quote {
 
 
 #quotes {
-	border: 1px black solid;
-	// margin: 5em;
 	padding: 0.5em;
 }
-
+.quote:first-child {
+  border:none;
+}
 .quote {
-	border: 1px gray solid;
+  overflow:hidden;
+	border-top: 1px #ddd solid;
 	margin: 0.5em;
-	padding: 0.4em;
+	padding: 1.6em 0.4em 0.4em;
 
 	.by {
-		font-style: italic
-
+		font-size:1.1em;
+		font-size:1.1rem;
+		color:#222;
+		opacity:0.45;
 	}
 
 	.text {
-		margin: 0.5em;
+	  line-height:1.2;
+		margin: 0.25em;
 		padding: 0.3em;
-		background-color: #C2C2D6;
+		font-size:1.8em;
+		font-size:1.8rem;
+		color:#4a4a4a
 	}
 
 	.context {
-		margin: 0.4em;
-		font-size: smaller;
+	  margin-bottom: 1em;
+		font-size:1.1em;
+		font-size:1.1rem;
+		color:#222;
+		opacity:0.45;
 	}
 
 	.action_links {
+	  opacity:0;
 		a {
-		margin-left: 1em;
-		margin-right: 1em;
+		margin-left: 1.5em;
+		margin-right: .3em;
 		}
+	}
+	.action_links a:first-child {
+	  margin-left:0;
 	}
 	.owner {
 		margin-left: 5em;
 	}
+	.owner a {margin-left:0}
+}
+
+
+.quote:hover .by,
+.quote:hover .context,
+.quote:hover .action_links {
+  -webkit-transition: opacity .2s linear .2s;
+  -moz-transition: opacity .2s linear .2s;
+  -o-transition: opacity .2s linear .2s;
+  transition: opacity .1s linear .2s;
+  opacity:8.0;
 }
 
 #comments {

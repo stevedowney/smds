@@ -1,9 +1,40 @@
 @import "twitter/bootstrap/bootstrap";
 body { 
-	padding-top: 60px;
+	padding-top: 40px;
+	font-family: "museo-sans", "Helvetica Neue", Helvetica, sans-serif;
+	background-color:#5ebdf4;
 }
 
+.navbar .brand {
+  width:171px;
+  margin-right:12px;
+}
+
+.container > .main {
+  padding-top:24px;
+	background-color:#fff;
+}
+
+.navbar-inner {
+  background:#5EBDF4;
+}
+
+.navbar .nav > li > a {
+  color: #fff;
+  padding-top:12px;
+}
+.dropdown-menu li > a:hover {
+  background:#aaa;
+}
 @import "twitter/bootstrap/responsive";
+
+/* Portrait tablet to landscape and desktop */
+@media (max-width: 979px) {
+  .navbar-fixed-top {
+    z-index:10000;
+  	margin-bottom:0;
+  }
+}
 
 // Set the correct sprite paths
 @iconSpritePath: asset-path('twitter/bootstrap/glyphicons-halflings.png');
@@ -36,3 +67,4 @@ input,
 textarea {
   width: auto;
 }
+
