@@ -51,6 +51,6 @@ class FetchesQuotes
 	end
 
 	def record_limit
-		5
+		15
 	end
 end

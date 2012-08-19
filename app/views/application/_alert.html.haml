@@ -2,10 +2,10 @@
   %div.modal-header
     %a{:class => 'close', 'data-dismiss' => 'modal'}
       x
-    %h3 
-      Warning
-  %div.modal-body
-    %p#tb-alert-message No message given
-  %div.modal-footer
+    %h3#tb-alert-title 
+      No message
+  /%div.modal-body
+  /  %p#tb-alert-message No message given
+  %div.modal-body{:style => 'text-align:center'}
     %a{:id => "alert-ok-btn", :href => '#', :class => "btn btn-primary modal-cancel"}
       OK

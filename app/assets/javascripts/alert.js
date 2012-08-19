@@ -1,5 +1,6 @@
 function tbAlert(message) {
-  $('#tb-alert-message').text(message);
+  //$('#tb-alert-message').text(message);
+  $('#tb-alert-title').text(message);
   $('#tb-alert').modal('show');
 }
 

@@ -53,7 +53,8 @@ module QuotesHelper
 
   def link_to_edit_quote(qwa)
     if qwa.editable?
-      link_to(icon_edit, edit_quote_path(qwa.quote), :title => "Edit", :id => qwa.quote.dom_id('edit'), :remote => true)
+      label = icon_edit + " Edit"
+      link_to(label, edit_quote_path(qwa.quote), :title => "Edit", :id => qwa.quote.dom_id('edit'), :remote => true)
     end
   end
 

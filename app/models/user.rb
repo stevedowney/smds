@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   attr_accessor :login
   attr_accessible :login
   
-  has_many :quotes, :foreign_key => :owner_id, :dependent => :nullify
+  has_many :quotes, :foreign_key => :owner_id, :dependent => :destroy
   has_many :quote_activities, :dependent => :destroy  
   has_many :comments, :foreign_key => :author_id
   has_many :comment_activities, :dependent => :destroy
