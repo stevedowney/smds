@@ -40,7 +40,7 @@ module QuotesHelper
   end
 
   def link_to_email_quote(qwa)
-    link_to(icon_email, '#', :data => {:url => quote_email_path(qwa.quote)}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote')
+    link_to(icon_email, '#', :data => {:quote_id => qwa.quote.id}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote logged_in_link')
   end
   
   def link_to_delete_quote(qwa)

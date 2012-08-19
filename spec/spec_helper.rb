@@ -57,6 +57,7 @@ RSpec.configure do |config|
     DatabaseCleaner.strategy = Capybara.current_driver == :rack_test ? :transaction : :deletion
     DatabaseCleaner.start
     TestTwitter.reset
+    ActionMailer::Base.deliveries.clear
   end
 
   config.after do

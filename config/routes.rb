@@ -66,8 +66,6 @@ Smds::Application.routes.draw do
   post 'unfavorite/:id' => 'quote_activities#unfavorite', :as => :unfavorite
   post 'quotes/:id/flag'       => 'quote_activities#flag',   :as => :quote_flag
   post 'quotes/:id/unflag'     => 'quote_activities#unflag', :as => :quote_unflag
-  post 'quotes/:id/email' => 'quote_activities#email', :as => :quote_email
-
 
   delete 'comments/:id' => 'comments#destroy', :as => :comment
   post 'comments/:id/favorite' => 'comment_activities#favorite', :as => :comment_favorite
@@ -81,6 +79,8 @@ Smds::Application.routes.draw do
   
   get 'sharing_email' => 'sharing#email_new', :as => :sharing_email
   post 'sharing_email'=> 'sharing#email_create', :as => :sharing_email
+  
+  post 'share_quote_by_email' => 'share_quote#by_email'
   
   namespace :admin do
     resources :users, :only => [:index]

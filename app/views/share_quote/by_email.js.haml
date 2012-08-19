@@ -1,0 +1,6 @@
+- if @quote_sharer_by_email.success?
+  hideEmailQuoteModal();
+  tbAlert("Email sent.");
+- else
+  //flash.error('#{@quote_sharer_by_email.errors.full_messages.to_sentence}');
+  flash.error("Invalid or missing email address");
