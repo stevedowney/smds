@@ -7,6 +7,19 @@ describe QuotesController, :js => true do
   end
   
   before { visit '/' }
+
+  def verify_quick_success
+    fill_in 'quote', :with => 'bob said hello'
+    click_on "Quote"
+    
+    quote = nil
+    wait_until { quote = Quote.find_by_who_and_text('bob', 'hello') }
+    
+    should_have_tr(quote)
+
+    timeline.should have(1).item
+    quote.twitter_id.should == tweet.id
+  end
   
   def verify_create_quote_success
     click_on 'Add Quote'
@@ -106,9 +119,15 @@ describe QuotesController, :js => true do
   context 'admin user' do
     let!(:admin) {create_and_login_admin_user}
     
+    describe '#quick_create' do
+      it "success" do
+        verify_quick_success
+      end
+    end
+    
     describe '#create' do
       it "success" do
-        verify_create_quote_success
+        # verify_create_quote_success
       end
       
       it "failure" do

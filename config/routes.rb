@@ -57,7 +57,10 @@ Smds::Application.routes.draw do
   match 'my_submissions'       => 'quotes_lister#my_submissions'
   match ':user_id/submissions' => 'quotes_lister#user_submissions', :as => :user_submissions
 
-  resources :quotes, :except => [:index]
+  resources :quotes, :except => [:index] do
+    post 'quick_create', :on => :collection
+  end
+  
   resources :comments, :only => [:create, :edit, :update, :destroy]
 
   post 'toggle_vote_up/:id'    => 'quote_activities#toggle_vote_up',    :as => :toggle_vote_up

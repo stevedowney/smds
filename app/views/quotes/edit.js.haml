@@ -3,6 +3,5 @@
   = update_quote_partial(quote_updater.qwa)
 - else
   = add_class(quote_updater.quote, 'edit-selected')
-  = page_html('#edit-quote-form', nil, :partial => 'quotes/form')
-  hideNewQuoteForm();
-  $('#edit-quote-modal').modal('show');
+  = update_quote_modal_form
+  $('#quote-modal').modal('show');

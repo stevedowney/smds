@@ -1,6 +1,6 @@
 class QuotesController < ApplicationController
   skip_before_filter :authenticate_user!, :only => :show
-
+  
   def show
     @quote = Quote.find(params.fetch(:id))
     @cwas = FetchesComments.new(current_user, @quote).newest
@@ -8,10 +8,18 @@ class QuotesController < ApplicationController
     @qwa = QuoteWithActivity.for(current_user, @quote)
   end
 
+  def new
+    @quote = Quote.new(QuoteParser.parse(params.fetch(:quote)))
+  end
+  
   def create
     quote_creator.create(params.fetch(:new_quote))
   end
 
+  def quick_create
+    quote_creator.quick_create(params.fetch(:quote))
+  end
+  
   def edit
     quote_updater.edit(params.fetch(:id))
     @quote = quote_updater.quote

@@ -1,5 +1,13 @@
 module ApplicationHelper
 
+  def gon
+    controller.gon
+  end
+  
+  def submit_tag(value = "Save changes", options = {})
+    super(value, options.reverse_merge(:data => {:disable_with => "Processing ..."}))
+  end
+  
   def error_messages_for(model)
     render "form_errors", :model => model
   end
@@ -16,6 +24,10 @@ module ApplicationHelper
       rendered_escaped_partial(options.fetch(:partial), options[:locals])
     end
     %( $('#{dom_id}').html('#{content}')  ; ).html_safe
+  end
+  
+  def update_quote_modal_form
+    page_html('#quote-modal', nil, :partial => 'quotes/form')
   end
   
   def highlight(dom_id, duration = 1000)

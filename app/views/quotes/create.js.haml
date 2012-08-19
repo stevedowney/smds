@@ -1,9 +1,9 @@
 - if quote_creator.success?
-  = replace_element_with_partial('#new-quote', 'quotes/new')
   = prepend_element_with_partial('#quotes-list', 'quotes_lister/quote', :qwa => quote_creator.qwa)
-  hideNewQuoteForm();
+  closeQuoteModal();
+  quoteQuickAdd.reset();
   = highlight(quote_creator.qwa.dom_id)
 - else
   - @quote = quote_creator.quote
-  = replace_element_with_partial('#new-quote', 'quotes/new')
-  $('#new-quote').show();
+  = replace_element_with_partial('#quote-modal-div', 'quotes/form')
+  $('#quote-modal').modal('show');

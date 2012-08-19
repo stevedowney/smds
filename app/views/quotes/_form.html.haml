@@ -1,11 +1,19 @@
-= simple_form_for @quote, :as => quote_form_as,  :remote => true, :html => {:class => "form-vertical"} do |f|
-  .fieldset
+%div.modal-header
+  %a{:class => 'close', 'data-dismiss' => 'modal'}
+    x
+  %h3 
+    = "#{@quote.persisted? ? 'Edit' : 'Compose'} Quote"
+%div.modal-body
+  .flash-modal
 
-    = f.input :who, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 60}
-    = f.input :text, :label => "Quote", :as => 'text', :placeholder => "What did they say?", :input_html => {:rows => 5, :cols => 100, :maxlength => 250}
-    = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :cols => 100}
+  = simple_form_for @quote, :as => quote_form_as,  :remote => true, :html => {:class => "form-vertical"} do |f|
+    .fieldset
 
-  .form-actions
-    = f.submit nil, :class => 'btn btn-primary', :id => 'submit', :data => {:disable_with => "Processing ..."}
-    = or_span
-    = link_to("Cancel", '#', :id => 'quote-form-cancel')
+      = f.input :who, :required => false, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 60, :class => 'span4'}
+      = f.input :text, :required => false, :label => "Quote", :as => 'text', :placeholder => "What did they say?", :input_html => {:rows => 5, :class => 'span5', :maxlength => 250}
+      = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :class => 'span5'}
+
+    .form-actions
+      = f.submit nil, :class => 'btn btn-primary', :id => 'submit', :data => {:disable_with => "Processing ..."}
+      = or_span
+      = link_to("Cancel", '#', :id => 'quote-form-cancel')

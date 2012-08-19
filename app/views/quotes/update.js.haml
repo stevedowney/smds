@@ -6,5 +6,7 @@
   = update_quote_partial(quote_updater.qwa)
   closeQuoteModal();
 - else
+  alert('failure');
   - @quote = quote_updater.quote
-  = page_html('#edit-quote-form', nil, :partial => 'quotes/form')
+  = replace_element_with_partial('#quote-modal-div', 'quotes/form')
+  $('#quote-modal').modal('show');

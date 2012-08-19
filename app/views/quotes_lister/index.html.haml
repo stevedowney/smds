@@ -1,30 +1,21 @@
 = render :partial => 'nav_links'
-%div= link_to "Add Quote", '#', :class => 'btn btn-danger', :id => 'add-quote-link'
 
 = render :partial => 'quotes'
 
 - if user_signed_in?
   = render :partial => 'share_by_email'
 
-%div{:class => 'modal hide browse-modal', :id => 'edit-quote-modal', :style => "display: none"}
-  %div.modal-header
-    %a{:class => 'close', 'data-dismiss' => 'modal'}
-      x
-    %h3 
-      Edit Quote
-  %div.modal-body
-    .flash-modal
-    #edit-quote-form
-
+= render :partial => 'quotes/quote_modal'
 
 
 :javascript
   
   function closeQuoteModal() {
-    $('#edit-quote-modal').modal('hide');
+    $('.edit-selected').removeClass('edit-selected');
+    $('#quote-modal').modal('hide');
   }
   
-  $('#edit-quote-modal').on('hidden', function () {
+  $('#quote-modal').on('hidden', function () {
     $('.edit-selected').removeClass('edit-selected');
   });
   

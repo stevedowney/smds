@@ -1,0 +1,8 @@
+- if quote_creator.success?
+  quoteQuickAdd.reset();
+  = prepend_element_with_partial('#quotes-list', 'quotes_lister/quote', :qwa => quote_creator.qwa)
+  = highlight(quote_creator.qwa.dom_id)
+- else
+  - @quote = quote_creator.quote
+  = replace_element_with_partial('#new-quote', 'quotes/new')
+  $('#new-quote').show();
