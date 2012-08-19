@@ -1,0 +1,9 @@
+- if @quote_sharer.note?
+  %p= @quote_sharer.note
+  %hr
+
+%p This quote from #{link_to('HeWasAll.com', @root_url)} was shared with you by #{@quote_sharer.from_email}.
+
+%p{:style => 'background-color: lightblue; padding: 1em'}= @quote_sharer.body
+
+%p= link_to('View Quote on HeWasAll', @quote_show_url)

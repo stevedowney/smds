@@ -3,6 +3,9 @@
 
 = render :partial => 'quotes'
 
+- if user_signed_in?
+  = render :partial => 'share_by_email'
+
 %div{:class => 'modal hide browse-modal', :id => 'edit-quote-modal', :style => "display: none"}
   %div.modal-header
     %a{:class => 'close', 'data-dismiss' => 'modal'}
@@ -13,53 +16,10 @@
     .flash-modal
     #edit-quote-form
 
-%div{:class => 'modal hide browse-modal', :id => 'email-quote-modal', :style => "displayx: none"}
-  %div.modal-header
-    %a{:class => 'close', 'data-dismiss' => 'modal'}
-      x
-    %h3 
-      Share This Quote by Email
-  %div.modal-body
-    .flash-modal
-    #less-email-share-quote
-      = render :partial => 'share_by_email'
-        
-      =# simple_form_for @quote_share_email do |f|
-      = text_field_tag :foo, nil, :placeholder => 'Email address'
-      = submit_tag "Share", :class => 'btn'
-      = link_to('more', '#', :id => 'show-more')
-      =# text_area_tag :bar, nil, :placeholder => 'Add message if you like.  Link to quote ...'
-    #more-email-share-quote{:style => "display:none"}
-      = text_field_tag :foo, nil, :placeholder => 'Email address'
-      %br
-      = text_field_tag :subject, "A Quote from He was all ...", :placeholder => 'Subject'
-      %br
-      = text_area_tag :bar, nil, :placeholder => 'Add message if you like.  Link to quote ...'
-      %br
-      = submit_tag("Share")
-      = link_to('less', '#', :id => 'show-less')
 
 
 :javascript
   
-  /* email modal */
-
-  $('.email-quote').live('click', function(e) {
-    $('#email-quote-modal').modal('show');
-    return false; 
-  });
-  
-  $('#show-more').click(function() {
-    $('#less-email-share-quote').hide();
-    $('#more-email-share-quote').show();
-  });
-  
-  $('#show-less').click(function() {
-    $('#less-email-share-quote').show();
-    $('#more-email-share-quote').hide();
-  });
-  
-  /* end email modal */
   function closeQuoteModal() {
     $('#edit-quote-modal').modal('hide');
   }

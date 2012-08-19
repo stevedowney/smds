@@ -1,0 +1,30 @@
+- @quote_sharer_by_email ||= QuoteSharerByEmail.new(:from_email => current_user.email)
+
+%div{:class => 'modal hide browse-modal', :id => 'email-quote-modal', :style => "xdisplay: none"}
+  %div.modal-header
+    %a{:class => 'close', 'data-dismiss' => 'modal'}
+      x
+    %h3 
+      Share This Quote by Email
+  %div.modal-body
+    .flash-modal
+    #less-email-share-quote
+      = form_for @quote_sharer_by_email, :url => share_quote_by_email_path, :remote => true, :html => {:class => 'well form form-inline', :id => 'less-form'} do |f|
+        = f.hidden_field :quote_id, :class => 'quote-id'
+        = f.text_field :to_email, :class => 'span3', :placeholder => "Email"
+        = f.submit("Share", :class => 'btn btn-primary', :data => {:disable_with => "Processing ..."})
+        = link_to('more', '#', :id => 'show-more')
+
+    
+    #more-email-share-quote{:style => "display:none"}
+      = simple_form_for @quote_sharer_by_email, :url => share_quote_by_email_path, :remote => true, :html => {:class => 'well form', :id => 'more-form'} do |f|
+        = f.hidden_field :quote_id, :class => 'quote-id'
+        = f.input :to_email, :label => 'To Email', :required => false, :input_html => {:class => 'span5', :placeholder => "Separate multiple email addresses with a comma"}
+        = f.input :from_email, :label => "From Email", :required => false, :input_html => {:class => 'span5', :disabled => true}
+        = f.input :subject, :required => false, :placeholder => 'Provide your own subject line', :input_html => {:class => 'span5', }
+        = f.input :note, :as => 'text', :placeholder => "Optional note to be added to email", :input_html => {:class => 'span5', :rows => 3}
+        = f.submit("Share", :class => 'btn btn-primary', :data => {:disable_with => "Processing ..."})
+        = link_to('less', '#', :id => 'show-less')
+
+
+
