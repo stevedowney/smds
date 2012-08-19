@@ -1,23 +1,35 @@
 .quote {
   .voting {
-    display:none;
-    div {
-      border: 1px solid black;
-    }
+    white-space:nowrap;
     vertical-align: middle;
-    width: 10%;
+    min-width: 70px;
     
     .vote_count {
-      font-size: 200%;
-      padding: 10px;
+      font-size: 1.4em;
+      font-size: 1.4rem;
+      padding: 2px;
       text-align: center;
-      border-bottom: none;
+      opacity:0.5;
+      
     }
     
     .vote_links {
+      text-align:center;
       padding: 10px;
-      span.vote_up {
-        margin-right: 7px;
+      a {
+        border:1px solid #ccc;
+        padding:2px 6px;
+        opacity:0.5;
+      }
+      a:hover {
+        opacity:1;
+      }
+      a:first-child {
+        border-radius:3px 0 0 3px;
+        border-right:none;
+      }
+      a:last-child {
+        border-radius:0 3px 3px 0;
       }
     }
   }
@@ -90,7 +102,6 @@
 }
 
 #comments {
-	border: 1px black solid;
 	margin: 0.5em;
 	margin-top: 2em;
 	padding: 0.5em;
