@@ -10,7 +10,7 @@ describe QuotesController, :js => true do
 
   def verify_quick_success
     fill_in 'quote', :with => 'bob said hello'
-    click_on "Quote"
+    click_on "submit-quick"
     
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text('bob', 'hello') }
@@ -22,13 +22,13 @@ describe QuotesController, :js => true do
   end
   
   def verify_create_quote_success
-    click_on 'Add Quote'
+    click_link 'quote-more'
     
     fill_in 'new_quote_who', :with => 'a'
     fill_in 'new_quote_text', :with => 'b'
     fill_in 'new_quote_context', :with => 'c'
 
-    click_on 'Create Quote'
+    click_on 'submit-full'
 
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text_and_context('a', 'b', 'c') }
@@ -41,8 +41,11 @@ describe QuotesController, :js => true do
   
   def verify_create_quote_failure
     visit '/'
-    click_on 'Add Quote'
-    click_on 'submit'
+    fill_in 'quote', :with => 'bob said goodbye'
+    click_link 'quote-more'
+    fill_in 'new_quote_who', :with => 'xxxxxxxx'
+    click_on 'submit-full'
+    # save_and_open_page
     page.should have_content("can't be blank")
     Quote.first.should be_nil
     timeline.should have(:no).items
@@ -127,7 +130,7 @@ describe QuotesController, :js => true do
     
     describe '#create' do
       it "success" do
-        # verify_create_quote_success
+        verify_create_quote_success
       end
       
       it "failure" do

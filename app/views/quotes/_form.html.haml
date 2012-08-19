@@ -7,6 +7,7 @@
   .flash-modal
 
   = simple_form_for @quote, :as => quote_form_as,  :remote => true, :html => {:class => "form-vertical"} do |f|
+    = error_messages_for(@quote)
     .fieldset
 
       = f.input :who, :required => false, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 60, :class => 'span4'}
@@ -14,6 +15,6 @@
       = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :class => 'span5'}
 
     .form-actions
-      = f.submit nil, :class => 'btn btn-primary', :id => 'submit', :data => {:disable_with => "Processing ..."}
+      = f.submit nil, :class => 'btn btn-primary', :id => 'submit-full', :data => {:disable_with => "Processing ..."}
       = or_span
       = link_to("Cancel", '#', :id => 'quote-form-cancel')

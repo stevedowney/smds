@@ -3,6 +3,10 @@ require 'spec_helper'
 describe QuoteParser do
   let(:klass) {QuoteParser}
   
+  it "handles nil" do
+    klass.parse(nil)
+  end
+  
   it 'no "said"' do
     result = klass.parse("some words")
     check result, 'Someone', 'some words'

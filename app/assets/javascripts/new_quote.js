@@ -39,8 +39,12 @@ $(function() {
   }
   
   $('#quote').focus(function() {
-    $(this).attr('rows', 3).attr('placeholder', '')
-    showControls();
+    if (gon.logged_in) {
+      $(this).attr('rows', 3).attr('placeholder', '')
+      showControls();
+    } else {
+      tbAlert("You must be logged in to create a quote");
+    }
   });
   
   $('#quote').blur(function() {
@@ -69,9 +73,9 @@ $(function() {
     var pattern = /^\s+$/
     var quoteValue = $(this).val();
     if (quoteValue == '' || pattern.test(quoteValue)) {
-      $('#quote-submit').attr('disabled', true);
+      $('#submit-quick').attr('disabled', true);
     } else {
-      $('#quote-submit').removeAttr('disabled');
+      $('#submit-quick').removeAttr('disabled');
     }
   });
 })
