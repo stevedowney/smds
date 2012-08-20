@@ -6,8 +6,6 @@ class QuoteActivity < ActiveRecord::Base
 
 	scope :favorite, where(:favorited => true)
 		
-  attr_accessible :favorite, :quote_id, :user_id, :voted_up, :voted_down
-  
   class << self
 
   	def for_user_and_quotes(user, quotes)

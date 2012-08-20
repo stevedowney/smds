@@ -17,7 +17,7 @@ describe Quote do
 	end
 	
 	describe '#formatted' do
-	  let(:quote) {Quote.new(:who => "My father", :text => "some text")}
+	  let(:quote) {FactoryGirl.build(:quote, :owner_id => nil, :who => "My father", :text => "some text")}
 	  
 	  it "displays who and text" do
 	    quote.formatted.should == 'My father said: some text'

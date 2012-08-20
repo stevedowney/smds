@@ -16,16 +16,6 @@ module ApplicationHelper
     %( $('#{normalized_dom_id dom_id}').addClass('#{klass}'); ).html_safe
   end
   
-  def page_html(dom_id, new_content = nil, options = {})
-    dom_id = normalized_dom_id(dom_id)
-    content = if new_content
-      j new_content
-    else
-      rendered_escaped_partial(options.fetch(:partial), options[:locals])
-    end
-    %( $('#{dom_id}').html('#{content}')  ; ).html_safe
-  end
-  
   def update_quote_modal_form
     page_html('#quote-modal', nil, :partial => 'quotes/form')
   end

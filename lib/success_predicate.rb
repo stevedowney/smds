@@ -7,7 +7,7 @@ module SuccessPredicate
   
   def success?
     if success.nil?
-      raise SuccessCalledBeforeMutatorCalledError
+      raise CalledEarlyError
     else
       success
     end

@@ -1,6 +1,5 @@
 class SharingEmail
   include ActiveAttr::Model
-  # include ActiveAttr::AttributeDefaults
   
   attribute :from_name
   attribute :to_name

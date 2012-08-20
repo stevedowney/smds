@@ -21,21 +21,16 @@ class QuoteActivitiesController < ApplicationController
     update_quote
   end
 
-  def flag
-    @qwa.flag
-    update_quote
-  end
+  # def flag
+  #   @qwa.flag
+  #   update_quote
+  # end
+  # 
+  # def unflag
+  #   @qwa.unflag
+  #   update_quote
+  # end
 
-  def unflag
-    @qwa.unflag
-    update_quote
-  end
-
-  def email
-    @qwa.email
-    render :js => "alert('email')"
-  end
-  
   private
 
   def set_qwa

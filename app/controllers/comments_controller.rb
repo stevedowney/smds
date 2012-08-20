@@ -12,7 +12,7 @@ class CommentsController < ApplicationController
   end
   
   def update
-    @comment.attributes = params.fetch(:comment)
+    @comment.body = params.fetch(:comment).fetch(:body)
     if @comment.save
       flash[:notice] = "Comment updated"
       redirect_to quote_path(@comment.quote)

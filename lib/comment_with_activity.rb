@@ -83,14 +83,11 @@ class CommentWithActivity
     comment.authored_by?(user) || user.admin?
   end
 
-  def ==(other)
-    user == other.user && comment == other.comment && activity == other.activity
-  end
-  
-  # def self.for_user_and_comment(user, comment)
-  #   activity = comment.activities.find_or_initialize_by_user_id_and_quote_id(user.id, comment.quote.id)
-  #   new(user, comment, activity)
+  # only used for spec (since removed) ?
+  # def ==(other)
+  #   user == other.user && comment == other.comment && activity == other.activity
   # end
+  
   class << self
 
     def for(user, comment)

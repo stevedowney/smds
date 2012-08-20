@@ -31,4 +31,12 @@ describe QuoteCreator do
     end
   end
   
+  describe '#quick_create' do
+    it "parses attributes and creates" do
+      quote_creator.quick_create("who said what")
+      quote_creator.should be_success
+      Quote.first.twitter_id.should == tweet.id
+      tweet.text.should start_with('who said: what')
+    end
+  end
 end

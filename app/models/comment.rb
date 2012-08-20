@@ -5,9 +5,6 @@ class Comment < ActiveRecord::Base
   belongs_to :quote
   has_many :activities, :class_name => 'CommentActivity', :dependent => :destroy
 
-  # attr_accessible :author_id, :quote_id, :body, :votes_down, :votes_net, :votes_up
-  attr_accessible :quote_id, :body
-
   # validates :author_id, :presence => true
   validates :quote_id, :presence => true
   validates :body, :presence => true

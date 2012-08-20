@@ -3,7 +3,7 @@ require 'spec_helper'
 describe VotingDetailMethods do
 
   context 'no vote' do
-    let(:qa) { QuoteActivity.create!(:quote_id => 1, :user_id => 1) }
+    let(:qa) { FactoryGirl.create(:quote_activity, :quote_id => 1, :user_id => 1) }
 
     it '#toggle_vote_up' do
       response = qa.toggle_vote_up!
@@ -21,7 +21,7 @@ describe VotingDetailMethods do
   end
 
   context 'voted up' do
-    let(:qa) { QuoteActivity.create!(:quote_id => 1, :user_id => 1, :voted_up => true) }
+    let(:qa) { FactoryGirl.create(:quote_activity, :quote_id => 1, :user_id => 1, :voted_up => true)  }
 
     it '#toggle_vote_up' do
       response = qa.toggle_vote_up!
@@ -39,7 +39,7 @@ describe VotingDetailMethods do
   end
 
   context 'voted down' do
-    let(:qa) { QuoteActivity.create!(:quote_id => 1, :user_id => 1, :voted_down => true) }
+    let(:qa) { FactoryGirl.create(:quote_activity, :quote_id => 1, :user_id => 1, :voted_down => true) }
 
     it '#toggle_vote_up' do
       response = qa.toggle_vote_up!

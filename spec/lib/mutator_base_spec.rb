@@ -14,22 +14,6 @@ describe QuoteMutatorBase do
     end
   end
   
-  describe '#success?' do
-    it "true" do
-      mutator_base.success = true
-      mutator_base.should be_success
-    end
-    
-    it "false" do
-      mutator_base.success = false
-      mutator_base.should_not be_success
-    end
-    
-    it "error" do
-      expect { mutator_base.success? }.to raise_error(MutatorBase::SuccessCalledBeforeMutatorCalledError)
-    end
-  end
-  
   describe '#admin?' do
     it 'admin' do
       admin = FactoryGirl.create(:admin_user)

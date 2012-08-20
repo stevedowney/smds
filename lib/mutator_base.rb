@@ -1,8 +1,9 @@
 class MutatorBase
+  include SuccessPredicate
   include ActiveRecordTransaction
   
   class NoUserError < StandardError; end
-  class SuccessCalledBeforeMutatorCalledError < StandardError; end
+  # class SuccessCalledBeforeMutatorCalledError < StandardError; end
   
   attr_accessor :user, :success
   
@@ -10,13 +11,13 @@ class MutatorBase
     self.user = user.presence or raise(NoUserError, "need a user")
   end
   
-  def success?
-    if success.nil?
-      raise SuccessCalledBeforeMutatorCalledError
-    else
-      success
-    end
-  end
+  # def success?
+  #   if success.nil?
+  #     raise SuccessCalledBeforeMutatorCalledError
+  #   else
+  #     success
+  #   end
+  # end
   
   def admin?
     user.admin?

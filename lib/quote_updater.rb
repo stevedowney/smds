@@ -13,6 +13,12 @@ class QuoteUpdater < QuoteMutatorBase
     update_twitter
   end
   
+  def has_comments?
+    quote.has_comments?
+  end
+
+  private
+  
   def save_quote(attributes)
     quote.attributes = attributes
     self.success = quote.save
@@ -33,7 +39,4 @@ class QuoteUpdater < QuoteMutatorBase
     end
   end
   
-  def has_comments?
-    quote.has_comments?
-  end
 end

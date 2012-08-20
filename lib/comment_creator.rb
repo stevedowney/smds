@@ -3,7 +3,9 @@ class CommentCreator < CommentMutatorBase
   attr_accessor :comment
   
   def create(attributes)
-    self.comment = user.comments.build(attributes)
+    self.comment = user.comments.build
+    comment.quote_id = attributes.fetch(:quote_id)
+    comment.body = attributes.fetch(:body)
     comment.comment_number = quote.comments_count + 1
 
     transaction do
@@ -21,7 +23,7 @@ class CommentCreator < CommentMutatorBase
   end
   
   def new_comment
-    Comment.new(:quote_id => quote.id)
+    quote.comments.build #Comment.new(:quote_id => quote.id)
   end
   
   def quote

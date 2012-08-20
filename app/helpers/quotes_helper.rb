@@ -31,13 +31,13 @@ module QuotesHelper
     end
   end
 
-  def link_to_flag_quote(qwa)
-    if qwa.flagged?
-      link_to_icon_with_text(icon_unflag, 'Flagged', quote_unflag_path(qwa.quote), :remote => true, :method => :post, :title => "Undo flag", :id => qwa.quote.dom_id('unflag')) 
-    else
-      link_to_icon_with_text(icon_flag, 'Flag', quote_flag_path(qwa.quote), :remote => true, :method => :post, :title => "Flag as inappropriate", :id => qwa.quote.dom_id('flag'))
-    end
-  end
+  # def link_to_flag_quote(qwa)
+  #   if qwa.flagged?
+  #     link_to_icon_with_text(icon_unflag, 'Flagged', quote_unflag_path(qwa.quote), :remote => true, :method => :post, :title => "Undo flag", :id => qwa.quote.dom_id('unflag')) 
+  #   else
+  #     link_to_icon_with_text(icon_flag, 'Flag', quote_flag_path(qwa.quote), :remote => true, :method => :post, :title => "Flag as inappropriate", :id => qwa.quote.dom_id('flag'))
+  #   end
+  # end
 
   def link_to_email_quote(qwa)
     link_to_icon_with_text(icon_email, 'Email', '#', :data => {:quote_id => qwa.quote.id}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote logged_in_link')
@@ -49,12 +49,6 @@ module QuotesHelper
     end
   end
 
-  def l2(qwa)
-    link_to(icon_delete, quote_path(qwa.quote), :remote => true, :method => :delete, :title => "Delete", :data => {:confirm => 'Are you sure?  This is irreversible.'}, :id => qwa.quote.dom_id('delete'))
-    # url = quote_path(qwa.quote)
-    link_to_delete(qwa.quote, :format => :js)
-  end
-  
   def link_to_edit_quote(qwa)
     if qwa.editable?
       link_to_icon_with_text(icon_edit, "Edit", edit_quote_path(qwa.quote),

@@ -35,7 +35,7 @@ class FetchesQuotes
 
 	def activity_for_quote(quote)
 		if user.present?
-			activities.detect { |act| act.quote_id == quote.id } ||	user.quote_activities.build(:quote_id => quote.id)
+			activities.detect { |act| act.quote_id == quote.id } ||	user.quote_activities.build({:quote_id => quote.id}, :without_protection => true)
 		else
 			QuoteActivity.new
 		end

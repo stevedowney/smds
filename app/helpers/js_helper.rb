@@ -15,4 +15,16 @@ duration = 1
       });
     ).html_safe
   end
+  
+  def page_html(dom_id, new_content = nil, options = {})
+    dom_id = normalized_dom_id(dom_id)
+    content = if new_content
+      j new_content
+    else
+      rendered_escaped_partial(options.fetch(:partial), options[:locals])
+    end
+    %($('#{dom_id}').html('#{content}');).html_safe
+  end
+  
+  
 end

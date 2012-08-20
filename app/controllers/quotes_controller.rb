@@ -4,7 +4,7 @@ class QuotesController < ApplicationController
   def show
     @quote = Quote.find(params.fetch(:id))
     @cwas = FetchesComments.new(current_user, @quote).newest
-    @new_comment = Comment.new(:quote_id => @quote.id)
+    @new_comment = @quote.comments.build #Comment.new({:quote_id => @quote.id})
     @qwa = QuoteWithActivity.for(current_user, @quote)
   end
 

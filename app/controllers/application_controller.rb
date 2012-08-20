@@ -7,7 +7,7 @@ class ApplicationController < ActionController::Base
   if App.test?
     rescue_from Exception do |e|
       logger.debug e.inspect
-      logger.debug e.backtrace
+      e.backtrace.each { |line| logger.debug line }
       # if request.xhr?
       #   # redirect to error page using window.location (Firefox < version 7 doesn't do redirects
       #   # in ajax requests properly) - https://bugzilla.mozilla.org/show_bug.cgi?id=553888

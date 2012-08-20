@@ -1,13 +1,14 @@
 class Quote < ActiveRecord::Base
   include VotingSummaryMethods
 
-  attr_accessible :who, :text, :context
   belongs_to :owner, :class_name => "User"
   has_many :comments, :dependent => :destroy
 
   validates :owner, :presence => true
   validates :who, :presence => true
   validates :text, :presence => true, :length => {:maximum => 250}
+
+  attr_accessible :who, :text, :context
 
   scope :newest, order("quotes.created_at desc")
 
