@@ -58,6 +58,14 @@ module RSpec::SelectorMethods
     page.should have_tag(:body, 'data-action' => action)  if action.present?
   end
   
+  def should_have_div(instance = default_instance)
+    page.should have_tag(:div, :id => instance.dom_id, :class => instance.class.underscore)
+  end
+  
+  def should_not_have_div(instance = default_instance)
+    page.should_not have_tag(:div, :id => instance.dom_id)
+  end
+  
   def should_have_tr(instance = default_instance)
     page.should have_tag(:tr, :id => instance.dom_id, :class => instance.class.underscore)
   end

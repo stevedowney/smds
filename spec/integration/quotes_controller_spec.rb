@@ -15,7 +15,7 @@ describe QuotesController, :js => true do
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text('bob', 'hello') }
     
-    should_have_tr(quote)
+    should_have_div(quote)
 
     timeline.should have(1).item
     quote.twitter_id.should == tweet.id
@@ -33,7 +33,7 @@ describe QuotesController, :js => true do
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text_and_context('a', 'b', 'c') }
     
-    should_have_tr(quote)
+    should_have_div(quote)
 
     timeline.should have(1).item
     quote.twitter_id.should == tweet.id
@@ -41,9 +41,9 @@ describe QuotesController, :js => true do
   
   def verify_create_quote_failure
     visit '/'
-    fill_in 'quote', :with => 'bob said goodbye'
+    fill_in 'quote', :with => 'bob said'
     click_link 'quote-more'
-    fill_in 'new_quote_who', :with => 'xxxxxxxx'
+    # fill_in 'new_quote_who', :with => 'xxxxxxxx'
     click_on 'submit-full'
     # save_and_open_page
     page.should have_content("can't be blank")
@@ -100,7 +100,7 @@ describe QuotesController, :js => true do
     click_on_confirm_ok
     
     wait_until { Quote.find_by_id(quote.id).nil? }
-    should_not_have_tr
+    should_not_have_div
     timeline.should have(:no).items
   end
   
@@ -114,7 +114,7 @@ describe QuotesController, :js => true do
     click_on_confirm_cancel
     
     Quote.should exist(quote.id)
-    should_have_tr
+    should_have_div
     timeline.should have(1).item
     tweet.id.should == quote.reload.twitter_id
   end
@@ -197,7 +197,7 @@ describe QuotesController, :js => true do
   context 'not logged in' do
     describe '#create' do
       it "message to non-logged in user" do
-        click_on 'Add Quote'
+        find('#quote').click
         page.should have_content("must be logged in")
       end
     end
@@ -207,7 +207,7 @@ describe QuotesController, :js => true do
         insert_quote
         visit '/'
         quote = Quote.first
-        should_have_tr(quote)
+        should_have_div(quote)
         should_not_have_edit_link(quote)
       end
     end
@@ -217,7 +217,7 @@ describe QuotesController, :js => true do
         insert_quote
         visit '/'
         quote = Quote.first
-        should_have_tr(quote)
+        should_have_div(quote)
         should_not_have_delete_link(quote)
       end
     end
