@@ -5,8 +5,8 @@ module QuotesHelper
   end
   
   def link_to_comments(qwa)
-    label = icon_comment + " #{qwa.comments_count}"
-    link_to(label, quote_path(qwa.quote), :id => qwa.quote.dom_id('comments'))  
+    text = pluralize(qwa.comments_count, 'Comment')
+    link_to_icon_with_text(icon_comment, text, quote_path(qwa.quote), :id => qwa.quote.dom_id('comments'))  
   end
 
   def link_to_toggle_vote_up(qwa)
@@ -25,36 +25,40 @@ module QuotesHelper
 
   def link_to_favorite(qwa)
     if qwa.favorited?
-      link_to(icon_unfavorite, unfavorite_path(qwa.quote), :remote => true, :method => :post, :title => "Remove from favorites", :id => qwa.quote.dom_id('unfavorite'))
+      link_to_icon_with_text(icon_unfavorite, 'Favorited', unfavorite_path(qwa.quote), :remote => true, :method => :post, :title => "Undo favorite", :id => qwa.quote.dom_id('unfavorite'))
     else
-      link_to(icon_favorite, favorite_path(qwa.quote), :remote => true, :method => :post, :title => "Add to favorites", :id => qwa.quote.dom_id('favorite'))
+      link_to_icon_with_text(icon_favorite, 'Favorite', favorite_path(qwa.quote), :remote => true, :method => :post, :title => "Add to favorites", :id => qwa.quote.dom_id('favorite'))
     end
   end
 
   def link_to_flag_quote(qwa)
     if qwa.flagged?
-      link_to(icon_unflag, quote_unflag_path(qwa.quote), :remote => true, :method => :post, :title => "Unflag", :id => qwa.quote.dom_id('unflag')) 
+      link_to_icon_with_text(icon_unflag, 'Flagged', quote_unflag_path(qwa.quote), :remote => true, :method => :post, :title => "Undo flag", :id => qwa.quote.dom_id('unflag')) 
     else
-      link_to(icon_flag, quote_flag_path(qwa.quote), :remote => true, :method => :post, :title => "Flag as inappropriate", :id => qwa.quote.dom_id('flag'))
+      link_to_icon_with_text(icon_flag, 'Flag', quote_flag_path(qwa.quote), :remote => true, :method => :post, :title => "Flag as inappropriate", :id => qwa.quote.dom_id('flag'))
     end
   end
 
   def link_to_email_quote(qwa)
-    link_to(icon_email, '#', :data => {:quote_id => qwa.quote.id}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote logged_in_link')
+    link_to_icon_with_text(icon_email, 'Email', '#', :data => {:quote_id => qwa.quote.id}, :title => "Share by Email", :id => qwa.quote.dom_id('email'), :class => 'email-quote logged_in_link')
   end
   
   def link_to_delete_quote(qwa)
     if qwa.deletable?
-      link_to(icon_delete, quote_path(qwa.quote), :remote => true, :method => :delete, :title => "Delete", :data => {:confirm => 'Are you sure?  This is irreversible.'}, :id => qwa.quote.dom_id('delete'))
-      # url = quote_path(qwa.quote)
-      link_to_delete(qwa.quote, :format => :js)
+      link_to_icon_with_text(icon_delete, 'Delete', quote_path(qwa.quote), :title => "Delete", :class => 'delete-link', :data => {:confirmation => 'Are you sure?  This is irreversible.', :"row-id" => qwa.quote.dom_id, :format => :js}, :id => qwa.quote.dom_id('delete'))
     end
   end
 
+  def l2(qwa)
+    link_to(icon_delete, quote_path(qwa.quote), :remote => true, :method => :delete, :title => "Delete", :data => {:confirm => 'Are you sure?  This is irreversible.'}, :id => qwa.quote.dom_id('delete'))
+    # url = quote_path(qwa.quote)
+    link_to_delete(qwa.quote, :format => :js)
+  end
+  
   def link_to_edit_quote(qwa)
     if qwa.editable?
-      label = icon_edit + " Edit"
-      link_to(label, edit_quote_path(qwa.quote), :title => "Edit", :id => qwa.quote.dom_id('edit'), :remote => true)
+      link_to_icon_with_text(icon_edit, "Edit", edit_quote_path(qwa.quote),
+          :title => "Edit", :id => qwa.quote.dom_id('edit'), :remote => true)
     end
   end
 

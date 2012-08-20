@@ -12,19 +12,15 @@
     .text
       = qwa.text
   
-    .context= qwa.context
+    - if qwa.context.present?
+      .context= qwa.context
     .action_links
       = link_to_comments(qwa)
-      %span Comments
       - if user_signed_in?
         = link_to_favorite(qwa)
-        %span Favorite
         = link_to_email_quote(qwa)
-        %span Email
         = link_to_delete_quote(qwa)
-        %span Delete
-        = link_to_flag_quote(qwa)
-        %span Flag
+        =# link_to_flag_quote(qwa)
         = link_to_edit_quote(qwa)
       %span.owner.pull-right= link_to_submitted_by(qwa.owner)
     

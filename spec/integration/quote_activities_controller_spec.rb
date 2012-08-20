@@ -53,6 +53,7 @@ describe 'QuoteActivitiesController', :js => true do
 
   describe '#flag' do
     it 'flags' do
+      pending
       quote.flag_count.should == 0
       page.should_not have_tag(:a, :id => quote.dom_id('unflag'))
       click_on_flag
@@ -63,6 +64,7 @@ describe 'QuoteActivitiesController', :js => true do
 
   describe '#unflag' do
     it 'unflags' do
+      pending
       FactoryGirl.create(:quote_activity, :user => @user, :quote => quote, :flagged => true)
       quote.flag_count.should == 0
       visit '/'
