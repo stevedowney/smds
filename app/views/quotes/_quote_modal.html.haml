@@ -1,2 +1,38 @@
 %div{:class => 'modal hide browse-modal', :id => 'quote-modal'}
   = render :partial => 'quotes/form'
+  
+
+:javascript
+
+  function closeQuoteModal() {
+    $('.edit-selected').removeClass('edit-selected');
+    $('#quote-modal').modal('hide');
+  }
+
+  $('#quote-modal').on('hidden', function () {
+    $('.edit-selected').removeClass('edit-selected');
+  });
+
+  function showNewQuoteForm() {
+    $('#new-quote').show('fast');
+    $('#add-quote-link').hide();
+  }
+
+  function hideNewQuoteForm() {
+    $('#new-quote').hide('fast');
+    $('#add-quote-link').show();
+  }
+
+  $('#add-quote-link').click(function() {
+    if (gon.logged_in) {
+      showNewQuoteForm();
+    } else {
+      tbAlert("You must be logged in to add a quote.");
+    }
+  });
+
+  $('#quote-form-cancel').live('click', function() {
+    hideNewQuoteForm();
+    closeQuoteModal();
+  });
+
