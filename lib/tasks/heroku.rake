@@ -1,18 +1,22 @@
 namespace :heroku do
+
   desc "Deploy to heroku"
-  task :deploy => [:off, :push, :on] do
+  task :deploy => [:off, :push, :on, :curl] do
     puts 
     puts 'Pushing code'
   end
 
   desc "Deploy to heroku with database migration"
-  task :deploy_with_migration => [:off, :push, :migrate, :on] do
+  task :deploy_with_migration => [:off, :push, :migrate, :on, :curl] do
     puts 'deploy with migration'
   end
 
   task :push do
     puts 'Deploying site to Heroku ...'
     puts `git push heroku master`
+    puts 'Curling site'
+    `curl hewasall.com`
+    puts 'Site should be live ...'
   end
 
   task :migrate do
@@ -30,5 +34,10 @@ namespace :heroku do
     puts `heroku maintenance:off`
   end
 
-
+  task :curl do
+    puts 'Curling site'
+    `curl hewasall.com`
+    puts 'Site should be live ...'
+  end
+  
 end
