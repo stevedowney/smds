@@ -5,7 +5,8 @@ class CommentsController < ApplicationController
   helper_method :comment_creator, :comment_destroyer
   
   def create
-    comment_creator.create(params.fetch(:comment))
+    comment_creator.create(params.fetch(:comment), params.fetch(:comment_id))
+    @new_comment = comment_creator.new_comment
   end
 
   def edit

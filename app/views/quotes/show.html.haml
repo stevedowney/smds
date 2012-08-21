@@ -1,5 +1,10 @@
+- @cwas = CommentNester.nest(@cwas)
+
 %table.table.table-bordered
   %tbody
     = render :partial => 'quotes_lister/quote', :locals => {:qwa => @qwa}
 
 = render :partial => 'comments/comments'
+
+-# @nested_cwas.each do |nested_cwa|
+  =# render :partial => 'comments/nested_cwa', :locals => {:nested_cwa => nested_cwa}

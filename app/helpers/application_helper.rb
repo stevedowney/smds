@@ -50,6 +50,7 @@ module ApplicationHelper
   end
 
   def update_comment_partial(cwa)
+    @new_comment = cwa.new_comment
   	replace_element_with_partial(cwa.comment.dom_id, 'comments/comment', {:cwa => cwa})
   end
   

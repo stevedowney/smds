@@ -15,7 +15,18 @@ describe Comment do
 		end
 	end
 
-
+  describe '#root?' do
+    it "true if no parent" do
+      comment = FactoryGirl.build(:comment, :parent_id => nil)
+      comment.should be_root
+    end
+    
+    it "false if parent" do
+      comment = FactoryGirl.build(:comment, :parent_id => 1)
+      comment.should_not be_root
+    end
+  end
+  
   describe '#delete_content' do
     it "changes a bunch of fields" do
       # using author in factory makes test on author_id == 0 fail

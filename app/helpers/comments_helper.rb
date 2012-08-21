@@ -24,6 +24,10 @@ module CommentsHelper
 		link_to(icon_vote_down, comment_toggle_vote_down_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('toggle_vote_down'))
 	end
 
+  def link_to_reply_comment(cwa)
+    link_to(icon_reply, 'javascript:void(0)', :class => 'comment-reply', :id => cwa.comment.dom_id('reply'), :title => 'Reply to this comment', :data => {:form => cwa.comment.dom_id('new')})
+  end
+  
 	def link_to_delete_comment(cwa)
 		if cwa.deletable?
 			link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"}, :id => cwa.comment.dom_id('delete'))

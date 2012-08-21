@@ -1,16 +1,25 @@
 class CommentCreator < CommentMutatorBase
   
-  attr_accessor :comment
+  class NullParentComment
+    def id; nil; end
+    def depth; -1; end
+    def increment!(count); end
+    def dom_id(*args); nil; end
+    def blank?; true; end
+  end
   
-  def create(attributes)
-    self.comment = user.comments.build
-    comment.quote_id = attributes.fetch(:quote_id)
-    comment.body = attributes.fetch(:body)
-    comment.comment_number = quote.comments_count + 1
-
+  attr_accessor :comment, :parent_comment
+  
+  def create(attributes, parent_comment_id)
+    set_parent_comment(parent_comment_id)
+    set_comment(attributes)
+    
     transaction do
       self.success = comment.save
-      quote.increment!(:comments_count) if success?
+      if success?
+        parent_comment.increment!(:child_comment_count)
+        quote.increment!(:comments_count)
+      end
     end
   end
   
@@ -23,7 +32,7 @@ class CommentCreator < CommentMutatorBase
   end
   
   def new_comment
-    quote.comments.build #Comment.new(:quote_id => quote.id)
+    @new_comment ||= quote.comments.build
   end
   
   def quote
@@ -31,4 +40,18 @@ class CommentCreator < CommentMutatorBase
     comment.quote
   end
   
+  private
+  
+  def set_parent_comment(parent_comment_id)
+    self.parent_comment = Comment.find_by_id(parent_comment_id) || NullParentComment.new
+  end
+  
+  def set_comment(attributes)
+    self.comment = user.comments.build
+    comment.parent_id = parent_comment.id
+    comment.depth = parent_comment.depth + 1
+    comment.quote_id = attributes.fetch(:quote_id)
+    comment.body = attributes.fetch(:body)
+    comment.comment_number = quote.comments_count + 1
+  end
 end

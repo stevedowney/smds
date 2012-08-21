@@ -1,15 +1,23 @@
-.comment{:id => cwa.dom_id}
-  .body
-    = "#{cwa.comment_number}."
-    = cwa.body
-    - unless cwa.deleted?
-      .div
-        %span{:id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count
-        - if user_signed_in?
-          = link_to_toggle_vote_up_comment(cwa)
-          = link_to_toggle_vote_down_comment(cwa)
-          = link_to_favorite_comment(cwa)
-          = link_to_flag_comment(cwa)
-          = link_to_delete_comment(cwa)
-          = link_to_edit_comment(cwa)		
-        = "by #{cwa.author.username}"
+.comment_wrapper
+  .comment{:id => cwa.dom_id}
+    .body
+      = cwa.body
+      - unless cwa.deleted?
+        .comment-footer
+          %span{:id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count
+          - if user_signed_in?
+            = link_to_toggle_vote_up_comment(cwa)
+            = link_to_toggle_vote_down_comment(cwa)
+            = link_to_favorite_comment(cwa)
+            =# link_to_flag_comment(cwa)
+            = link_to_reply_comment(cwa)
+            = link_to_delete_comment(cwa)
+            = link_to_edit_comment(cwa)
+          = "##{cwa.comment.comment_number}"
+          = "by #{cwa.author.username}"
+
+    = render :partial => 'comments/new_comment', :locals => {:new_comment => @new_comment, :comment => cwa.comment}
+  
+  .child_comments{:id => cwa.dom_id('child_comments')}
+    - cwa.child_comments.each do |child_cwa|
+      = render :partial => 'comments/comment', :locals => {:cwa => child_cwa}

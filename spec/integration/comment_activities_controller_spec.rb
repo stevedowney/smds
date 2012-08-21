@@ -1,3 +1,5 @@
+require 'spec_helper'
+
 describe CommentActivitiesController, :js => true do
   let!(:quote) {FactoryGirl.create(:quote, :text => 'quote text')}
   let!(:comment) {FactoryGirl.create(:comment, :quote => quote, :body => 'comment body')}
@@ -53,6 +55,7 @@ describe CommentActivitiesController, :js => true do
   
   describe '#flag' do
     it 'flags' do
+      pending
       comment.flag_count.should == 0
       page.should_not have_tag(:a, :id => comment.dom_id('unflag'))
       click_on comment.dom_id('flag')
@@ -63,6 +66,7 @@ describe CommentActivitiesController, :js => true do
   
   describe '#unflag' do
     it 'unflags' do
+      pending
       FactoryGirl.create(:comment_activity, :user => @user, :quote => quote, :comment => comment, :flagged => true)
       comment.flag_count.should == 0
       visit quote_path(quote)

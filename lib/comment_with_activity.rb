@@ -1,7 +1,7 @@
 class CommentWithActivity
   include ActiveRecordTransaction
 
-  attr_accessor :user, :comment, :activity
+  attr_accessor :user, :comment, :activity, :child_comments
 
   delegate(
     :author,
@@ -9,6 +9,8 @@ class CommentWithActivity
     :comment_number,
     :deleted?,
     :dom_id,
+    :root?,
+    :parent_id,
     :to => :comment,
   )
 
@@ -23,6 +25,7 @@ class CommentWithActivity
     self.user = user
     self.comment = comment
     self.activity = activity
+    self.child_comments = []
   end
 
   def toggle_vote_up
@@ -75,6 +78,10 @@ class CommentWithActivity
     end
   end
 
+  def new_comment
+    @new_comment ||= Comment.new({:quote_id => comment.quote_id}, :without_protection => true)
+  end
+  
   def editable?
     user.admin?
   end

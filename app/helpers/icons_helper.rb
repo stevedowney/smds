@@ -46,6 +46,10 @@ module IconsHelper
     icon('ok')
   end
 
+  def icon_reply
+    icon('share-alt')
+  end
+  
   def icon_vote_up
     icon('thumbs-up')
   end

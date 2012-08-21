@@ -1,8 +1,13 @@
 <% if comment_creator.success? %>
   $('#no_comments').remove();
-  $('#comments_list').prepend("<%=j (render(:partial => 'comments/comment', :locals => {:cwa => comment_creator.cwa})) %>");
+  var container = "#<%= comment_creator.comment.root? ? 'comments_list' : comment_creator.parent_comment.dom_id('child_comments')%>";
+  $(container).prepend("<%=j (render(:partial => 'comments/comment', :locals => {:cwa => comment_creator.cwa})) %>");
+  
   $('#' + '<%= @comment_creator.cwa.dom_id %>').effect("highlight", {}, 1000);
-  $('#new_comment').replaceWith("<%=j render(:partial => 'comments/new_comment', :locals => {:new_comment => comment_creator.new_comment}) %>")
+  
+  var newCommentForm = "#<%= comment_creator.comment.root? ? 'root-new-comment' : comment_creator.parent_comment.dom_id('new')%>";
+  
+  $(newCommentForm).replaceWith("<%=j render(:partial => 'comments/new_comment', :locals => {:new_comment => comment_creator.new_comment, :comment => comment_creator.parent_comment}) %>")
   <%= update_quote_partial(comment_creator.qwa) %>
 <% else %>
   tbAlert("Comment can't be blank");

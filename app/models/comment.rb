@@ -15,6 +15,10 @@ class Comment < ActiveRecord::Base
     user && user.id == author_id
   end
 
+  def root?
+    parent_id.blank?
+  end
+  
   def delete_content(deleter)
     self.deleted = true
     self.deleted_by = deleter

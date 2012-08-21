@@ -1,0 +1,4 @@
+.nested_cwa
+  = render :partial => 'comments/comment', :locals => {:cwa => nested_cwa[:cwa]}
+  - nested_cwa[:children].each do |child_cwa|
+    = render :partial => 'comments/nested_cwa', :locals => {:nested_cwa => child_cwa}

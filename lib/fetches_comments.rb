@@ -7,7 +7,7 @@ class FetchesComments
 	end
 
 	def newest
-		self.comments = quote.comments.newest.limit(limit)
+		self.comments = quote.comments.includes(:author).newest.limit(limit)
 		comments_with_activity
 	end
 

@@ -2,7 +2,7 @@
 
 #comments
   - if user_signed_in?
-    = render :partial => "comments/new_comment", :locals => {:new_comment => @new_comment}
+    = render :partial => "comments/new_comment", :locals => {:new_comment => @new_comment, :comment => nil}
   - else
     = comment_login_or_sign_up_message
 
