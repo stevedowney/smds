@@ -40,7 +40,7 @@ $(function() {
   
   $('#quote').focus(function() {
     if (gon.logged_in) {
-      $(this).attr('rows', 3).attr('placeholder', '')
+      $(this).attr('rows', 3).attr('placeholder', '');
       showControls();
     } else {
       tbAlert("You must be logged in to create a quote");
@@ -48,9 +48,11 @@ $(function() {
   });
   
   $('#quote').blur(function() {
-    if (isQuoteEmpty()) {
-      quoteQuickAdd.reset();
-    }
+    setTimeout(function(){
+      if (isQuoteEmpty()) {
+        quoteQuickAdd.reset();
+      }
+    }, 1000);
   });
   
   $('#quote-more').click(function() {
