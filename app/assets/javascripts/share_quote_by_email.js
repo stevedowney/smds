@@ -15,6 +15,7 @@ function showEmailQuoteModal() {
 
 function hideEmailQuoteModal() {
   $('#email-quote-modal').hide();
+  $('.modal-backdrop').hide();
 }
 
 $(function() {
