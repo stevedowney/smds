@@ -1,14 +1,66 @@
 .comment {
-  border: 1px solid gray;
+  border-bottom: 1px solid #eee;
   padding: 1em;
   padding-bottom: 0.2em;
   margin-bottom: 1em;
-  
+  .commenter {
+    margin-bottom:.5em;
+  }
+  .body {
+    font-size:1.2em;
+    font-size:1.2rem;
+    line-height:1.4;
+  }
   .comment-footer {
     margin-top: 0.5em;
+    .icon-share-alt {
+      -moz-transform: scaleX(-1);
+      -o-transform: scaleX(-1);
+      -webkit-transform: scaleX(-1);
+      transform: scaleX(-1);
+      filter: FlipH;
+      -ms-filter: "FlipH";
+    }
   }
 }
 
 .child_comments {
   margin-left: 40px;
+}
+
+.comment-voting {  
+  text-align:center;
+  white-space:nowrap;
+  vertical-align: middle;
+  min-width: 70px;
+  padding-right:1em;
+  
+  .comment-vote-count {
+    font-size: 1em;
+    font-size: 1rem;
+    padding-top: 2px;
+    opacity:0.5;
+    
+  }
+  
+  .comment-vote-links {
+    text-align:center;
+    padding: 10px;
+    a {
+      font-size:13px;
+      border:1px solid #ccc;
+      padding:2px 6px;
+      opacity:0.5;
+    }
+    a:hover {
+      opacity:1;
+    }
+    a:first-child {
+      border-radius:3px 0 0 3px;
+      border-right:none;
+    }
+    a:last-child {
+      border-radius:0 3px 3px 0;
+    }
+  }
 }
