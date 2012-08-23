@@ -14,9 +14,6 @@ namespace :heroku do
   task :push do
     puts 'Deploying site to Heroku ...'
     puts `git push heroku master`
-    puts 'Curling site'
-    `curl hewasall.com`
-    puts 'Site should be live ...'
   end
 
   task :migrate do
