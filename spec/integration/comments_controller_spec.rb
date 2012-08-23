@@ -70,6 +70,7 @@ describe CommentsController do
         click_on_confirm_ok
         wait_until { Comment.find_by_id_and_deleted(comment.id, true) }
         page.should have_tag(:div, :id => comment.dom_id)
+        page.should have_content("Deleted by author")
       end
       
       it "cancel" do
@@ -118,6 +119,7 @@ describe CommentsController do
         click_on_confirm_ok
         wait_until { Comment.find_by_id_and_deleted(comment.id, true) }
         page.should have_tag(:div, :id => comment.dom_id)
+        page.should have_content("Deleted by admin")
         Comment.should exist(comment.id)
       end
     end

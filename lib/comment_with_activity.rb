@@ -90,10 +90,10 @@ class CommentWithActivity
     comment.authored_by?(user) || user.admin?
   end
 
-  # only used for spec (since removed) ?
-  # def ==(other)
-  #   user == other.user && comment == other.comment && activity == other.activity
-  # end
+  # TODO: move to presenter
+  def username
+    @username ||= author.try(:username)
+  end
   
   class << self
 

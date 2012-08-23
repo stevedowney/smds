@@ -2,9 +2,9 @@ module CommentsHelper
 
 	def link_to_favorite_comment(cwa)
 		if cwa.favorited?
-			link_to(icon_unfavorite, comment_unfavorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('unfavorite'))
+			link_to_icon_with_text(icon_unfavorite, 'Favorited', comment_unfavorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('unfavorite'), :title => 'Undo favorite')
 		else
-			link_to(icon_favorite, comment_favorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('favorite'))
+			link_to_icon_with_text(icon_favorite, 'Favorite', comment_favorite_path(cwa.comment), :method => :post, :remote => true, :id => cwa.comment.dom_id('favorite'), :title => "Favorite")
 		end
 	end
 
@@ -25,20 +25,23 @@ module CommentsHelper
 	end
 
   def link_to_reply_comment(cwa)
-    link_to(icon_reply, 'javascript:void(0)', :class => 'comment-reply', :id => cwa.comment.dom_id('reply'), :title => 'Reply to this comment', :data => {:form => cwa.comment.dom_id('new')})
+    link_to_icon_with_text(icon_reply, 'Reply', 'javascript:void(0)', :class => 'comment-reply', :id => cwa.comment.dom_id('reply'), :title => 'Reply to this comment', :data => {:form => cwa.comment.dom_id('new')})
   end
   
 	def link_to_delete_comment(cwa)
 		if cwa.deletable?
-			link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"}, :id => cwa.comment.dom_id('delete'))
-      # url = comment_path(cwa.comment)
-      link_to_delete(cwa.comment, :format => :js)
+      # link_to(icon_delete, comment_path(cwa.comment), :method => :delete, :remote => true, :data => {:confirm => "Are you sure?"}, :id => cwa.comment.dom_id('delete'))
+      #       # url = comment_path(cwa.comment)
+      #       link_to_delete(cwa.comment, :format => :js)
+      
+      link_to_icon_with_text(icon_delete, 'Delete', comment_path(cwa.comment), :title => "Delete", :class => 'delete-link', :data => {:confirmation => 'Are you sure?  This is irreversible.', :"row-id" => cwa.comment.dom_id, :format => :js}, :id => cwa.comment.dom_id('delete'))
+      
 		end
 	end
 
 	def link_to_edit_comment(cwa)
 		if cwa.editable?
-			link_to(icon_edit, edit_comment_path(cwa.comment), :id => cwa.comment.dom_id('edit'))
+			link_to_icon_with_text(icon_edit, 'Edit', edit_comment_path(cwa.comment), :id => cwa.comment.dom_id('edit'))
 		end
 	end
 

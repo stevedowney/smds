@@ -2,7 +2,7 @@
   .comment{:id => cwa.dom_id}
     .commenter
       = "##{cwa.comment.comment_number}"
-      = "by #{cwa.author.username}"
+      = "by #{cwa.username}" if cwa.username
     .body.clearfix
       - if user_signed_in?
         .comment-voting.pull-left
@@ -14,12 +14,13 @@
       
     - unless cwa.deleted?
       .comment-footer
-        - if user_signed_in?
-          =# link_to_flag_comment(cwa)
-          = link_to_reply_comment(cwa)          
-          = link_to_favorite_comment(cwa)
-          = link_to_delete_comment(cwa)
-          = link_to_edit_comment(cwa)
+        .action_links
+          - if user_signed_in?
+            =# link_to_flag_comment(cwa)
+            = link_to_reply_comment(cwa)          
+            = link_to_favorite_comment(cwa)
+            = link_to_delete_comment(cwa)
+            = link_to_edit_comment(cwa)
 
     = render :partial => 'comments/new_comment', :locals => {:new_comment => @new_comment, :comment => cwa.comment}
   

@@ -22,6 +22,17 @@
       -ms-filter: "FlipH";
     }
   }
+  /* copied from quotes */
+  .action_links {
+		a {
+		margin-left: 1.5em;
+		margin-right: .3em;
+		}
+	}
+	.action_links a:first-child {
+	  margin-left:0;
+	}
+	
 }
 
 .child_comments {
