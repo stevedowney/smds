@@ -27,6 +27,7 @@ describe QuoteParser do
     check result, 'bob', 'jill said boo'
   end
   
+  
   it 'removes ":" between "said" and quote' do
     result = klass.parse("bob said: something")
     check result, 'bob', 'something'
@@ -41,6 +42,22 @@ describe QuoteParser do
 
     result = klass.parse %(bob said 'some words')
     check result, 'bob', 'some words'
+  end
+  
+  describe '"said" must be within first 35 characters' do
+    let(:star_30) { '*' * 30 }
+    
+    it "parses who" do
+      quote = "#{star_30} said foo"
+      result = klass.parse(quote)
+      check result, star_30, 'foo'
+    end
+
+    it "doesn't parse who" do
+      quote = "#{star_30}x said foo"
+      result = klass.parse(quote)
+      check result, 'Someone', quote
+    end
   end
   
   private

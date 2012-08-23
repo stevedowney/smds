@@ -23,4 +23,7 @@
         =# link_to_flag_quote(qwa)
         = link_to_edit_quote(qwa)
       %span.owner.pull-right= link_to_submitted_by(qwa.owner)
+      
+    %div{:id => qwa.quote.dom_id('top-comments'), :style => 'display:none'}
+      place holder
     

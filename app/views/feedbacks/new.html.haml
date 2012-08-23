@@ -9,7 +9,7 @@
       
   = f.input :type, :label => "Feedback type", :collection => Feedback.types_options_for_select, :prompt => false
   = f.input :subject, :input_html => {:size => 60, :maxlength => 60}
-  = f.input :body, :as => 'text', :input_html => { :cols => 100, :rows => 5, :maxlength => 2000 }
+  = f.input :body, :as => 'text', :input_html => { :cols => 100, :rows => 5, :maxlength => 2001 }
   
   - unless user_signed_in?
     .control-group.text

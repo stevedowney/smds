@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20120821174221) do
+ActiveRecord::Schema.define(:version => 20120823161728) do
 
   create_table "comment_activities", :force => true do |t|
     t.integer  "quote_id",                      :null => false
@@ -26,22 +26,22 @@ ActiveRecord::Schema.define(:version => 20120821174221) do
   end
 
   create_table "comments", :force => true do |t|
-    t.string   "body",                                                 :null => false
-    t.integer  "author_id",                                            :null => false
-    t.integer  "quote_id",                                             :null => false
-    t.integer  "vote_up_count",                     :default => 0,     :null => false
-    t.integer  "vote_down_count",                   :default => 0,     :null => false
-    t.integer  "vote_net_count",                    :default => 0,     :null => false
-    t.integer  "favorite_count",                    :default => 0,     :null => false
-    t.integer  "flag_count",                        :default => 0,     :null => false
-    t.datetime "created_at",                                           :null => false
-    t.datetime "updated_at",                                           :null => false
-    t.integer  "comment_number",                    :default => 0,     :null => false
-    t.boolean  "deleted",                           :default => false, :null => false
+    t.string   "body",                :limit => 2000,                    :null => false
+    t.integer  "author_id",                                              :null => false
+    t.integer  "quote_id",                                               :null => false
+    t.integer  "vote_up_count",                       :default => 0,     :null => false
+    t.integer  "vote_down_count",                     :default => 0,     :null => false
+    t.integer  "vote_net_count",                      :default => 0,     :null => false
+    t.integer  "favorite_count",                      :default => 0,     :null => false
+    t.integer  "flag_count",                          :default => 0,     :null => false
+    t.datetime "created_at",                                             :null => false
+    t.datetime "updated_at",                                             :null => false
+    t.integer  "comment_number",                      :default => 0,     :null => false
+    t.boolean  "deleted",                             :default => false, :null => false
     t.string   "deleted_by",          :limit => 20
     t.integer  "parent_id"
-    t.integer  "child_comment_count",               :default => 0,     :null => false
-    t.integer  "depth",                             :default => 0,     :null => false
+    t.integer  "child_comment_count",                 :default => 0,     :null => false
+    t.integer  "depth",                               :default => 0,     :null => false
   end
 
   create_table "feedbacks", :force => true do |t|
@@ -68,17 +68,17 @@ ActiveRecord::Schema.define(:version => 20120821174221) do
 
   create_table "quotes", :force => true do |t|
     t.integer  "owner_id"
-    t.string   "who",                                                :null => false
-    t.string   "text",                                               :null => false
-    t.string   "context"
-    t.integer  "vote_up_count",                       :default => 0, :null => false
-    t.integer  "vote_down_count",                     :default => 0, :null => false
-    t.integer  "vote_net_count",                      :default => 0, :null => false
-    t.integer  "favorite_count",                      :default => 0, :null => false
-    t.integer  "flag_count",                          :default => 0, :null => false
-    t.integer  "comments_count",                      :default => 0, :null => false
-    t.datetime "created_at",                                         :null => false
-    t.datetime "updated_at",                                         :null => false
+    t.string   "who",                   :limit => 100,                 :null => false
+    t.string   "text",                  :limit => 2000,                :null => false
+    t.string   "context",               :limit => 2000
+    t.integer  "vote_up_count",                         :default => 0, :null => false
+    t.integer  "vote_down_count",                       :default => 0, :null => false
+    t.integer  "vote_net_count",                        :default => 0, :null => false
+    t.integer  "favorite_count",                        :default => 0, :null => false
+    t.integer  "flag_count",                            :default => 0, :null => false
+    t.integer  "comments_count",                        :default => 0, :null => false
+    t.datetime "created_at",                                           :null => false
+    t.datetime "updated_at",                                           :null => false
     t.string   "twitter_update_id_str", :limit => 30
   end
 

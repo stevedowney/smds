@@ -5,6 +5,21 @@ describe Comment do
 	let(:other_author) { FactoryGirl.create(:author) }
 	let(:comment) { FactoryGirl.create(:comment, :author => author) }
 
+  describe 'validations' do
+    it "valid" do
+      comment.should be_valid
+    end
+    
+    describe 'body' do
+      it "< 2000" do
+        comment.body = 'x' * 2000
+        comment.should be_valid
+        comment.body = 'x' * 2001
+        comment.should_not be_valid
+      end
+    end
+  end
+  
 	describe '#authored_by?' do
 		it "true" do
 		  comment.should be_authored_by(author)

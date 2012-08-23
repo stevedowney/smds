@@ -5,8 +5,10 @@ module QuotesHelper
   end
   
   def link_to_comments(qwa)
+    quote = qwa.quote
     text = pluralize(qwa.comments_count, 'Comment')
     link_to_icon_with_text(icon_comment, text, quote_path(qwa.quote), :id => qwa.quote.dom_id('comments'))  
+    # link_to_icon_with_text(icon_comment, text, js_void, :id => qwa.quote.dom_id('comments'), :class => 'comments-link', :data => {:"quote-id" => quote.id})  
   end
 
   def link_to_toggle_vote_up(qwa)

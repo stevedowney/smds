@@ -7,7 +7,7 @@ class Comment < ActiveRecord::Base
 
   # validates :author_id, :presence => true
   validates :quote_id, :presence => true
-  validates :body, :presence => true
+  validates :body, :presence => true, :length => {:maximum => 2000}
 
   scope :newest, order("created_at desc")
   

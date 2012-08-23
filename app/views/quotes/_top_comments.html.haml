@@ -1,0 +1,6 @@
+.top_comments
+  %h4= "Top Comments ".html_safe + nbsp(4) + link_to("show all", quote_path(@quote), :class => 'all-comments-link') + nbsp(4) + link_to('hide', js_void, :class => 'top-comments-hide-link')
+  - @comments.each do |comment|
+    .top_comment
+      = "##{comment.comment_number}"
+      = comment.body

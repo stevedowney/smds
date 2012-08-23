@@ -2,6 +2,6 @@
   = form_for @new_comment, :remote => true do |f|
     = f.hidden_field :quote_id
     = hidden_field_tag :comment_id, comment.try(:id)
-    = f.text_area :body, :size => "60x3"
+    = f.text_area :body, :size => "100x3", :maxlength => 2001
     %br
     = f.submit nil, :class => 'btn btn-primary'

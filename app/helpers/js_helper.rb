@@ -1,5 +1,9 @@
 module JsHelper
 
+  def js_void
+    @js_void ||= 'javascript:void(0)'
+  end
+  
   def close_delete_confirmation
     %(
       $('#tb-confirm').modal('hide');
@@ -26,5 +30,9 @@ duration = 1
     %($('#{dom_id}').html('#{content}');).html_safe
   end
   
+  def page_show(dom_id)
+    dom_id = normalized_dom_id(dom_id)
+    %($('#{dom_id}').show();).html_safe
+  end
   
 end

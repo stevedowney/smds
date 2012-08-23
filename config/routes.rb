@@ -59,6 +59,7 @@ Smds::Application.routes.draw do
 
   resources :quotes, :except => [:index] do
     post 'quick_create', :on => :collection
+    get 'top_comments', :on => :member
   end
   
   resources :comments, :only => [:create, :edit, :update, :destroy]

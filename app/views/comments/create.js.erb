@@ -10,5 +10,5 @@
   $(newCommentForm).replaceWith("<%=j render(:partial => 'comments/new_comment', :locals => {:new_comment => comment_creator.new_comment, :comment => comment_creator.parent_comment}) %>")
   <%= update_quote_partial(comment_creator.qwa) %>
 <% else %>
-  tbAlert("Comment can't be blank");
+  tbAlert('<%=j comment_creator.comment.errors.full_messages.to_sentence %>');
 <% end %>

@@ -1,6 +1,6 @@
 - gon.quote_placeholder = "Create new Quote ..."
 = form_tag quick_create_quotes_path, :remote => true do
-  = text_area_tag :quote, nil, :placeholder => gon.quote_placeholder, :rows => 1, :class => 'span4'
+  = text_area_tag :quote, nil, :placeholder => gon.quote_placeholder, :rows => 1, :maxlength => 2040, :class => 'span4'
   #new-quote-controls{:style => 'display: none;'}
     = submit_tag "Create Quote", :id => "submit-quick", :disabled => true, :class => 'btn btn-primary'
     = link_to "more", '#', :id => "quote-more", :data => {:url => new_quote_path}

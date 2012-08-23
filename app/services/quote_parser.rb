@@ -40,9 +40,17 @@ class QuoteParser
   def context
     nil
   end
-  
+
+  # parse #who' by looking for 'said' within first 35 chars
   def parts
-    @parts ||= string.split(/said/i, 2)
+    @parts ||= begin
+      ary = string.split(/said/i, 2)
+      if ary.size == 2 && ary[0].size > 31
+        [string]
+      else
+        ary
+      end
+    end
   end
   
   class << self

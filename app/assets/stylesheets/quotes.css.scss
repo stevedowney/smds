@@ -101,3 +101,18 @@
   opacity:8.0;
 }
 
+.top_comments {
+  h4 {
+    margin-top: 0.5em;
+    
+    .all-comments-link, .top-comments-hide-link {
+      font-weight: normal;
+    }
+  }
+  
+  .top_comment {
+    border-top: 1px solid black;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+  }
+}

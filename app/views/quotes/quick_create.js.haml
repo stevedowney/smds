@@ -4,5 +4,6 @@
   = highlight(quote_creator.qwa.dom_id)
 - else
   - @quote = quote_creator.quote
+  tbAlert('#{j @quote.errors.full_messages.to_sentence}');
   = replace_element_with_partial('#new-quote', 'quotes/new')
   $('#new-quote').show();

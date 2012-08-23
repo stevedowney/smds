@@ -5,8 +5,9 @@ class Quote < ActiveRecord::Base
   has_many :comments, :dependent => :destroy
 
   validates :owner, :presence => true
-  validates :who, :presence => true
-  validates :text, :presence => true, :length => {:maximum => 250}
+  validates :who, :presence => true, :length => {:maximum => 100}
+  validates :text, :presence => true, :length => {:maximum => 2000}
+  validates :context, :length => {:maximum => 2000}
 
   attr_accessible :who, :text, :context
 
