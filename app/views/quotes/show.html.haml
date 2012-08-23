@@ -6,5 +6,8 @@
 
 = render :partial => 'comments/comments'
 
+- if user_signed_in?
+  = render :partial => 'quotes_lister/share_by_email'
+
 -# @nested_cwas.each do |nested_cwa|
   =# render :partial => 'comments/nested_cwa', :locals => {:nested_cwa => nested_cwa}
