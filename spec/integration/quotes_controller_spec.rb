@@ -167,6 +167,28 @@ describe QuotesController, :js => true do
         verify_create_quote_success
       end
       
+      it "create w/url" do
+        fill_in 'quote', :with => 'foo'
+        click_link 'quote-more'
+        sleep 1 # more link has timer
+
+        fill_in 'new_quote_who', :with => 'a'
+        fill_in 'new_quote_text', :with => 'b'
+        fill_in 'new_quote_context', :with => 'c'
+        fill_in 'new_quote_url', :with => 'http://example.com'
+
+        click_on 'submit-full'
+        quote = nil
+        wait_until { quote = Quote.find_by_who_and_text_and_context_and_url('a', 'b', 'c', 'http://example.com') }
+
+        should_have_div(quote)
+        page.should have_tag(:a, :href => 'http://example.com', :text => 'http://example.com')
+
+        timeline.should have(1).item
+        quote.twitter_id.should == tweet.id
+        
+      end
+      
       it "failure" do
         verify_create_quote_failure
       end

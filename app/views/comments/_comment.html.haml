@@ -4,7 +4,7 @@
       = "##{cwa.comment.comment_number}"
       = "by #{cwa.username}" if cwa.username
     .body.clearfix
-      - if user_signed_in?
+      - if user_signed_in? && !cwa.deleted?
         .comment-voting.pull-left
           %span.comment-vote-count{:title => "Votes", :id => cwa.dom_id('vote_net_count')}= cwa.comment.vote_net_count
           .comment-vote-links<

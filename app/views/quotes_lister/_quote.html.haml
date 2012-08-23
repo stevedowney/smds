@@ -10,10 +10,14 @@
       = qwa.who
       said
     .text
-      = qwa.text
-  
+      = simple_format qwa.text.dup
+
     - if qwa.context.present?
       .context= qwa.context
+
+    - if qwa.url?
+      .more-link More: #{link_to(qwa.url, qwa.url)}
+    
     .action_links
       = link_to_comments(qwa)
       - if user_signed_in?

@@ -8,8 +8,9 @@ class Quote < ActiveRecord::Base
   validates :who, :presence => true, :length => {:maximum => 100}
   validates :text, :presence => true, :length => {:maximum => 2000}
   validates :context, :length => {:maximum => 2000}
+  validates :url, :length => {:maximum => 250}, :url => {:allow_blank => true}
 
-  attr_accessible :who, :text, :context
+  attr_accessible :who, :text, :context, :url
 
   scope :newest, order("quotes.created_at desc")
 

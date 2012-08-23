@@ -13,6 +13,8 @@ class QuoteCreator < QuoteMutatorBase
   def save_quote(attributes)
     self.quote = user.quotes.build(attributes)
     self.success = quote.save
+Rails.logger.debug "valid: #{quote.valid?}"
+  Rails.logger.debug quote.errors.full_messages.inspect
   end
   
   def update_twitter

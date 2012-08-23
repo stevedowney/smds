@@ -6,6 +6,7 @@ en:
       attributes:
         quote:
           text: Quote
+          url: URL
         comment:  
           body: Comment
 

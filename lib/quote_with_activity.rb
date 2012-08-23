@@ -5,6 +5,8 @@ class QuoteWithActivity
     :who,
     :text,
     :context,
+    :url,
+    :url?,
     :comments,
     :comments_count,
     :vote_net_count,

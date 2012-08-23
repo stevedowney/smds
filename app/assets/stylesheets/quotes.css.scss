@@ -74,6 +74,11 @@
 		opacity:0.45;
 	}
 
+  .more-link {
+    opacity:0.45;
+    margin-bottom: 1em;
+  }
+  
 	.action_links {
 	  opacity:0;
 		a {
@@ -93,6 +98,7 @@
 
 .quote:hover .by,
 .quote:hover .context,
+.quote:hover .more-link,
 .quote:hover .action_links {
   -webkit-transition: opacity .2s linear .2s;
   -moz-transition: opacity .2s linear .2s;
