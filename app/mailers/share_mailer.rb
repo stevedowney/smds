@@ -1,5 +1,5 @@
 class ShareMailer < ActionMailer::Base
-  default from: "from@example.com"
+  default from: "no-reply@HeWasAll.com"
 
   def quote(quote_sharer)
     @quote_sharer = quote_sharer

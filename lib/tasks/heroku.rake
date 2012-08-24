@@ -1,13 +1,13 @@
 namespace :heroku do
 
   desc "Deploy to heroku"
-  task :deploy => [:off, :push, :on, :curl] do
+  task :deploy => [:push, :curl] do
     puts 
     puts 'Pushing code'
   end
 
   desc "Deploy to heroku with database migration"
-  task :deploy_with_migration => [:off, :push, :migrate, :on, :curl] do
+  task :deploy_with_migration => [:push, :off, :migrate, :on, :curl] do
     puts 'deploy with migration'
   end
 
