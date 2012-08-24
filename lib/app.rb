@@ -4,6 +4,10 @@ class App
   
   class << self
 
+    def development?
+      Rails.env == 'development'
+    end
+    
     def test?
       Rails.env == 'test'
     end
@@ -12,7 +16,6 @@ class App
       test? ? TestTwitter : Twitter
     end
 
-    
   end
   
 end

@@ -1,5 +1,4 @@
-class ShareMailer < ActionMailer::Base
-  default from: "no-reply@HeWasAll.com"
+class ShareMailer < ApplicationMailer
 
   def quote(quote_sharer)
     @quote_sharer = quote_sharer
@@ -7,4 +6,5 @@ class ShareMailer < ActionMailer::Base
     @quote_show_url = quote_url(@quote_sharer.quote_id)
     mail(:to => @quote_sharer.to_email, :subject => @quote_sharer.subject)
   end
+  
 end
