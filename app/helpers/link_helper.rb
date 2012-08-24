@@ -9,9 +9,9 @@ module LinkHelper
   #     <i class="icon-trash"></i>
   #     Delete
   #   </a>
-  def link_to_delete(url, options = {})
-    Renderer::Link::Delete.new(self, url, options).html
-  end
+  # def link_to_delete(url, options = {})
+  #   Renderer::Link::Delete.new(self, url, options).html
+  # end
   
   def link_to_icon_with_text(icon, text, url, options = {})
     options[:class] = Array(options[:class]) << 'with-icon'

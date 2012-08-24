@@ -12,15 +12,15 @@ class CommentActivitiesController < ApplicationController
     update_comment_partial
   end
 
-  def flag
-    @cwa.flag
-    update_comment_partial
-  end
-
-  def unflag
-    @cwa.unflag
-    update_comment_partial
-  end
+  # def flag
+  #   @cwa.flag
+  #   update_comment_partial
+  # end
+  # 
+  # def unflag
+  #   @cwa.unflag
+  #   update_comment_partial
+  # end
 
   def toggle_vote_up
     @cwa.toggle_vote_up

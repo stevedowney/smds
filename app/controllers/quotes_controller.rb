@@ -33,10 +33,11 @@ class QuotesController < ApplicationController
     quote_destroyer.destroy(params.fetch(:id))
   end
 
-  def top_comments
-    @quote = Quote.find(params.fetch(:id))
-    @comments = @quote.comments.order("created_at desc").limit(10)
-  end
+  # def top_comments
+  #   @quote = Quote.find(params.fetch(:id))
+  #   @comments = @quote.comments.order("created_at desc").limit(10)
+  # end
+  
   private
 
   def quote_creator

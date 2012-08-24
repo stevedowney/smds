@@ -34,13 +34,13 @@ module IconsHelper
     icon('star')
   end
 
-  def icon_flag
-    icon('flag', :style => "opacity: 0.4")
-  end	
-
-  def icon_unflag
-    icon('flag')
-  end	
+  # def icon_flag
+  #   icon('flag', :style => "opacity: 0.4")
+  # end 
+  # 
+  # def icon_unflag
+  #   icon('flag')
+  # end 
 
   def icon_ok
     icon('ok')
