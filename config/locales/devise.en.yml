@@ -58,6 +58,6 @@ en:
       confirmation_instructions:
         subject: 'HeWasAll.com confirmation instructions'
       reset_password_instructions:
-        subject: 'Reset password instructions'
+        subject: 'HeWasAll.com Reset password instructions'
       unlock_instructions:
         subject: 'Unlock Instructions'
