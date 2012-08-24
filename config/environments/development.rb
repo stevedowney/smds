@@ -11,7 +11,7 @@ Smds::Application.configure do
 
   # Show full error reports and disable caching
   config.consider_all_requests_local       = true
-  config.action_controller.perform_caching = alse
+  config.action_controller.perform_caching = false
 
   # Don't care if the mailer can't send
   config.action_mailer.raise_delivery_errors = false
@@ -40,4 +40,11 @@ Smds::Application.configure do
 
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.smtp_settings = YAML.load_file(Rails.root.join 'config/smtp.yml')[Rails.env].symbolize_keys
+  
+  Twitter.configure do |config|
+    config.consumer_key = 'pO6fG7dwZUNP3sEms7BgA'
+    config.consumer_secret = 'kSg6xAh2asKWUOcoAiZNNkoUP5j4ZT1VjWdLhmF7Ixo'
+    config.oauth_token = '778405226-PNynnuwC7HJXOiAkJceeevec2mtdiPpz3XfR9691'
+    config.oauth_token_secret = '9BHtJtUgRvq3S1FEowBmQIuq10evoD38mpGs76bCQk'
+  end
 end
