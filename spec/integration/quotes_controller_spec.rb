@@ -23,6 +23,7 @@ describe QuotesController, :js => true do
   
   def verify_create_quote_success
     click_link 'quote-more'
+    sleep 1 # timer in js
     
     fill_in 'new_quote_who', :with => 'a'
     fill_in 'new_quote_text', :with => 'b'

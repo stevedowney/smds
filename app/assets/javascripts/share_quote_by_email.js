@@ -30,6 +30,7 @@ $(function() {
     
     showEmailQuoteModal();
     showLess();
+    $('#quote_sharer_by_email_to_email').focus();
     return false; 
   });
   
