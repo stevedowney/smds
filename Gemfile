@@ -11,6 +11,7 @@ gem 'kaminari'
 gem 'newrelic_rpm'
 gem "nilify_blanks"
 gem 'rails', '3.2.6'
+gem 'rails_autolink'
 gem "recaptcha", :require => "recaptcha/rails"
 gem 'sass'
 gem 'sidekiq'

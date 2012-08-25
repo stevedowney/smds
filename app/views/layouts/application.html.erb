@@ -33,6 +33,7 @@
       </ul>
 
       <ul class="nav pull-right">
+        <li><%= link_to 'New Quote', new_quote_path, :class => 'logged_in_link' %></li>
         <li><%= link_to 'Tell a Friend', sharing_email_path %></li>
         <li><%= link_to "Feedback", new_feedback_path %></li>
         <% if user_signed_in? %>

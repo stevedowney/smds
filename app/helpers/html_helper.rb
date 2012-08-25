@@ -9,15 +9,16 @@ module HtmlHelper
     boolean ? icon_boolean : nbsp
   end
 
-  def or_cancel
-    or_span + link_to_cancel
+  def or_cancel(url = root_path, options = {})
+    or_span + link_to_cancel(url, options)
   end
   
   def or_span
-    content_tag(:span, 'or', :style => 'margin: 0 1em;')
+    content_tag(:span, 'or', :style => 'margin: 0 0.5em;')
   end
   
-  def link_to_cancel
-    link_to 'Cancel', root_path, :id => "cancel-to-root-path"
+  def link_to_cancel(url, options_in = {})
+    options = options_in.reverse_merge(:id => "cancel-link")
+    link_to 'Cancel', url, options
   end
 end

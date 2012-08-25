@@ -9,11 +9,22 @@ class QuotesController < ApplicationController
   end
 
   def new
-    @quote = Quote.new(QuoteParser.parse(params.fetch(:quote)))
+    @quote = Quote.new
   end
   
   def create
-    quote_creator.create(params.fetch(:new_quote))
+    quote_creator.create(params.fetch(:quote))
+    if request.xhr?
+      render 'create'
+      return
+    end
+    
+    if quote_creator.success
+      redirect_to newest_path, :notice => "Created quote"
+    else
+      @quote = quote_creator.quote
+      render 'new'
+    end
   end
 
   def quick_create
@@ -26,7 +37,7 @@ class QuotesController < ApplicationController
   end
 
   def update
-    quote_updater.update(params.fetch(:id), params.fetch(:edit_quote))
+    quote_updater.update(params.fetch(:id), params.fetch(:quote))
   end
 
   def destroy

@@ -1,21 +1,11 @@
-%div.modal-header
-  %a{:class => 'close', 'data-dismiss' => 'modal'}
-    x
-  %h3 
-    = "#{@quote.persisted? ? 'Edit' : 'Compose'} Quote"
-%div.modal-body
-  .flash-modal
+= simple_form_for @quote, :remote => @quote.persisted?, :html => {:class => "form-horizontal"} do |f|
+  = error_messages_for(@quote)
 
-  = simple_form_for @quote, :as => quote_form_as,  :remote => true, :html => {:class => "form-vertical"} do |f|
-    = error_messages_for(@quote)
-    .fieldset
+  = f.input :who, :required => false, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 101, :class => 'span4'}
+  = f.input :text, :required => false, :label => "Quote", :as => 'text', :placeholder => "What did they say?", :input_html => {:rows => 5, :class => 'span5', :maxlength => 2001}
+  = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :class => 'span5', :maxlength => 2001}
 
-      = f.input :who, :required => false, :placeholder => "Who said it?", :input_html => {:size => 30, :maxlength => 101, :class => 'span4'}
-      = f.input :text, :required => false, :label => "Quote", :as => 'text', :placeholder => "What did they say?", :input_html => {:rows => 5, :class => 'span5', :maxlength => 2001}
-      = f.input :context, :as => 'text', :placeholder => 'If you want, add some context to the quote; something like: "While we were driving home" or "This morning in the shower"', :input_html => {:rows => 2, :class => 'span5', :maxlength => 2001}
-      = f.input :url, :label => 'URL', :placeholder => 'If your quote is from a web page, paste the URL here', :input_html => {:class => 'span5', :max_length => 251}
-
-    .form-actions
-      = f.submit nil, :class => 'btn btn-primary', :id => 'submit-full', :data => {:disable_with => "Processing ..."}
-      = or_span
-      = link_to("Cancel", '#', :id => 'quote-form-cancel')
+  .form-actions
+    = f.submit nil, :class => 'btn btn-primary', :id => 'submit-full', :data => {:disable_with => "Processing ..."}
+    = or_span
+    = link_to("Cancel", '#', :id => 'quote-form-cancel')

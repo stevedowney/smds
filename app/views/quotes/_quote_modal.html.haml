@@ -1,5 +1,10 @@
-%div{:class => 'modal hide browse-modal', :id => 'quote-modal'}
-  = render :partial => 'quotes/form'
+%div{:class => 'modal hide browse-modal', :id => 'quote-modal', :style => "width: 700px"}
+  %div.modal-header
+    %a{:class => 'close', 'data-dismiss' => 'modal'}
+      x
+    %h3 Edit Quote 
+  %div.modal-body
+    .form
   
 
 :javascript

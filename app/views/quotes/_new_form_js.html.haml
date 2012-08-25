@@ -1,0 +1,9 @@
+= simple_form_for (@quote || Quote.new), :remote => true, :html => {:class => 'form-horizontal new-quote-form'} do |f|
+  = f.input :who, :required => false, :input_html => {:class => 'span4'}, :placeholder => 'Who said it'
+  = f.input :text, :required => false, :as => :text, :placeholder => 'What did they say', :input_html => {:rows => 2, :maxlength => 2040, :class => 'span4'}
+  .context{:style => "display:none"}
+    = f.input :context, :label => 'Background', :required => false, :as => :text, :placeholder => "Paste a link or provide some context", :input_html => {:rows => 1, :class => 'span4'}
+  = submit_tag "Create Quote", :id => "submit-quick", :class => 'btn btn-primary'
+  = or_cancel(js_void, :data => {:dismiss => 'clickover'})
+  = nbsp(7)
+  = link_to "Background", js_void, :id => "add-background"

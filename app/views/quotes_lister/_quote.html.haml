@@ -13,7 +13,7 @@
       = simple_format qwa.text.dup
 
     - if qwa.context.present?
-      .context= qwa.context
+      .context= auto_link simple_format(qwa.context.dup)
 
     - if qwa.url?
       .more-link More: #{link_to(qwa.url, qwa.url)}

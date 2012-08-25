@@ -1,0 +1,23 @@
+#new-via-js
+  .row{:style => "text-align: center"}
+    = link_to "Compose New Quote", js_void, :id => "new-quote-clickover", :class => "btn btn-primary logged_in_link"
+
+  #new-quote-clickover-content{:style => 'display:none'}
+    = render :partial => 'quotes/new_form_js'
+    
+:javascript
+  if (gon.logged_in) {
+    $('#new-quote-clickover').clickover({
+      trigger: 'manual',
+      title: 'New Quote',
+      placement: 'bottom',
+      width: '600px',
+      content: $('#new-quote-clickover-content').html()
+    });
+
+    $('.popover #add-background').live('click', function() {
+      $('.popover .new-quote-form .context').toggle();
+    })
+  }
+
+    

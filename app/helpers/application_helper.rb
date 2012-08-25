@@ -17,7 +17,9 @@ module ApplicationHelper
   end
   
   def update_quote_modal_form
-    page_html('#quote-modal', nil, :partial => 'quotes/form')
+    # page_html('#quote-modal form', nil, :partial => 'quotes/form')
+    content = j render(:partial => 'quotes/form')
+    %($('#quote-modal .form').html('#{content}');).html_safe
   end
   
   def highlight(dom_id, duration = 1000)

@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe QuotesController, :js => true do
+describe QuotesController do
   let(:timeline) { TestTwitter.timeline }
   def tweet
     timeline.first
@@ -8,9 +8,11 @@ describe QuotesController, :js => true do
   
   before { visit '/' }
 
-  def verify_quick_success
-    fill_in 'quote', :with => 'bob said hello'
-    click_on "submit-quick"
+  def verify_modal_create
+    click_on 'new-quote-clickover'
+    fill_in 'quote_who', :with => 'bob'
+    fill_in 'quote_text', :with => 'hello'
+    click_on "Create Quote"
     
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text('bob', 'hello') }
@@ -22,14 +24,13 @@ describe QuotesController, :js => true do
   end
   
   def verify_create_quote_success
-    click_link 'quote-more'
-    sleep 1 # timer in js
+    click_link 'New Quote'
     
-    fill_in 'new_quote_who', :with => 'a'
-    fill_in 'new_quote_text', :with => 'b'
-    fill_in 'new_quote_context', :with => 'c'
+    fill_in 'quote_who', :with => 'a'
+    fill_in 'quote_text', :with => 'b'
+    fill_in 'quote_context', :with => 'c'
 
-    click_on 'submit-full'
+    click_on 'Create Quote'
 
     quote = nil
     wait_until { quote = Quote.find_by_who_and_text_and_context('a', 'b', 'c') }
@@ -41,12 +42,10 @@ describe QuotesController, :js => true do
   end
   
   def verify_create_quote_failure
-    visit '/'
-    fill_in 'quote', :with => 'bob said'
-    click_link 'quote-more'
-    # fill_in 'new_quote_who', :with => 'xxxxxxxx'
-    click_on 'submit-full'
-    # save_and_open_page
+    click_link 'New Quote'
+
+    click_on 'Create Quote'
+
     page.should have_content("can't be blank")
     Quote.first.should be_nil
     timeline.should have(:no).items
@@ -67,9 +66,10 @@ describe QuotesController, :js => true do
     original_twitter_id = quote.twitter_id
 
     click_on quote.dom_id('edit')
-    fill_in "edit_quote_who", :with => 'new who'
-    fill_in "edit_quote_text", :with => 'new text'
-    fill_in "edit_quote_context", :with => 'new context'
+    sleep 1
+    fill_in "quote_who", :with => 'new who'
+    fill_in "quote_text", :with => 'new text'
+    fill_in "quote_context", :with => 'new context'
     click_on 'Update Quote'
     
     wait_until { quote = Quote.find_by_who_and_text_and_context('new who', 'new text', 'new context') }
@@ -85,10 +85,9 @@ describe QuotesController, :js => true do
     visit '/'
     quote = Quote.first
     click_on quote.dom_id('edit')
-    
-    fill_in 'edit_quote_text', :with => ''
+    fill_in 'quote_text', :with => ''
     click_on 'Update Quote'
-    wait_until { page.has_content?("can't be blank")}
+    page.should have_content("can't be blank")
   end
 
   def destroy_quote_confirm(quote_owner = nil)
@@ -123,9 +122,9 @@ describe QuotesController, :js => true do
   context 'admin user' do
     let!(:admin) {create_and_login_admin_user}
     
-    describe '#quick_create' do
+    describe '#modal_create', :js => true do
       it "success" do
-        verify_quick_success
+        verify_modal_create
       end
     end
     
@@ -139,7 +138,7 @@ describe QuotesController, :js => true do
       end
     end
     
-    describe '#update' do
+    describe '#update', :js => true do
       it 'success' do
         verify_update_quote_success
       end
@@ -149,7 +148,7 @@ describe QuotesController, :js => true do
       end
     end
 
-    describe '#destroy' do
+    describe '#destroy', :js => true do
       it "confirmed" do
         destroy_quote_confirm
       end
@@ -167,45 +166,23 @@ describe QuotesController, :js => true do
       it "success" do
         verify_create_quote_success
       end
-      
-      it "create w/url" do
-        fill_in 'quote', :with => 'foo'
-        click_link 'quote-more'
-        sleep 1 # more link has timer
-
-        fill_in 'new_quote_who', :with => 'a'
-        fill_in 'new_quote_text', :with => 'b'
-        fill_in 'new_quote_context', :with => 'c'
-        fill_in 'new_quote_url', :with => 'http://example.com'
-
-        click_on 'submit-full'
-        quote = nil
-        wait_until { quote = Quote.find_by_who_and_text_and_context_and_url('a', 'b', 'c', 'http://example.com') }
-
-        should_have_div(quote)
-        page.should have_tag(:a, :href => 'http://example.com', :text => 'http://example.com')
-
-        timeline.should have(1).item
-        quote.twitter_id.should == tweet.id
-        
-      end
-      
+            
       it "failure" do
         verify_create_quote_failure
       end
     end
     
-    describe "update" do
+    describe "update", :js => true do
       it 'success' do
         verify_update_quote_success(user)
       end
 
-      it "failure" do
+      it "failure", :js => true do
         verify_update_quote_failure(user)
       end
     end
 
-    describe '#destroy' do
+    describe '#destroy', :js => true do
       it "confirmed" do
         destroy_quote_confirm(user)
       end
@@ -219,9 +196,13 @@ describe QuotesController, :js => true do
   
   context 'not logged in' do
     describe '#create' do
-      it "message to non-logged in user" do
-        find('#quote').click
+      it "modal", :js => true do
+        click_on 'new-quote-clickover'
         page.should have_content("must be logged in")
+      end
+      
+      it "html", :js => true do
+        click_on "New Quote"
       end
     end
     

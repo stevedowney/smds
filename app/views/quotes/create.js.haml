@@ -1,9 +1,8 @@
 - if quote_creator.success?
   = prepend_element_with_partial('#quotes-list', 'quotes_lister/quote', :qwa => quote_creator.qwa)
-  closeQuoteModal();
-  quoteQuickAdd.reset();
   = highlight(quote_creator.qwa.dom_id)
+  = replace_element_with_partial('#new-via-js', 'quotes/new_js')
+  $('.popover').remove();
 - else
   - @quote = quote_creator.quote
-  = update_quote_modal_form
-  $('#quote-modal').modal('show');
+  $('.popover #new_quote').replaceWith('#{j render :partial => "quotes/new_form_js"}');
