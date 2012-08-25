@@ -7,5 +7,7 @@
 
   .form-actions
     = f.submit nil, :class => 'btn btn-primary', :id => 'submit-full', :data => {:disable_with => "Processing ..."}
-    = or_span
-    = link_to("Cancel", '#', :id => 'quote-form-cancel')
+    - if @quote.persisted?
+      = or_cancel(js_void, :id => 'quote-form-cancel')
+    - else
+      = or_cancel
