@@ -1,18 +1,21 @@
 .comment {
   border-bottom: 1px solid #eee;
-  padding: 1em;
-  padding-bottom: 0.2em;
-  margin-bottom: 1em;
-  .commenter {
-    margin-bottom:.5em;
-  }
+  padding: .5em;
   .body {
-    font-size:1.2em;
-    font-size:1.2rem;
+    font-size:1em;
+    font-size:1rem;
     line-height:1.4;
+    margin-left:62px;
+    .comment-footer {
+      margin-top: 0.5em;
+      margin-bottom: 0.5em;
+      font-size:.8em;
+      font-size:.8rem;
+    }
   }
-  .comment-footer {
-    margin-top: 0.5em;
+    .commenter {
+      margin-right: 1em;
+    }
     .icon-share-alt {
       -moz-transform: scaleX(-1);
       -o-transform: scaleX(-1);
@@ -21,7 +24,6 @@
       filter: FlipH;
       -ms-filter: "FlipH";
     }
-  }
   /* copied from quotes */
   .action_links {
     opacity:0;
@@ -51,7 +53,7 @@
   text-align:center;
   white-space:nowrap;
   vertical-align: middle;
-  min-width: 70px;
+  min-width: 50px;
   padding-right:1em;
   
   .comment-vote-count {
@@ -64,7 +66,7 @@
   
   .comment-vote-links {
     text-align:center;
-    padding: 10px;
+    padding: 2px;
     a {
       font-size:13px;
       border:1px solid #ccc;
