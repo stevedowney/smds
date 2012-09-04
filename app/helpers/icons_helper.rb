@@ -51,11 +51,11 @@ module IconsHelper
   end
   
   def icon_vote_up
-    icon('thumbs-up')
+    icon('arrow-up')
   end
 
   def icon_vote_down
-    icon('thumbs-down')
+    icon('arrow-down')
   end
 
 end

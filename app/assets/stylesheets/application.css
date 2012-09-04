@@ -17,19 +17,20 @@
 
 
 a {
-	text-decoration: none;
+  text-decoration: none;
+  outline: none;
 }
 
 a:hover {
-	text-decoration: underline;
+  text-decoration: underline;
 }
 
 .nav_links {
-	margin: 1em;
+  margin: 1em;
 }
 
 .nav_links a {
-	margin-right: 2em;
+  margin-right: 2em;
 }
 
 .delete-selected {
@@ -37,12 +38,12 @@ a:hover {
 }
 
 .gutter {
-	padding-left:24px;
-	padding-right:24px;
+  padding-left:24px;
+  padding-right:24px;
 }
 .glow-left-right {
-	-moz-box-shadow: -6 -6 16px 0px #fff;
-	-webkit-box-shadow: -6 -6 16px #fff;
+  -moz-box-shadow: -6 -6 16px 0px #fff;
+  -webkit-box-shadow: -6 -6 16px #fff;
   box-shadow: -1px 1px 12px rgba(0,0,0,0.1),  3px 1px 12px rgba(0,0,0,0.1);
 }
 
@@ -53,31 +54,63 @@ a:hover {
 
 /* Portrait tablet to landscape and desktop */
 @media (min-width: 768px) and (max-width: 979px) {
-	.gutter {
-		padding-left:12px;
-		padding-right:12px;
-	}
+  .gutter {
+    padding-left:12px;
+    padding-right:12px;
+  }
 }
 
 /* Landscape phone to portrait tablet */
 @media (max-width: 767px) {
-	.gutter {
-		padding-left:12px;
-		padding-right:12px;
-	}
+  .gutter {
+    padding-left:12px;
+    padding-right:12px;
+  }
 }
 
  /* Landscape phones and down */
 @media (max-width: 480px) {
-	.gutter {
-		padding-left:4px;
-		padding-right:4px;
-	}
+  .gutter {
+    padding-left:4px;
+    padding-right:4px;
+  }
 }
 
 /*#things.rounded5 {
-	-webkit-border-radius: 5 !important;
-	-moz-border-radius: 5 !important;
-	border-radius: 5 !important;
+  -webkit-border-radius: 5 !important;
+  -moz-border-radius: 5 !important;
+  border-radius: 5 !important;
 }
 */
+
+.quote-popover {
+  margin-top:3px;
+  position:absolute;
+  z-index:1000;
+}
+.quote-popover .quote-popover-inner {
+  border:1px solid gray;
+  padding:12px;
+  border-radius:6px;
+  border-top-left-radius:0;
+  background:#fff;
+  box-shadow: 0 8px 15px #999;
+}
+.quote-popover .arrow {
+  position:relative;
+  width:12px;
+  height:12px;
+  overflow:hidden;
+}
+.quote-popover .arrow:before {
+  content: "";
+  position:absolute;
+  top:-12px;
+  left:-12px;
+  height:0;
+  width:0;
+  border:12px solid gray;
+  border-top:12px solid transparent;
+  border-left:12px solid transparent;
+  border-right:12px solid transparent;
+}

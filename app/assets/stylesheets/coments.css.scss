@@ -42,7 +42,10 @@
   -moz-transition: opacity .2s linear .2s;
   -o-transition: opacity .2s linear .2s;
   transition: opacity .1s linear .2s;
-  opacity:8.0;
+  -o-opacity:1;
+  -moz-opacity:1;
+  -webkit-opacity:1;
+  opacity:1;
 }
 
 .child_comments {
@@ -55,36 +58,36 @@
   vertical-align: middle;
   min-width: 50px;
   padding-right:1em;
+  -o-opacity:0.5;
+  -moz-opacity:0.5;
+  -webkit-opacity:0.5;
+  opacity:0.5;
   
   .comment-vote-count {
-    font-size: 1em;
-    font-size: 1rem;
-    padding-top: 2px;
-    opacity:0.5;
-    
+    display:block;
+    font-size: 1.2em;
+    font-size: 1.2rem;
+    padding: 12px 0;
   }
-  
-  .comment-vote-links {
-    text-align:center;
-    padding: 2px;
-    a {
-      font-size:13px;
-      border:1px solid #ccc;
-      padding:2px 6px;
-      opacity:0.5;
-    }
-    a:hover {
-      opacity:1;
-    }
-    a:first-child {
-      border-radius:3px 0 0 3px;
-      border-right:none;
-    }
-    a:last-child {
-      border-radius:0 3px 3px 0;
-    }
+
+  a {
+    font-size:13px;
+    padding:4px 6px;
   }
 }
+  
+.comment-voting:hover {
+  -o-opacity:1;
+  -moz-opacity:1;
+  -webkit-opacity:1;
+  opacity:1;
+  
+  -webkit-transition: opacity .2s linear;
+  -moz-transition: opacity .2s linear;
+  -o-transition: opacity .2s linear;
+  transition: opacity .1s linear;
+}
+
 
 .child_comments .child_comments .child_comments .child_comments .child_comments {
   margin-left: 0;

@@ -1,22 +1,80 @@
 #new-via-js
-  .row{:style => "text-align: center"}
-    = link_to "Compose New Quote", js_void, :id => "new-quote-clickover", :class => "btn btn-primary logged_in_link"
+  = link_to "Compose New Quote", js_void, :id => "new-quote-clickover", :class => "btn btn-primary logged_in_link", "data-menu-content" => "new-quote-clickover-content"
 
   #new-quote-clickover-content{:style => 'display:none'}
     = render :partial => 'quotes/new_form_js'
     
 :javascript
   if (gon.logged_in) {
-    $('#new-quote-clickover').clickover({
-      trigger: 'manual',
-      title: 'New Quote',
-      placement: 'bottom',
-      width: '600px',
-      content: $('#new-quote-clickover-content').html()
+    $(document).click( function(event) {
+      // This function looks for an element with a 'data-menu-content' attribute
+      // whose value is the ID of the menu content.
+      var $el, $menu, $menuTrigger, $content;
+      $el = $(event.target);
+      // Place the form after the button.
+      if ($el.attr('data-menu-content')) {
+        $menuTrigger = $el;
+        // If the click occurred on the open menu's trigger, return.
+        if (event.target === $menuTrigger[0] && $('.quote-popover').is(':visible')) {
+          event.stopImmediatePropagation();
+          return;
+        };
+        // Wrap the menu content.
+        $content = $('#' + $menuTrigger.attr('data-menu-content'));
+        $menu = $('<div class="quote-popover" id="quote-menu"><div class="arrow"></div><div class="quote-popover-inner">'+
+            $content.html() +
+            '</div></div>');
+        $menuTrigger.after($menu);
+        $menu.show();
+        // Set the position of the menu to the bottom left
+        // corner of the element.
+        $menu.css({
+          'top' : $menuTrigger.position().top + $menuTrigger.outerHeight() + 'px',
+          'left' : $menuTrigger.position().left + 'px',
+          'width' : '600px'
+        });
+      }
+      
+      // Closure for handling each instance of the menu-popover.
+      return function handleMenuOpen() {
+        // Set the handler to dismiss the menu after we show it.
+        // Use a custom event so we can cleanly unbind.
+        $(document).bind('click.menuPopover', function(event) {
+          $target = $(event.target);
+          // If the target is not the menu's trigger,
+          // and the a menu is open,
+          // and the event's target doesn't have a the menu as a parent,
+          // hide the menu.
+          if ($menu && $target !== $menuTrigger && $('.quote-popover').is(':visible') && $target.parents('.quote-popover').length === 0) {
+              $menu.hide();
+              $(this).unbind('click.menuPopover');
+          }
+        }).bind('keyup.escMenuPopover', function(event) {
+          if(event.keyCode == 27) {
+            //Escape keypress event.
+            $target = $(event.target);
+            // If the target is not the menu's trigger,
+            // and the a menu is open,
+            // and the event's target doesn't have a the menu as a parent,
+            // hide the menu.
+            if ($menu && $('.quote-popover').is(':visible')) {
+                $menu.hide();
+                $(this).unbind('keyup.escMenuPopover');
+            }
+          }
+        });
+        //Hide any popovers on resize;
+        $(window).resize(function (event) {
+            if ($('.quote-popover').length !== 0) {
+                $('.quote-popover').hide();
+            }
+        });
+      }(); 
     });
 
-    $('.popover #add-background').live('click', function() {
-      $('.popover .new-quote-form .context').toggle();
+
+    $('.quote-popover #add-background').live('click', function() {
+      $('.quote-popover .new-quote-form .context').toggle();
     })
   }
 
